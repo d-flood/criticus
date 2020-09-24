@@ -34,7 +34,7 @@ The problems that I and my fellow researchers encounter are:
 
 4. Tendon allows the user to easily edit the CE configuration file; this is how one adds or removes witnesses to be collated and which witness should be the basetext.
 ![collate](images/collate.png)
-5. The result of this workflow is a collation of one verse or other small unit of text. I have another tool, the (Apparatus Explorer)[https://github.com/d-flood/apparatus-explorer], which can combine these individual verse-collation files into larger files comprising, for example, a whole chapter or book.
+5. The result of this workflow is a collation of one verse or other small unit of text. I have another tool, the [Apparatus Explorer](https://github.com/d-flood/apparatus-explorer), which can combine these individual verse-collation files into larger files comprising, for example, a whole chapter or book.
 
 # Dependencies
 * Presently, Python 3.6+ and the following external libraries are required:
