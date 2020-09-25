@@ -30,7 +30,7 @@ The problems that I and my fellow researchers encounter are:
 ![prepare json](images/prepare_json.png)
     - The user can choose whether to convert an entire text document or any range of verses in that document.
     - Once the selection of verses is determined, Tendon identifies individual verses and creates everything that is required by the CE: a witness directory, metadata JSON file, and one JSON formatted transcription file per verse.
-    - By choosing to convert from plain text into JSON, I am choosing not to transfer the full breadth of data that is preserved in the TEI version. For my purposes, this is has been sufficient. While I am keeping track of other features such as scribal corrections, I am happy to collate only the first hand. For lacunose sections of text, this is easily indicated inside the CE GUI, even though it is possible to encode it into the JSON files ahead of collation.
+    - Right now there is only an option to convert XML to plain text, and plain text to JSON. I have a working script to move straight from XML to JSON and correctly encode different correctors. I would like to make it a little more 'general purpose' so that it is likely to work for most cases. This is coming soon because it will be helpful to my own project.
 
 4. Tendon allows the user to easily edit the CE configuration file; this is how one adds or removes witnesses to be collated and which witness should be the basetext.
 ![collate](images/collate.png)
