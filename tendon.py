@@ -1,15 +1,17 @@
-from tkinter import Tk, ttk
-import os
 import ctypes
-import platform
 import json
+import os
+import pathlib
+import platform
+from tkinter import Tk, ttk
+
+from py.collation_layout import Collation
+from py.functions import set_tab_on_start
+from py.menu import Options
 from py.prepare_json_layout import Prepare_json
 from py.transcription_layout import Transcription
-from py.collation_layout import Collation
-from py.menu import Options
-from py.functions import set_tab_on_start
 
-main_dir = os.getcwd().replace('\\', '/')
+main_dir = str(pathlib.Path(__file__).parent.absolute()).replace('\\', '/')
 
 with open('py/settings.json', 'r') as settings_file:
     settings_file = json.load(settings_file)
@@ -39,8 +41,8 @@ tabs.add(transcription_tab, text="  Transcribe  ", pad=5)
 tabs.add(prepare_json_tab, text="  Prepare JSON  ", pad=5)
 tabs.add(collation_tab, text="  Collate  ", pad=5)
 tabs.pack(expand=1, fill="both")
-tab_to_select = set_tab_on_start(main_dir, transcription_tab, 
-                prepare_json_tab, collation_tab)
+tab_to_select = set_tab_on_start(main_dir, transcription_tab,
+                                 prepare_json_tab, collation_tab)
 tabs.select(tab_to_select)
 
 prepare_json_layout = Prepare_json(prepare_json_tab, main_dir, root)
