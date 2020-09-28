@@ -24,17 +24,21 @@ The problems that I and my fellow researchers encounter are:
 ![transcribe](images/transcribe.png)
 
 2. Tendon will convert the TEI XML into a plain text file with uncertain letters and lacunae preserved as underdots and bracketed text.
-    - This intermediary step of TEI to plain text is because I wanted to have a simple and easily searchable representation of my transcriptions in addition to the document-accurate TEI version. The format of this output is one verse per line with full references (e.g., "Rom 1:1 παυλος.....Rom 1:2..."). Words that a broken because of a newline are reliably restored because the TEI XML is parsed when converted to plain text.
+    - This intermediary step of TEI to plain text exists because I wanted to have a simple and easily searchable representation of my transcriptions in addition to the document-accurate TEI version. The format of this output is one verse per line with full SBL style references (e.g., "Rom 1:1 παυλος.....Rom 1:2..."). Words that are broken because of a line break are reliably restored.
 
-3. Tendon can convert a plain text file into the JSON files that can be loaded by the CE.
+3. Tendon can convert either plain text files or TEI XML transcriptions files into JSON files that can be loaded by the CE.
 ![prepare json](images/prepare_json.png)
     - The user can choose whether to convert an entire text document or any range of verses in that document.
     - Once the selection of verses is determined, Tendon identifies individual verses and creates everything that is required by the CE: a witness directory, metadata JSON file, and one JSON formatted transcription file per verse.
-    - Right now there is only an option to convert XML to plain text, and plain text to JSON. I have a working script to move straight from XML to JSON and correctly encode different correctors. I would like to make it a little more 'general purpose' so that it is likely to work for most cases. This is coming soon because it will be helpful to my own project.
+    - JSON files can be created from either a plain text file or directly from the TEI XML output of the OTE. Each option may be more desirable depending upon the context.
+        - Converting from plain text files may be helpful for those who do not wish to transcribe their documents with the OTE or use TEI encoding. This is also the most reliable method I have for generating JSON versions of the transcription because the conversion is relatively straightforward.
+        - Converting directly from TEI XML to JSON is the ideal choice. TEI encoded transcriptions can preserve information such as scribal corrections, and which scribe was responsible for the correction. This information can be collected and transferred into the resulting JSON file so that the CE will interpret it as a correction and pass this information into the collation output file. While a direct TEI to JSON conversion is the ideal, it is the most difficult for me to code. TEI XML and JSON have no equivalency, so every TEI encoding that one would like to pass into the JSON version must be specifically handled. 
+            - Presently, the conversion script can preserve encoding related to corrections. Other features are passed over for now. I hope to improve the script over the course of my present research, but it is adequate for my own needs right now.
+            - Concerning lacunae, I have chosen not to pass this information into the JSON file as metadata, but instead it is passed directly into the text by enclosing the lacunose text in brackets. This has been sufficient so far because the CE is flexible enough that these sections of text can be tagged as lacunose during the collation stage of the workflow. It would be ideal to encode this information as well, but this is where things stand for now.
 
 4. Tendon allows the user to easily edit the CE configuration file; this is how one adds or removes witnesses to be collated and which witness should be the basetext.
 ![collate](images/collate.png)
-5. The result of this workflow is a collation of one verse or other small unit of text. I have another tool, the [Apparatus Explorer](https://github.com/d-flood/apparatus-explorer), which can combine these individual verse-collation files into larger files comprising, for example, a whole chapter or book.
+5. The result of this workflow is a collation of one verse or other short unit of text. I have another tool, the [Apparatus Explorer](https://github.com/d-flood/apparatus-explorer), which can combine these individual verse-collation files into larger files comprising, for example, a whole chapter or book.
 
 # Dependencies
 * Presently, Python 3.6+ and the following external libraries are required:
