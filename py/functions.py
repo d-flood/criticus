@@ -1,6 +1,4 @@
 import json
-from tkinter import *
-from tkinter import ttk
 
 def set_tab_on_start(main_dir, transcription_tab, prepare_json_tab, collation_tab):
 
