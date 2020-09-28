@@ -6,11 +6,11 @@ intf_sbl_books = {
     ('B01', 'Matt'): ('Matt', 'Mt', 'B01'),
     ('B02', 'Mark'): ('Mark', 'Mk', 'B02'),
     ('B03', 'Luke'): ('Luke', 'Lk', 'L', 'B03'),
-    ('B04', 'John'): ('John', 'Jn', 'B04'), 
+    ('B04', 'John'): ('John', 'Jn', 'B04'),
     ('B05', 'Acts'): ('Acts', 'Ac', 'A', 'B05'),
     ('B06', 'Rom'): ('Rom', 'Romans', 'R', 'Rm', 'B06'),
     ('B07', '1 Cor'): ('1 Cor', '1Cor', '1C', 'IC', 'I Cor', 'B07'),
-    ('B08', '2 Cor'): ('2 Cor', '2Cor', '2C', 'IIC', 'II Cor', 'B08'), 
+    ('B08', '2 Cor'): ('2 Cor', '2Cor', '2C', 'IIC', 'II Cor', 'B08'),
     ('B09', 'Gal'): ('Galatians', 'Gal', 'B09'),
     ('B10', 'Eph'): ('Ephesians', 'Eph', 'B10'),
     ('B11', 'Phil'): ('Philippians', 'Phil', 'B11'),
@@ -22,18 +22,19 @@ intf_sbl_books = {
     ('B17', 'Titus'): ('Titus', 'Tit', 'B17'),
     ('B18', 'Phlm'): ('Philm', 'Philemon', 'Philem', 'B18'),
     ('B19', 'Heb'): ('Heb', 'Hebrews', 'B19'),
-    ('B20', 'Jas'): ('James', 'Jam', 'Jas', 'B20'), 
+    ('B20', 'Jas'): ('James', 'Jam', 'Jas', 'B20'),
     ('B21', '1 Pet'): ('1 Pet', '1Pet', '1 Peter', 'IPet', 'I Pet', 'B21'),
-    ('B22', '2 Pet'): ('2 Pet', '2Pet', '2 Peter', 'IIPet', 'II Pet', 'B22'), 
-    ('B23', '1 John'): ('1 John', '1 Jn', '1Jn', '1John', 
+    ('B22', '2 Pet'): ('2 Pet', '2Pet', '2 Peter', 'IIPet', 'II Pet', 'B22'),
+    ('B23', '1 John'): ('1 John', '1 Jn', '1Jn', '1John',
                         'I John', 'I Jn', 'IJn', 'I John', 'B23'),
-    ('B24', '2 John'): ('2 John', '2 Jn', '2Jn', '2John', 'II John', 
-                        'II Jn', 'IIJn', 'II John', 'B24'), 
-    ('B25', '3 John'): ('3 John', '3 Jn', '3Jn', '3John', 'III John', 
-                        'III Jn', 'IIIJn', 'III John', 'B25'), 
+    ('B24', '2 John'): ('2 John', '2 Jn', '2Jn', '2John', 'II John',
+                        'II Jn', 'IIJn', 'II John', 'B24'),
+    ('B25', '3 John'): ('3 John', '3 Jn', '3Jn', '3John', 'III John',
+                        'III Jn', 'IIIJn', 'III John', 'B25'),
     ('B26', 'Jude'): ('Jude', 'Jd', 'B26'),
     ('B27', 'Rev'): ('Rev', 'Revelation', 'B27')
 }
+
 
 def xml_to_text(xml_fn):
 
@@ -47,7 +48,7 @@ def xml_to_text(xml_fn):
     tree = re.sub(r'<\?xml(.+)1\.0"\?>', '', tree)
     with open(xml_fn, 'w', encoding='utf-8') as file:
         file.write(tree)
-    
+
     parser = ET.XMLParser(remove_blank_text=True)
 
     tree = ET.parse(xml_fn, parser)
@@ -55,7 +56,8 @@ def xml_to_text(xml_fn):
     root = tree.getroot()
 
     try:
-        ms_siglum = root.find('teiHeader/fileDesc/sourceDesc/msDesc/msIdentifier').text
+        ms_siglum = root.find(
+            'teiHeader/fileDesc/sourceDesc/msDesc/msIdentifier').text
     except:
         ms_siglum = 'unknown-wit'
 
@@ -71,7 +73,7 @@ def xml_to_text(xml_fn):
                 sbl_book = x[1]
 
         all_chapters = book.findall('div[@type="chapter"]')
-            
+
         for chapter in all_chapters:
             chapter_intf = chapter.get('n')
             chapter_intf = re.sub(intf_book, '', chapter_intf)
@@ -83,7 +85,7 @@ def xml_to_text(xml_fn):
                 verse_intf = verse.get('n')
                 verse_intf = re.sub(intf_book+chapter_intf, '', verse_intf)
                 verse_str = re.sub('V', '', verse_intf)
-                
+
                 full_ref = f'{sbl_book} {chapter_str}:{verse_str}'
                 all_references.append(full_ref)
                 verse_text = ''
@@ -93,7 +95,7 @@ def xml_to_text(xml_fn):
                         word_text = elem.text
                         if word_text != None:
                             verse_text = f'{verse_text} {word_text}'
-                            
+
                         for w in elem:
                             if w.tag == 'supplied':
                                 if w.tail != None:
@@ -128,19 +130,19 @@ def xml_to_text(xml_fn):
                                                 verse_text = f'{verse_text}{sub_sub_w.text}'
                                         elif sub_sub_w.tag == 'lb':
                                             verse_text = f'{verse_text}{sub_sub_w.tail}'
-                                            
 
                 whole_verse = f'{full_ref} {verse_text.lstrip()}'
-                whole_doc = f'{whole_doc.lstrip()}\n{whole_verse}'        
+                whole_doc = f'{whole_doc.lstrip()}\n{whole_verse}'
 
     content = f'{all_references[0]}–{all_references[-1]}'
 
     save_fn = f'{ms_siglum}_{content}.txt'
     save_fn = re.sub(':', '.', save_fn)
 
-    whole_doc = re.sub(r'~|\+|None|⁘', '', whole_doc) #add other nonstandard punctuation (punctuation in the text rather than <pc> elements) here if needed
+    # add other nonstandard punctuation (punctuation in the text rather than <pc> elements) here if needed
+    whole_doc = re.sub(r'~|\+|None|⁘', '', whole_doc)
     whole_doc = re.sub(r' +', ' ', whole_doc)
-    
+
     # this re pattern is needed because of a quirk of how I kept traxk of
     # information. An alternative should be sought.
     whole_doc = re.sub(r'[^α-ωΑ-Ω\[\]]+\n', '\n', whole_doc)

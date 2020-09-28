@@ -1,8 +1,4 @@
-from tkinter import *
-from tkinter import messagebox
-from tkinter import ttk
-import re
-import io
+from tkinter import Tk, ttk
 import os
 import ctypes
 import platform
@@ -13,8 +9,7 @@ from py.collation_layout import Collation
 from py.menu import Options
 from py.functions import set_tab_on_start
 
-main_dir = os.getcwd()
-main_dir = re.sub(r"\\", "/", main_dir)
+main_dir = os.getcwd().replace('\\', '/')
 
 with open('py/settings.json', 'r') as settings_file:
     settings_file = json.load(settings_file)
