@@ -46,9 +46,9 @@ def enable_ui_elems(values: dict, window: sg.Window):
     else:
         window['convert'].update(disabled=False)
 
-def tei_to_json(font: tuple):
+def tei_to_json(font: tuple, icon):
     settings = es.get_settings()
-    window = sg.Window('Convert TEI to JSON', layout(settings), font=font)
+    window = sg.Window('Convert TEI to JSON', layout(settings), font=font, icon=icon)
 
     while True:
         event, values = window.read()
