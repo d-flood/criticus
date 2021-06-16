@@ -1,5 +1,5 @@
 # About Tendon
-
+## This is deprecated and I am almost ready to release its replacement
 This application exists to help connect previously existing and excellent tools used for transcription and collation of ancient texts. It has been created to help with my own doctoral research and so its features will be naturally limited to what is is useful to me. I do hope, however, that others working on ancient manuscripts will find it helpful as well.
 
 The tools that Tendon connects are: 1) the [Online Transcription Editor](https://sourceforge.net/projects/wfce-ote/) (OTE) and 2) the [Collation Editor](https://github.com/itsee-birmingham/standalone_collation_editor) (CE).
