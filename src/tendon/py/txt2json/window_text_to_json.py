@@ -65,7 +65,7 @@ def convert_dir(values: dict):
         sg.popup_ok('Done!', title='Text File Converted')
 
 
-def txt_to_json():
+def txt_to_json(font: tuple):
     settings = es.get_settings()
     frame_prepare_all_or_rage = [
         [sg.Radio('All verses in file ', group_id='all_or_range', key='all_verses_in_file', enable_events=True)],
@@ -88,7 +88,7 @@ def txt_to_json():
         [sg.T('Output Directory '), sg.Input(default_text=settings['ce_repo_dir'], disabled=True, key='output_dir_input'), sg.Button('Browse')]
     ]
 
-    window = sg.Window('Convert Plain Text to JSON', win_txt_to_json)
+    window = sg.Window('Convert Plain Text to JSON', win_txt_to_json, font=font)
 
 ###########################################################
 ###########################################################
