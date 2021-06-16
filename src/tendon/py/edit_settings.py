@@ -1,9 +1,12 @@
 import json
+from pathlib import Path
 
+
+main_dir = Path(__file__).parent.parent.as_posix()
 
 def get_settings():
     try:
-        with open('settings.json', 'r') as f:
+        with open(f'{main_dir}/settings.json', 'r') as f:
             settings = json.load(f)
     except:
         settings = {
@@ -20,7 +23,7 @@ def get_settings():
     return settings
 
 def save_settings(settings: dict):
-    with open('settings.json', 'w') as f:
+    with open(f'{main_dir}/settings.json', 'w') as f:
         json.dump(settings, f, indent=4)
 
 def edit_settings(setting_key: str, value):
