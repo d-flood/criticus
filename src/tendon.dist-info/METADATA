@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Briefcase-Version: 0.3.5
+Name: tendon
+Formal-Name: Tendon
+App-ID: com.davidaflood.tendon.tendon
+Version: 0.0.1
+Home-page: https://github.com/d-flood/Tendon
+Author: David Flood
+Author-email: davidfloodii@gmail.com
+Summary: a suite of tools for integrating transcription and collation software
