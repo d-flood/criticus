@@ -27,6 +27,7 @@ def kill_server(httpd):
     print('server stopped')
 
 def serve_tei_tx(main_dir):
+    cwd = Path.cwd().as_posix()
     settings = es.get_settings()
     window = sg.Window('Launch TEI Transcription Viewer', layout(settings))
     httpd = None
@@ -54,5 +55,5 @@ def serve_tei_tx(main_dir):
             window['launch'].update(disabled=True)
     
     window.close()
-    os.chdir(main_dir)
+    os.chdir(cwd)
     return False
