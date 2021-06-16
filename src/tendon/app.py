@@ -24,6 +24,16 @@ def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, i
     window.un_hide()
 
 def main():
+    sg.LOOK_AND_FEEL_TABLE['Parchment'] = {'BACKGROUND': '#FFE9C6',
+                                        'TEXT': '#533516',
+                                        'INPUT': '#EAC8A3',
+                                        'TEXT_INPUT': '#2F1B0A',
+                                        'SCROLL': '#B39B73',
+                                        'BUTTON': ('white', '#C55741'),
+                                        'PROGRESS': ('#01826B', '#D0D0D0'),
+                                        'BORDER': 3, 'SLIDER_DEPTH': 0, 'PROGRESS_DEPTH': 0,
+                                        }
+    sg.theme('Parchment')
     main_dir = pathlib.Path(__file__).parent.as_posix()
     if platform.system() == 'Windows':
         icon = f'{main_dir}/resources/tendon.ico'
