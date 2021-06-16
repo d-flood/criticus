@@ -35,7 +35,7 @@ def combine_verses(starting_string: str, output_dir, main_dir):
                 root.append(ab)
     return tree
 
-def combine_xml_files_interface(main_dir, icon=None):
+def combine_xml_files_interface(main_dir, font, icon=None):
     settings = es.get_settings()
     layout = [
         [sg.Text('Select the folder that contains the individual XML files to be combined')],
@@ -43,7 +43,7 @@ def combine_xml_files_interface(main_dir, icon=None):
         [sg.Text('Combine all files that start with:'), sg.Stretch(), sg.Input('', key='starts_with')],
         [sg.Button('Combine XML Files'), sg.Button('Cancel')]
     ]
-    window = sg.Window('Combine XML Files', layout, icon=icon)
+    window = sg.Window('Combine XML Files', layout, icon=icon, font=font)
     while True:
         event, values = window.read()
         if event in [sg.WINDOW_CLOSED, 'Cancel']:

@@ -64,9 +64,9 @@ this is the output of the ITSEE Collation Editor.', title='Bummer...')
         return
     set_initial_dirs(values['xml_input_file'], fn_to_save)
 
-def start_reformat_ui():
+def start_reformat_ui(font: tuple):
     settings = es.get_settings()
-    window = sg.Window('Reformat XML Collation File', layout(settings))
+    window = sg.Window('Reformat XML Collation File', layout(settings), font=font)
 
     while True:
         event, values = window.read()

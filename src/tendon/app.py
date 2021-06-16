@@ -14,18 +14,19 @@ from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 
 #pylint: disable=no-member
 
-def open_new_window(function: FunctionType, window: sg.Window, include_main_dir=False):
+def open_new_window(function: FunctionType, window: sg.Window, font, include_main_dir=False):
     main_dir = pathlib.Path(__file__).parent.as_posix()
     window.hide()
     stay_open = True
     while stay_open:
         if include_main_dir:
-            stay_open = function(main_dir)
+            stay_open = function(main_dir, font)
         else:
-            stay_open = function()
+            stay_open = function(font)
     window.un_hide()
 
 def main():
+    font = ('Cambria', 14)
     layout = [
         [sg.Button('               Plain Text to JSON               ', key='txt_to_json')],
         [sg.Button('Markdown to TEI', key='md_to_tei')],
@@ -35,7 +36,7 @@ def main():
         [sg.Button('View TEI Transcriptions', key='tei_server')],
         [sg.Stretch(), sg.Button('Close'), sg.Stretch()]
     ]
-    window = sg.Window('Tendon v0.6', layout)
+    window = sg.Window('Tendon v0.6', layout, font=font)
     while True:
         event, _ = window.read()
 
@@ -43,21 +44,21 @@ def main():
             break
 
         elif event == 'txt_to_json':
-            open_new_window(txt_to_json, window)
+            open_new_window(txt_to_json, window, font)
 
         elif event == 'combine_verses':
-            open_new_window(combine_xml, window, include_main_dir=True)
+            open_new_window(combine_xml, window, font, include_main_dir=True)
 
         elif event == 'md_to_tei':
-            open_new_window(md_to_tei, window)
+            open_new_window(md_to_tei, window, font)
 
         elif event == 'tei_to_json':
-            open_new_window(tei_to_json, window)
+            open_new_window(tei_to_json, window, font)
 
         elif event == 'reformat_xml':
-            open_new_window(reform, window)
+            open_new_window(reform, window, font)
 
         elif event == 'tei_server':
-            open_new_window(serve_tei_tx, window, include_main_dir=True)
+            open_new_window(serve_tei_tx, window, font, include_main_dir=True)
 
     window.close()
