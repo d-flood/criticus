@@ -51,10 +51,10 @@ def layout(settings):
         [sg.B('Convert Markdown to TEI', key='convert')]
     ]
 
-def md_to_tei(font: tuple):
+def md_to_tei(font: tuple, icon):
     settings = es.get_settings()
     L = layout(settings)
-    window = sg.Window('MarkdownTEI', L, font=font)
+    window = sg.Window('MarkdownTEI', L, font=font, icon=icon)
 
     while True:
         event, values = window.read()

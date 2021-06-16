@@ -53,6 +53,7 @@ test_output/
 temp_repaired_xml
 settings.json
 temp_xml_collation_file
+distributables/
 
 # IntelliJ Idea family of suites
 .idea

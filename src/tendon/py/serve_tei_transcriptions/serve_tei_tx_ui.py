@@ -26,10 +26,10 @@ def kill_server(httpd):
     httpd.shutdown()
     print('server stopped')
 
-def serve_tei_tx(main_dir, font: tuple):
+def serve_tei_tx(main_dir, font: tuple, icon):
     cwd = Path.cwd().as_posix()
     settings = es.get_settings()
-    window = sg.Window('Launch TEI Transcription Viewer', layout(settings), font=font)
+    window = sg.Window('Launch TEI Transcription Viewer', layout(settings), font=font, icon=icon)
     httpd = None
     while True:
         event, values = window.read()
