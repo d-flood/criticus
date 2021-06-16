@@ -4,4 +4,4 @@
 
 - Tutorials to come soon...
 
-Beeware Briefcase used for project scaffolding and packaging distributables
+Beeware Briefcase was used for project scaffolding and packaging distributable Windows and MacOS standalone versions
