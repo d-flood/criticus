@@ -14,7 +14,6 @@ from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
-    
     window.hide()
     stay_open = True
     while stay_open:
