@@ -42,7 +42,7 @@ def main():
         icon = f'{main_dir}/resources/tendon.png'
         font = ('Arial', 14)
     layout = [
-        [sg.Button('               Plain Text to JSON               ', key='txt_to_json')],
+        [sg.Button('Plain Text to JSON', key='txt_to_json')],
         [sg.Button('Markdown to TEI', key='md_to_tei')],
         [sg.Button('TEI to JSON', key='tei_to_json')],
         [sg.Button('Combine Collation Files', key='combine_verses')],
