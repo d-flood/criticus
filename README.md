@@ -15,6 +15,24 @@ Tendon is a desktop app with six tools:
 5. Reformat the collation file output of the Collation Editor for use with the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) and with Apparatus Explorer (a [desktop](https://github.com/d-flood/apparatus-explorer) and [web app](https://davidaflood.com/appex/demo/)) for visualization and editing.
 6. Provide a simple way to view TEI XML transcriptions offline using the same styling as the [IGNTP online transcriptions](http://www.itseeweb.bham.ac.uk/epistulae/XML/igntp.xml).
 
+## Installation
+### Windows standalone version
+Download and install the MSI from this repository.
+
+### MacOS standalone version
+*Experimental*: Download the ***unsigned*** DMG [here](https://daf-staticfiles.s3.amazonaws.com/distributables/Tendon-0.2.dmg)
+
+### Run on any platform with Python 3.6+
+Dependencies
+- `lxml`
+- `natsort`
+- `PySide2`
+- `PySimpleGUIQt`
+- `Markdown==3.2.2`
+- `markdown-del-ins`
+
+With the dependencies installed, go to `<root>/src/` and call `python -m tendon`
+
 ## Brief Tutorial
 Please [contact](https://www.davidaflood.com/contact/) or message me on Twitter for help using these tools and to report bugs. There are certain to be untested edge cases especially when converting TEI to JSON.
 
@@ -27,7 +45,6 @@ The structure of the plain text (.txt) file is important. Tendon assumes:
 - Each line begins with the verse number
 - There is no more than one whole chapter per file
 
-#### Instructions
 1. Choose whether to convert all verses in a text file or to convert a range of verses (can be one verse, e.g. '3 to 3').
    - If "Range of verses" is selected, than a first ('from') and last ('to') verse must be entered. These input values must match verse numbers in the file, e.g. '7 to 12' *not* '1:7 to 1:12'.
    - If "All verses in file" is selected, then every verse will be converted to a different JSON file.
@@ -47,7 +64,7 @@ The structure of the plain text (.txt) file is important. Tendon assumes:
 5. Caution. If you many plain text transcription files in the same folder, and all adhere to the naming convention required by "auto from file name", then all chapter files can be converted at once by clicking "Convert Directory". 
    - This can easily result in the creation of hundreds or thousands of JSON files (which may be what you want!). So, make sure to test one of the files to ensure that its format is compatible and that the result is satisfactory before converting an entire folder.
 
-## MarkdownTEI
+### MarkdownTEI
 This tool began as a CLI but here it is much more user-friendly as a GUI.
 ![MarkdownTEI tool screenshot of window](images/markdown_to_tei_window.png)
 1. Choose how Tendon should format the converted transcription file. All options can be read by a computer but they differ most in human-readability.
@@ -60,7 +77,7 @@ This tool began as a CLI but here it is much more user-friendly as a GUI.
 2. Select the Markdown (.md) file to be converted by clicking "Browse".
    - You will then be prompted to choose the converted file's location and name.
 
-## TEI to JSON
+### TEI to JSON
 This is the most difficult task. The TEI XML produced by the WYSIWYG OTE is very flexible and it is difficult to predict all of the possible combinations and nested encodings. Please tell me about bugs and edge cases.
 ![screenshot of TEI to JSON window](images/tei_to_json_window.png)
 1. Select the TEI transcription file to be converted.
@@ -72,7 +89,7 @@ This is the most difficult task. The TEI XML produced by the WYSIWYG OTE is very
    - This should be located by going to the root folder of the Collation Editor and navigating to `/collation/data/textrepo/json/`.
 4. Then click "Convert".
 
-## Combine Collation Files
+### Combine Collation Files
 I've found that the Collation Editor fails to process more than a dozen verses at one time and it is best used one verse at a time. For analysis, these individual verse collation files should be combined into chapter and book length files.
 ![screenshot of Combine Collation Files window](images/combine_xml_collation_files_window.png)
 1. Navigate to the folder that contains all of the files you want to combine by clicking "Browse".
@@ -80,13 +97,13 @@ I've found that the Collation Editor fails to process more than a dozen verses a
    - E.g., entering "Rom13" would combine "Rom13.1.xml" and "Rom13.2.xml" but not "Rom14.1.xml" while entering "Rom" would result in combining them all.
 3. Click "Combine XML Files". You will then be prompted to select the name and location of the combined file.
 
-## Reformat Collation File
+### Reformat Collation File
 The output of the Collation Editor has several redundancies and lacks some useful features that are needed for the file to be used as input for the open-cbgm or the Apparatus Explorer.
 ![screenshot of Reformat Collation File window](images/reformat_collation_file_window.png)
 1. Select an XML collation file that was combined during the previous step by clicking "Browse".
 2. Click "Convert". You will then be prompted to save the reformatted file.
 
-## View TEI Transcriptions
+### View TEI Transcriptions
 This is a simple way to view TEI transcriptions with the same styling applied to equivalent TEI transcriptions by the IGNTP.
 ![screenshot of View TEI Transcriptions window](images/tei_viewer_window.png)
 1. Select a folder that has one or more TEI transcriptions in it. TEI transcriptions created with MarkdownTEI will work automatically, while others will need to have the style linking element inserted.
