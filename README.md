@@ -1,5 +1,6 @@
 # Tendon v 0.2
 This is a collection of computer tools for aiding the text critical workflow from transcription to collation to analysis.
+Some of the tools already exist as CLI's that I have made, but here are are collected into one place and converted to user-friendly GUI applications.
 
 ## The Problem I'm trying to Solve
 The standard tool for transcribing ancient New Testament manuscripts ([ITSEE's OTE](https://itsee-wce.birmingham.ac.uk/ote/transcriptiontool)) produces files in an entirely different format from that required by the standard tool for collating these transcriptions ([the WCE Collation Editor](https://github.com/itsee-birmingham/standalone_collation_editor)).
