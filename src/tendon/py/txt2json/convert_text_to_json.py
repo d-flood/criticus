@@ -10,9 +10,10 @@ def get_file(filename):
     return text
 
 def get_info_from_filename(filename):
+    filename = filename.split('/')[-1]
     f = filename.split('_')
     siglum = f[0]
-    reference_prefix = f[1]
+    reference_prefix = f[1].replace('.txt', '')
     return siglum, reference_prefix
 
 def format_reference(line: List[str], reference_prefix: str):
