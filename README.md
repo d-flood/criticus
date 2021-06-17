@@ -44,7 +44,7 @@ Please [contact](https://www.davidaflood.com/contact/), message me on Twitter, o
 The structure of the plain text (.txt) file is important. Tendon assumes:
 - One verse (or other unit) per line
 - Each line begins with the verse number
-- There is no more than one whole chapter per file
+- There is no more than one whole chapter (or other complete unit) per file
 
 1. Choose whether to convert all verses in a text file or to convert a range of verses (can be one verse, e.g. '3 to 3').
    - If "Range of verses" is selected, than a first ('from') and last ('to') verse must be entered. These input values must match verse numbers in the file, e.g. '7 to 12' *not* '1:7 to 1:12'.
@@ -59,14 +59,13 @@ The structure of the plain text (.txt) file is important. Tendon assumes:
 4. Finally, click "Convert File".
    - You will be prompted to select a plain text file.
    - Upon selecting it Tendon will attempt to convert the specified verses from the file and save them into the chosen output directory.
-   - Tendon saves both the input file location and the output directory so that it is easier to use on the next use.
    - Tendon creates a folder in the output directory named after the siglum and then deposits the converted verses from that witness into the folder.
    - Tendon also creates and places a `metadata.json` file that must exist for the Collation Editor to work.
-5. Caution. If you many plain text transcription files in the same folder, and all adhere to the naming convention required by "auto from file name", then all chapter files can be converted at once by clicking "Convert Directory". 
+5. Caution. If you have many plain text transcription files in the same folder, and all adhere to the naming convention required by "auto from file name", then all chapter files can be converted at once by clicking "Convert Directory". 
    - This can easily result in the creation of hundreds or thousands of JSON files (which may be what you want!). So, make sure to test one of the files to ensure that its format is compatible and that the result is satisfactory before converting an entire folder.
 
 ### MarkdownTEI
-This tool began as a CLI but here it is much more user-friendly as a GUI.
+This tool began as a [CLI](https://github.com/d-flood/MarkdownTEI) but here it is much more user-friendly as a GUI.
 ![MarkdownTEI tool screenshot of window](images/markdown_to_tei_window.png)
 1. Choose how Tendon should format the converted transcription file. All options can be read by a computer but they differ most in human-readability.
    - "Do not add extra whitespace"
