@@ -35,7 +35,7 @@ Dependencies
 With the dependencies installed, go to `<root>/src/` and call `python -m tendon`
 
 ## Brief Tutorial
-Please [contact](https://www.davidaflood.com/contact/) or message me on Twitter for help using these tools and to report bugs. There are certain to be untested edge cases especially when converting TEI to JSON.
+Please [contact](https://www.davidaflood.com/contact/), message me on Twitter, or fill out a GitHub issue for help using these tools and to report bugs. There are certain to be untested edge cases especially when converting TEI to JSON.
 
 ![screenshot of tendon's main window](images/tendon_main_window.png)
 
