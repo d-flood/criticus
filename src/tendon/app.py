@@ -50,7 +50,7 @@ def main():
         [sg.Button('View TEI Transcriptions', key='tei_server')],
         [sg.Stretch(), sg.Button('Close'), sg.Stretch()]
     ]
-    window = sg.Window('Tendon v0.2', layout, font=font, icon=icon)
+    window = sg.Window('Tendon v0.3', layout, font=font, icon=icon)
     while True:
         event, _ = window.read()
 
