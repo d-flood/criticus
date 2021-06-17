@@ -40,7 +40,7 @@ def main():
         font = ('Cambria', 12)
     else:
         icon = f'{main_dir}/resources/tendon.png'
-        font = ('Cambria', 14)
+        font = ('Arial', 14)
     layout = [
         [sg.Button('               Plain Text to JSON               ', key='txt_to_json')],
         [sg.Button('Markdown to TEI', key='md_to_tei')],
