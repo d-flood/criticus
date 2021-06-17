@@ -45,10 +45,9 @@ def layout(settings):
         [sg.I('', key='md_input'), sg.FileBrowse('Browse', file_types=(('Markdown Files', '*.md'),), initial_folder=settings['markdown_tx_dir'])]
     ]
     return [
-        [sg.Button('<- Back to Tendon', key='exit'), sg.Stretch()],
         [sg.Frame('XML TEI Output Format', radio_frame)],
         [sg.Frame('Markdown File', io_frame)],
-        [sg.B('Convert Markdown to TEI', key='convert')]
+        [sg.B('Convert Markdown to TEI', key='convert'), sg.B('Cancel', key='exit')]
     ]
 
 def md_to_tei(font: tuple, icon):

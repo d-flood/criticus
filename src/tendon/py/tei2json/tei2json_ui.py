@@ -16,10 +16,9 @@ def layout(settings: dict):
         [sg.I(settings['ce_repo_dir'], key='output_dir'), sg.FolderBrowse(initial_folder=settings['ce_repo_dir'])]
     ]
     return [
-        [sg.B('<- Back to Tendon', key='exit'), sg.Stretch()],
         [sg.Frame('TEI Transcription File', input_frame)],
         [sg.Frame('Output Folder', output_frame)],
-        [sg.B('Convert', disabled=True, key='convert')]
+        [sg.B('Convert', disabled=True, key='convert'), sg.B('Cancel', key='exit')]
         ]
 
 def popup(msg: str, title: str):

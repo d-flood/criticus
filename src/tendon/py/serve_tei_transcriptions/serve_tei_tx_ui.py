@@ -13,9 +13,8 @@ def layout(settings: dict):
          sg.FolderBrowse(initial_folder=settings['tei_dir'])]
     ]
     return [
-        [sg.B('Exit', key='exit'), sg.Stretch()],
         [sg.Frame('TEI Transcription Folder', tei_repo_frame)],
-        [sg.B('Launch TEI Transcription Viewer', key='launch')]
+        [sg.B('Launch TEI Transcription Viewer', key='launch'), sg.B('Cancel', key='exit')]
     ]
 
 def set_initial_dir(tei_dir: str):

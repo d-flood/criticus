@@ -80,7 +80,7 @@ def txt_to_json(font: tuple, icon):
     ]
 
     win_txt_to_json = [
-        [sg.Button('<- Back to Tendon', key='exit'), sg.Stretch()],
+        [sg.Button('Back', key='exit'), sg.Stretch()],
         [sg.Frame('Units to Convert', frame_prepare_all_or_rage)],
         [sg.Frame('Transcription Info', frame_ref_format)],
         [sg.Button('Convert File', key='convert_file', disabled=True), 

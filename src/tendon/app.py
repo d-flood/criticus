@@ -45,12 +45,12 @@ def main():
         [sg.Button('               Plain Text to JSON               ', key='txt_to_json')],
         [sg.Button('Markdown to TEI', key='md_to_tei')],
         [sg.Button('TEI to JSON', key='tei_to_json')],
-        [sg.Button('Combine Verses', key='combine_verses')],
-        [sg.Button('Reformat Collation XML File', key='reformat_xml')],
+        [sg.Button('Combine Collation Files', key='combine_verses')],
+        [sg.Button('Reformat Collation File', key='reformat_xml')],
         [sg.Button('View TEI Transcriptions', key='tei_server')],
         [sg.Stretch(), sg.Button('Close'), sg.Stretch()]
     ]
-    window = sg.Window('Tendon v0.6', layout, font=font, icon=icon)
+    window = sg.Window('Tendon v0.2', layout, font=font, icon=icon)
     while True:
         event, _ = window.read()
 

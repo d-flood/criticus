@@ -13,9 +13,8 @@ def layout(settings: dict):
         [sg.I('', key='xml_input_file'), sg.FileBrowse(initial_folder=settings['combined_xml_dir'], file_types=(('XML Files', '*.xml'), ))]
     ]
     return [
-        [sg.B('<- Back to Tendon', key='exit')],
         [sg.Frame('Combined Collation File', input_frame)],
-        [sg.B('Convert', key='convert')]
+        [sg.B('Convert', key='convert'), sg.B('Cancel', key='exit')]
         ]
 
 def set_initial_dirs(combined_xml_dir: str, reformatted_xml_dir: str):
