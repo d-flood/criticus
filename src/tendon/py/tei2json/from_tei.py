@@ -26,7 +26,7 @@ def pre_parse_cleanup(text): #* PASSING
     return text
 
 def parse(text: str):
-    parser = et.XMLParser(remove_blank_text=True, encoding='utf-8')
+    parser = et.XMLParser(remove_blank_text=True, encoding='utf-8', recover=True)
     return et.fromstring(text, parser)
 
 
@@ -120,10 +120,17 @@ def handle_lacunae(words: List[str]) -> List[str]: ###* PASSING
            new_words.append(w) 
     return new_words
 
+def remove_none_from_words(words: list):
+    '''ensure that no NoneTypes get into this list'''
+    if None in words:
+        words.remove(None)
+    return words
+
 def get_verse_as_tuple(verse: et._Element, hands: list = ['firsthand']) -> List[tuple]:
     witnesses = []
     for hand in hands:
         words = get_all_words_in_verse(verse, hand)
+        words = remove_none_from_words(words)
         words = handle_lacunae(words)
         witnesses.append((hand, words))
     if witnesses[0][1] == witnesses[1][1]:

@@ -25,7 +25,6 @@ def tei_to_json(tei: str, output_dir, single_verse: str):
         if single_verse != '' and single_verse != ref:
             continue
         witnesses = get_verse_as_tuple(verse, hands=hands)
-        # print(witnesses)
         verse_as_dict = verse_to_dict(siglum, ref, witnesses)
         save_tx(verse_as_dict, ref, output_dir)
     if output_dir:
