@@ -60,6 +60,7 @@ def tei_to_json(tei: str, output_dir, single_verse: str):
     root = parse(text)
     hands = get_hands(root)
     siglum = get_siglum(root)
+    output_dir = f'{output_dir}/{siglum}'
     metadata = {'id': siglum, 'siglum': siglum}
     verses = root.xpath(f'//tei:ab', namespaces={'tei': tei_ns})
     for verse in verses:

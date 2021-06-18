@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from typing import List
 
 def regularize_word(word: str):
@@ -57,11 +58,11 @@ def dictify_transcription(siglum: str, ref: str, plain_tx: str, witnesses: List[
     }
 
 def save_tx(transcription: dict, filename: str, output_dir: str):
-    if output_dir:
-        f = f'{output_dir}/{filename}.json'
-    else:
-        f = f'{filename}.json'
-    with open(f, 'w', encoding='utf-8') as file:
+    output_path = Path(output_dir)
+    output_path.mkdir(exist_ok=True)
+    output_dir = output_path.as_posix()
+    fn = f'{output_dir}/{filename}.json'
+    with open(fn, 'w', encoding='utf-8') as file:
         json.dump(transcription, file, ensure_ascii=False, indent=4)
 
 def verse_to_dict(siglum: str, ref: str, witnesses: List[tuple]) -> dict:
