@@ -1,11 +1,54 @@
 import json
 import lxml.etree as et
 
+import PySimpleGUIQt as sg
+
 from tendon.py.tei2json.to_json import verse_to_dict, save_tx
 from tendon.py.tei2json.from_tei import (get_file, pre_parse_cleanup,
                       add_underdot_to_unclear_letters,
                       parse, remove_unclear_tags,
                       tei_ns, get_verse_as_tuple)
+# pylint: disable=no-member
+#########
+def get_siglum_from_user() -> str:
+    msg = '''Tendon could not find the siglum.
+Please enter a witness ID: '''
+    layout = [[sg.T(msg)],
+              [sg.I('', key='siglum')],
+              [sg.B('Submit')]]
+    window = sg.Window('Provide a Siglum', layout)
+    siglum = ''
+    while True:
+        event, values = window.read()
+        if event in [None, sg.WINDOW_CLOSED]:
+            siglum = values['siglum']
+            break
+        elif event == 'Submit' and values['siglum'] != '':
+            siglum = values['siglum']
+            break
+    window.close()
+    return siglum
+#########
+
+def get_siglum(root: et._Element) -> str:
+    titles = root.xpath('//tei:title', namespaces={'tei': tei_ns})
+    for title in titles:
+        if title.get('n'):
+            siglum = title.get('n')
+            break
+    else:
+        siglum = ''
+        while siglum == '':
+            siglum = get_siglum_from_user()
+    return siglum
+
+def get_hands(root: et._Element) -> list:
+    rdgs = root.xpath('//tei:rdg', namespaces={'tei': tei_ns})
+    hands = []
+    for rdg in rdgs:
+        if rdg.get('hand') and rdg.get('hand') not in hands:
+            hands.append(rdg.get('hand'))
+    return hands
 
 def tei_to_json(tei: str, output_dir, single_verse: str):
     text = get_file(tei)
@@ -15,9 +58,8 @@ def tei_to_json(tei: str, output_dir, single_verse: str):
     text = et.tostring(root, encoding='unicode')
     text = remove_unclear_tags(text)
     root = parse(text)
-    # write_xml(root)
-    hands = ['firsthand', 'corrector']
-    siglum = root.xpath('//tei:title', namespaces={'tei': tei_ns})[0].get('n')
+    hands = get_hands(root)
+    siglum = get_siglum(root)
     metadata = {'id': siglum, 'siglum': siglum}
     verses = root.xpath(f'//tei:ab', namespaces={'tei': tei_ns})
     for verse in verses:

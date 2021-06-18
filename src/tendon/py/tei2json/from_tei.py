@@ -19,10 +19,13 @@ def get_file(tei: str):
 # pre parse cleanup
 def pre_parse_cleanup(text): #* PASSING
     text = re.sub(r' +|\t', ' ', text)
-    text = re.sub(r' *<supplied> *', '[', text)
+    # text = re.sub(r' *<supplied> *', '[', text)
+    text = re.sub(r' *<supplied[^<>]*>', '[', text)
     text = re.sub(r' *</supplied> *', ']', text)
     text = re.sub(r'<lb[^<>]*>', '', text)
     text = text.replace('\n', '')
+    text = text.replace('<hi rend="overline">', '')
+    text = text.replace('</hi>', '')
     return text
 
 def parse(text: str):
@@ -38,6 +41,8 @@ def add_underdot_to_unclear_letters(root: et._Element): #* PASSING
     unclear = root.xpath('//tei:unclear', namespaces={'tei': tei_ns})
     for u in unclear:
         underdotted = []
+        if u.text is None:
+            print(f'NONE WORD!!!{et.tostring(u, encoding="unicode")=}')
         for letter in u.text:
             underdotted.append(f'{letter}\u0323')
         u.text = ''.join(underdotted)
@@ -58,7 +63,7 @@ def handle_abbr(abbr: et._Element): #* PASSING
     elif abbr.text and not abbr.getchildren():
         return abbr.text
 
-def handle_app(app: et._Element, hand: str = 'firsthand'):
+def handle_app(app: et._Element, hand: str):
     words = []
     if hand == 'firsthand':
         rdg_type = 'orig'
@@ -70,7 +75,12 @@ def handle_app(app: et._Element, hand: str = 'firsthand'):
                 if word.text:
                     words.append(word.text)
                 elif word.getchildren():
-                    words.append(word.getchildren()[0].text)
+                    if word.getchildren()[0].text:
+                        words.append(word.getchildren()[0].text)
+                    elif word.getchildren()[0].tag == '{http://www.tei-c.org/ns/1.0}abbr':
+                        t = handle_abbr(word.getchildren()[0])
+                        if t:
+                            words.append(t)
     return words
 
 def get_all_words_in_verse(verse: et._Element, hand: str) -> List[str]:
@@ -85,12 +95,14 @@ def get_all_words_in_verse(verse: et._Element, hand: str) -> List[str]:
                 elif child.text:
                     words.append(child.text)
         elif elem.tag == f'{{{tei_ns}}}app':
-            words += handle_app(elem, hand)
+            words += handle_app(elem, hand)  
     return words
 
 def handle_lacunae(words: List[str]) -> List[str]: ###* PASSING
     indices_of_lac_words = []
     for i, word in enumerate(words):
+        if not word:
+            print(f'\n{word=}\n')
         lac_word_found = re.search(r'\[[^\[\]]*\]', word)
         if lac_word_found and lac_word_found.group(0) == word: # entire word is supplied, i.e. lacunose b/c word == [word]
             indices_of_lac_words.append(i)
@@ -120,20 +132,20 @@ def handle_lacunae(words: List[str]) -> List[str]: ###* PASSING
            new_words.append(w) 
     return new_words
 
-def remove_none_from_words(words: list):
-    '''ensure that no NoneTypes get into this list'''
-    if None in words:
-        words.remove(None)
-    return words
+def remove_duplicate_witnesses(witnesses: List[list]):
+    found_wits = []
+    new_wits = []
+    for w in witnesses:
+        if w[1] not in found_wits:
+            found_wits.append(w[1])
+            new_wits.append(w)
+    return new_wits
 
 def get_verse_as_tuple(verse: et._Element, hands: list = ['firsthand']) -> List[tuple]:
     witnesses = []
     for hand in hands:
         words = get_all_words_in_verse(verse, hand)
-        words = remove_none_from_words(words)
         words = handle_lacunae(words)
         witnesses.append((hand, words))
-    if witnesses[0][1] == witnesses[1][1]:
-        return [witnesses[0]]
-    else:
-        return witnesses
+    witnesses = remove_duplicate_witnesses(witnesses)
+    return witnesses

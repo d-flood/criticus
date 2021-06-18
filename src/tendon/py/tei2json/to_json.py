@@ -37,7 +37,8 @@ def words_to_tokens(words: list, siglum: str, ):
 
 def dictify_witnesses(witness: tuple, siglum):
     if witness[0] != 'firsthand':
-        siglum = f'{siglum}c'
+        corrector = witness[0].replace('corrector', 'c')
+        siglum = f'{siglum}{corrector}'
     return {
         'id': siglum,
         'tokens': words_to_tokens(witness[1], siglum)

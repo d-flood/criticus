@@ -5,6 +5,20 @@ import tendon.py.edit_settings as es
 from tendon.py.tei2json.tei_to_json import tei_to_json as t2j
 
 # pylint: disable=no-member
+def get_siglum_from_user(msg: str, title: str, icon) -> str:
+    layout = [[sg.T(msg)], [sg.I('', key='input')], [sg.B('Submit')]]
+    window = sg.Window(title, layout, icon=icon)
+    siglum = ''
+    while True:
+        event, values = window.read()
+        if event in [None, sg.WIN_CLOSED]:
+            break
+        elif event == 'Submit' and values['input'] != '':
+            siglum = values['input']
+            break
+    window.close()
+    return siglum
+
 def layout(settings: dict):
 
     input_frame = [
