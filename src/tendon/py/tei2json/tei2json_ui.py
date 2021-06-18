@@ -1,4 +1,6 @@
-import PySimpleGUIQt as sg 
+import platform
+
+import PySimpleGUIQt as sg
 
 import tendon.py.edit_settings as es
 
@@ -19,8 +21,17 @@ def get_siglum_from_user(msg: str, title: str, icon) -> str:
     window.close()
     return siglum
 
-def layout(settings: dict):
+def get_space(s: str):
+    return sg.T('          ')
 
+def no_space():
+    return sg.T('')
+
+def layout(settings: dict):
+    if platform.system() == 'Windows':
+        space = no_space
+    else:
+        space = get_space
     input_frame = [
         [sg.I('', key='tei_input'), sg.FileBrowse(initial_folder=settings['tei_dir'], file_types=(('XML Files', '*.xml'), ))],
         [sg.Radio('Convert All Verses', 'all_or_one', key='all', enable_events=True)],
@@ -32,7 +43,7 @@ def layout(settings: dict):
     return [
         [sg.Frame('TEI Transcription File', input_frame)],
         [sg.Frame('Output Folder', output_frame)],
-        [sg.B('Convert', disabled=True, key='convert'), sg.B('Cancel', key='exit')]
+        [sg.B('Convert', disabled=True, key='convert'), space(), sg.B('Cancel', key='exit')]
         ]
 
 def popup(msg: str, title: str):
