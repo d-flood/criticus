@@ -21,7 +21,7 @@ def get_siglum_from_user(msg: str, title: str, icon) -> str:
     window.close()
     return siglum
 
-def get_space(s: str):
+def get_space():
     return sg.T('          ')
 
 def no_space():
@@ -30,15 +30,19 @@ def no_space():
 def layout(settings: dict):
     if platform.system() == 'Windows':
         space = no_space
+        input_elem = sg.I('', key='tei_input')
+        output_folder_elem = sg.I(settings['ce_repo_dir'], key='output_dir')
     else:
         space = get_space
+        input_elem = sg.I('', key='tei_input', size=(30, 1))
+        output_folder_elem = sg.I(settings['ce_repo_dir'], key='output_dir', size=(30, 1))
     input_frame = [
-        [sg.I('', key='tei_input'), sg.FileBrowse(initial_folder=settings['tei_dir'], file_types=(('XML Files', '*.xml'), ))],
+        [input_elem, sg.FileBrowse(initial_folder=settings['tei_dir'], file_types=(('XML Files', '*.xml'), ))],
         [sg.Radio('Convert All Verses', 'all_or_one', key='all', enable_events=True)],
         [sg.Radio('Convert One Verse ', 'all_or_one', key='one', enable_events=True), sg.T('Reference'), sg.I('', key='single_ref', disabled=True, enable_events=True)]
     ]
     output_frame = [
-        [sg.I(settings['ce_repo_dir'], key='output_dir'), sg.FolderBrowse(initial_folder=settings['ce_repo_dir'])]
+        [output_folder_elem, sg.FolderBrowse(initial_folder=settings['ce_repo_dir'])]
     ]
     return [
         [sg.Frame('TEI Transcription File', input_frame)],
