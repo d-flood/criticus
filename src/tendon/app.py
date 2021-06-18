@@ -42,14 +42,15 @@ def main():
     else:
         icon = f'{main_dir}/resources/tendon.png'
         font = ('Arial', 14)
+    bs = (30, 2)
     layout = [
-        [sg.Button('Plain Text to JSON', key='txt_to_json')],
-        [sg.Button('Markdown to TEI', key='md_to_tei')],
-        [sg.Button('TEI to JSON', key='tei_to_json')],
-        [sg.Button('Combine Collation Files', key='combine_verses')],
-        [sg.Button('Reformat Collation File', key='reformat_xml')],
-        [sg.Button('View TEI Transcriptions', key='tei_server')],
-        [sg.Stretch(), sg.Button('Close'), sg.Stretch()]
+        [sg.Button('Plain Text to JSON', key='txt_to_json', size=bs)],
+        [sg.Button('Markdown to TEI', key='md_to_tei', size=bs)],
+        [sg.Button('TEI to JSON', key='tei_to_json', size=bs)],
+        [sg.Button('Combine Collation Files', key='combine_verses', size=bs)],
+        [sg.Button('Reformat Collation File', key='reformat_xml', size=bs)],
+        [sg.Button('View TEI Transcriptions', key='tei_server', size=bs)],
+        [sg.Stretch(), sg.Button('Close', pad=(None, 20)), sg.Stretch()]
     ]
     window = sg.Window(f'Tendon v{version}', layout, font=font, icon=icon)
     while True:
