@@ -109,8 +109,13 @@ def configure_ce(font, icon):
         if event in [None, sg.WINDOW_CLOSED, 'exit']:
             break
         elif event == 'Update':
-            edit_config(values)
-            update_window(window, values)
+            if values['config_fn'] == '':
+                continue
+            try:
+                edit_config(values)
+                update_window(window, values)
+            except:
+                sg.popup_quick_message('Are you sure that is the right config.json file?\nIt did not work.')
             es.edit_settings('ce_config_fn', values['config_fn'])
         elif event == 'Add Witness':
             add_witness(values, window)

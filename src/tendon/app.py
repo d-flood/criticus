@@ -12,7 +12,7 @@ from tendon.py.reformat_collation.reformat_xml_ui import start_reformat_ui as re
 from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 from tendon.py.ce_config import configure_ce
 
-version = '0.4'
+version = '0.5'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):

@@ -114,5 +114,21 @@ This is a simple way to view TEI transcriptions with the same styling applied to
    - Click on a TEI transcription to view it fully formatted and styled.
     ![screenshot of browser viewing TEI transcription with stylesheet linked](images/tei_viewer/transcription_visualization_example.png)
 
+### Configure Collation Editor
+The WCE Collation Editor is configured by manually editing a config file located at `<root>/collation/data/project/default/config.json`. The Collation Editor is launched by a convenient start up script distributed with the Collation Editor (`startup.sh` for MacOS and `startup.bat` for Windows). This module of Tendon provides convenient access to the important values in the config file. This module also contains a shortcut for launching the Collation Editor.
+
+Note, however, that the Collation Editor has its own dependencies: Python 3 and the JVM.
+
+![screenshot of the collation editor configuration file editor window](images/ce_config_window.png)
+
+1. Browse for the config file. Begin in the root folder of the Collation Editor and go to `/collation/data/project/default/config.json`. Once it is selected, click "Update" at the bottom to load the configuration settings.
+2. The "Project Title" is not important. Change it to whatever you like. It will be displayed in the Collation Editor.
+3. The "Basetext" is whichever witness you want all others to be collated against. The basetext must be prepared as json files just like any other witness.
+4. The "Witnesses" section tells the Collation Editor which witnesses should be included in the collation. This might change from verse to verse, but most likely it will not, since missing witnesses will be interpreted as lacunose for the entire verse.
+5. Add a witness to the list by typing its siglum or witness ID into the field and pressing "Enter" or clicking "Add Witness".
+6. Select one or more witnesses from the list, then click "Delete Selected" to remove these from the configuration file.
+7. "Update" is only needed to save the "Project Title" and "Basetext". The "Witnesses" are saved any time one is added or deleted.
+8. "Start Collation Editor" will attempt to locate the appropriate start up script and execute it. It will also attempt to open Firefox (by far the best for working in the Collation Editor) to the right port.
+
 
 ###### I structured and generated the standalone desktop apps with [Beeware's Briefcase](https://github.com/beeware/briefcase).
