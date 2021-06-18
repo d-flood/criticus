@@ -2,7 +2,7 @@ import json
 import os
 from pathlib import Path
 import platform
-from subprocess import Popen, CREATE_NEW_CONSOLE
+import subprocess
 import webbrowser
 
 import PySimpleGUIQt as sg
@@ -89,16 +89,18 @@ def start_ce(values):
         return
     cwd = os.getcwd()
     root_dir = Path(values['config_fn']).parent.parent.parent.parent.parent.as_posix()
+    print(root_dir)
     os.chdir(root_dir)
-    try:
-        if platform.system() == 'Windows':
-            Popen('start startup.bat', shell=True, creationflags=CREATE_NEW_CONSOLE)
-            Popen('start firefox http://localhost:8080/collation', shell=True)
-        else:
-            Popen(['startup.sh'])
-            webbrowser.get('firefox').open('http://127.0.0.1:8080/collation')
-    except:
-        print('cold not open browser')
+    # try:
+    if platform.system() == 'Windows':
+        from subprocess import CREATE_NEW_CONSOLE
+        subprocess.Popen('start startup.bat', shell=True, creationflags=CREATE_NEW_CONSOLE)
+        subprocess.Popen('start firefox http://localhost:8080/collation', shell=True)
+    else:
+        subprocess.Popen('./startup.sh', shell=True)
+        webbrowser.get('firefox').open('http:localhost:8080/collation')
+    # except:
+    #     print('cold not open browser')
     os.chdir(cwd)
     return
 
