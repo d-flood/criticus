@@ -11,6 +11,7 @@ from tendon.py.tei2json.tei2json_ui import tei_to_json
 from tendon.py.reformat_collation.reformat_xml_ui import start_reformat_ui as reform
 from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 
+version = '0.4'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
@@ -50,7 +51,7 @@ def main():
         [sg.Button('View TEI Transcriptions', key='tei_server')],
         [sg.Stretch(), sg.Button('Close'), sg.Stretch()]
     ]
-    window = sg.Window('Tendon v0.3', layout, font=font, icon=icon)
+    window = sg.Window(f'Tendon v{version}', layout, font=font, icon=icon)
     while True:
         event, _ = window.read()
 
