@@ -17,7 +17,8 @@ def get_settings():
             'converted_markdown_tx_dir': '',
             'tei_dir': '',
             'combined_xml_dir': '',
-            'reformatted_xml_dir': ''
+            'reformatted_xml_dir': '',
+            'ce_config_fn': ''
         }
         save_settings(settings)
     return settings

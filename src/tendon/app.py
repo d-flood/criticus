@@ -10,6 +10,7 @@ from tendon.py.md2tei.MarkdownTEI import md_to_tei
 from tendon.py.tei2json.tei2json_ui import tei_to_json
 from tendon.py.reformat_collation.reformat_xml_ui import start_reformat_ui as reform
 from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
+from tendon.py.ce_config import configure_ce
 
 version = '0.4'
 #pylint: disable=no-member
@@ -50,6 +51,7 @@ def main():
         [sg.Button('Combine Collation Files', key='combine_verses', size=bs)],
         [sg.Button('Reformat Collation File', key='reformat_xml', size=bs)],
         [sg.Button('View TEI Transcriptions', key='tei_server', size=bs)],
+        [sg.Button('Configure Collation Editor', key='ce_config', size=bs)],
         [sg.Stretch(), sg.Button('Close', pad=(None, 20)), sg.Stretch()]
     ]
     window = sg.Window(f'Tendon v{version}', layout, font=font, icon=icon)
@@ -76,5 +78,8 @@ def main():
 
         elif event == 'tei_server':
             open_new_window(serve_tei_tx, window, main_dir, font, icon, include_main_dir=True)
+
+        elif event == 'ce_config':
+            open_new_window(configure_ce, window, main_dir, font, icon)
 
     window.close()
