@@ -1,4 +1,4 @@
-# Tendon v 0.2
+# Tendon
 This is a collection of computer tools for aiding the text critical workflow from transcription to collation to analysis.
 Some of the tools already exist as CLI's that I have made, but here are are collected into one place and converted to user-friendly GUI applications.
 
