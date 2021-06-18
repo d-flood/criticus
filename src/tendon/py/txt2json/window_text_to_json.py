@@ -1,4 +1,5 @@
 from pathlib import Path
+import platform
 import PySimpleGUIQt as sg
 import tendon.py.edit_settings as es
 from tendon.py.txt2json.convert_text_to_json import convert_text_to_json as t2j
@@ -67,6 +68,13 @@ def convert_dir(values: dict):
 
 def txt_to_json(font: tuple, icon):
     settings = es.get_settings()
+    if platform.system() == 'Windows':
+        space = sg.T('')
+        output_folder_elem = sg.Input(default_text=settings['ce_repo_dir'], disabled=True, key='output_dir_input')
+    else:
+        space = sg.T('               ')
+        output_folder_elem = sg.Input(default_text=settings['ce_repo_dir'], disabled=True, key='output_dir_input', size=(30, 1))
+        
     frame_prepare_all_or_rage = [
         [sg.Radio('All verses in file ', group_id='all_or_range', key='all_verses_in_file', enable_events=True)],
         [sg.Radio('Range of verses ', group_id='all_or_range', key='range_of_verses', enable_events=True),
@@ -83,9 +91,9 @@ def txt_to_json(font: tuple, icon):
         [sg.Button('Back', key='exit'), sg.Stretch()],
         [sg.Frame('Units to Convert', frame_prepare_all_or_rage)],
         [sg.Frame('Transcription Info', frame_ref_format)],
-        [sg.Button('Convert File', key='convert_file', disabled=True), 
+        [sg.Button('Convert File', key='convert_file', disabled=True), space,
                 sg.Button('Convert Directory', key='convert_dir', disabled=True)],
-        [sg.T('Output Directory '), sg.Input(default_text=settings['ce_repo_dir'], disabled=True, key='output_dir_input'), sg.Button('Browse')]
+        [sg.T('Output Directory '), output_folder_elem, sg.Button('Browse')]
     ]
 
     window = sg.Window('Convert Plain Text to JSON', win_txt_to_json, font=font, icon=icon)
