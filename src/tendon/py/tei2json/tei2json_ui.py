@@ -92,13 +92,16 @@ def tei_to_json(font: tuple, icon):
                 continue
             else:
                 save_settings(values)
-                # try:
-                t2j(values['tei_input'], values['output_dir'], single_verse=values['single_ref'])
-                popup(f'JSON transcription files saved to {values["output_dir"]}', 'Success!')
-                print('success!')
-                # except:
-                #     print('conversion failed')
-                #     popup('Conversion failed. Talk to David', 'Bummer...')
+                try:
+                    result = t2j(values['tei_input'], values['output_dir'], single_verse=values['single_ref'])
+                    if result:
+                        popup(f'JSON transcription files saved to {values["output_dir"]}', 'Success!')
+                        print('success!')
+                    else:
+                        continue
+                except Exception as e:
+                    print('conversion failed')
+                    popup(f'Conversion failed. Talk to David. See error below:\n{e}', 'Bummer...')
 
     window.close()
     return False

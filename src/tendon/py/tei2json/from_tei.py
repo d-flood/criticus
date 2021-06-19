@@ -26,11 +26,15 @@ def pre_parse_cleanup(text): #* PASSING
     text = text.replace('\n', '')
     text = text.replace('<hi rend="overline">', '')
     text = text.replace('</hi>', '')
+    text = text.replace('encoding="utf-8"', '')
     return text
 
 def parse(text: str):
     parser = et.XMLParser(remove_blank_text=True, encoding='utf-8', recover=True)
-    return et.fromstring(text, parser)
+    try:
+        return (True, et.fromstring(text, parser))
+    except Exception as e:
+        return (False, e)
 
 
 ###########################################################

@@ -53,11 +53,14 @@ def get_hands(root: et._Element) -> list:
 def tei_to_json(tei: str, output_dir, single_verse: str):
     text = get_file(tei)
     text = pre_parse_cleanup(text)
-    root = parse(text)
+    parsed, root = parse(text)
+    if not parsed:
+        sg.popup_ok(f'Failed to parse XML. See error:\n{root}')
+        return False
     add_underdot_to_unclear_letters(root)
     text = et.tostring(root, encoding='unicode')
     text = remove_unclear_tags(text)
-    root = parse(text)
+    _, root = parse(text)
     hands = get_hands(root)
     siglum = get_siglum(root)
     output_dir = f'{output_dir}/{siglum}'
@@ -76,3 +79,4 @@ def tei_to_json(tei: str, output_dir, single_verse: str):
         f = 'metadata.json'
     with open(f, 'w', encoding='utf-8') as file:
         json.dump(metadata, file, ensure_ascii=False)
+    return True
