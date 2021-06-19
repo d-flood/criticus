@@ -8,13 +8,14 @@ The standard tool for transcribing ancient New Testament manuscripts ([ITSEE's O
 Moving from transcription to collation to analysis requires several steps of intermediate conversion of the data along the way. Tendon is a collection of tools to help 'connect' these three basic tasks.
 
 ## What Tendon Does
-Tendon is a desktop app with six tools:
+Tendon is a desktop app with seven tools:
 1. Convert a plain text transcription of a chapter or other unit into single-verse JSON files properly formatted for use in the Collation Editor. This is the simplest way to get data into the Collation Editor.
 2. Convert a repurposed superset of Markdown to TEI XML. Included is a graphical user interface (GUI) to my CLI [MarkdownTEI](https://github.com/d-flood/MarkdownTEI). This is presented as simple and offline alternative to the [Online Transcription Editor (OTE)](https://itsee-wce.birmingham.ac.uk/ote/transcriptiontool). MarkdownTEI converted files can even be uploaded to the OTE.
 3. Convert TEI transcriptions (from MarkdownTEI or the OTE) to single-verse JSON files for use in the Collation Editor. This is a GUI version of my [TEI to JSON](https://github.com/d-flood/TEI-to-JSON) CLI.
 4. Combine any number of single-verse collation files produced by the Collation Editor.
 5. Reformat the collation file output of the Collation Editor for use with the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) and with Apparatus Explorer (a [desktop](https://github.com/d-flood/apparatus-explorer) and [web app](https://davidaflood.com/appex/demo/)) for visualization and editing.
 6. Provide a simple way to view TEI XML transcriptions offline using the same styling as the [IGNTP online transcriptions](http://www.itseeweb.bham.ac.uk/epistulae/XML/igntp.xml).
+7. Provide an interface to conveniently edit the project configuration. This is how one chooses which witnesses to collate, and which witness should be the basetext.
 
 ## Installation
 ### Windows standalone version
