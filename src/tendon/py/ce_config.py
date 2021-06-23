@@ -31,6 +31,10 @@ def layout():
     config = get_config()
     if not config:
         config = {'name': '', 'base_text': '', 'witnesses': []}
+    if platform.system() == 'Windows':
+        launch_ce = sg.B('Start Collation Editor')
+    else:
+        launch_ce = sg.T('')
 
     settings_frame = [
         [sg.T('Project Title'), sg.I(config['name'], size=i_size, key='name')],
@@ -42,7 +46,7 @@ def layout():
     return [
         [sg.T('Collation Config File'), sg.I(settings['ce_config_fn'], key='config_fn'), sg.FileBrowse(file_types=(('JSON Files', '*.json'),))],
         [sg.Frame('Collation Configuration', settings_frame)],
-        [sg.B('Update'), sg.T(''), sg.B('Start Collation Editor'), sg.T(''), sg.B('Done', key='exit')]
+        [sg.B('Update'), sg.T(''), launch_ce, sg.T(''), sg.B('Done', key='exit')]
     ]
 
 def edit_config(values):
@@ -91,16 +95,16 @@ def start_ce(values):
     root_dir = Path(values['config_fn']).parent.parent.parent.parent.parent.as_posix()
     print(root_dir)
     os.chdir(root_dir)
-    # try:
-    if platform.system() == 'Windows':
-        from subprocess import CREATE_NEW_CONSOLE
-        subprocess.Popen('start startup.bat', shell=True, creationflags=CREATE_NEW_CONSOLE)
-        subprocess.Popen('start firefox http://localhost:8080/collation', shell=True)
-    else:
-        subprocess.Popen('./startup.sh', shell=True)
-        webbrowser.get('firefox').open('http:localhost:8080/collation')
-    # except:
-    #     print('cold not open browser')
+    try:
+        if platform.system() == 'Windows':
+            from subprocess import CREATE_NEW_CONSOLE
+            subprocess.Popen('start startup.bat', shell=True, creationflags=CREATE_NEW_CONSOLE)
+            subprocess.Popen('start firefox http://localhost:8080/collation', shell=True)
+        else:
+            subprocess.Popen('./startup.sh', shell=True)
+            webbrowser.get('firefox').open('http:localhost:8080/collation')
+    except:
+        print('cold not open browser')
     os.chdir(cwd)
     return
 
