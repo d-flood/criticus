@@ -12,7 +12,7 @@ from tendon.py.reformat_collation.reformat_xml_ui import start_reformat_ui as re
 from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 from tendon.py.ce_config import configure_ce
 
-version = '0.6'
+__version = '0.7'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
@@ -54,7 +54,7 @@ def main():
         [sg.Button('Configure Collation Editor', key='ce_config', size=bs)],
         [sg.Stretch(), sg.Button('Close', pad=(None, 20)), sg.Stretch()]
     ]
-    window = sg.Window(f'Tendon v{version}', layout, font=font, icon=icon)
+    window = sg.Window(f'Tendon v{__version}', layout, font=font, icon=icon)
     while True:
         event, _ = window.read()
 
