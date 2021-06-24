@@ -35,6 +35,7 @@ def get_siglum(root: et._Element) -> str:
     for title in titles:
         if title.get('n'):
             siglum = title.get('n')
+            siglum = siglum.replace('-ns', '')
             break
     else:
         siglum = ''
@@ -48,6 +49,8 @@ def get_hands(root: et._Element) -> list:
     for rdg in rdgs:
         if rdg.get('hand') and rdg.get('hand') not in hands:
             hands.append(rdg.get('hand'))
+    if hands == []:
+        hands = ['firsthand']
     return hands
 
 def tei_to_json(tei: str, output_dir, single_verse: str):
@@ -55,7 +58,7 @@ def tei_to_json(tei: str, output_dir, single_verse: str):
     text = pre_parse_cleanup(text)
     parsed, root = parse(text)
     if not parsed:
-        sg.popup_ok(f'Failed to parse XML. See error:\n{root}')
+        sg.popup_ok(f'Failed to parse XML. See error:\n{root}', title='Bummer...')
         return False
     add_underdot_to_unclear_letters(root)
     text = et.tostring(root, encoding='unicode')

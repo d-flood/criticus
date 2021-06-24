@@ -50,8 +50,8 @@ def layout(settings: dict):
         [sg.B('Convert', disabled=True, key='convert'), space(), sg.B('Cancel', key='exit')]
         ]
 
-def popup(msg: str, title: str):
-    window = sg.Window(title, [[sg.T(msg)], [sg.B('OKAY')]])
+def popup(msg: str, title: str, icon):
+    window = sg.Window(title, [[sg.T(msg)], [sg.B('OKAY')]], icon=icon)
     while True:
         event, _ = window.read()
         if event in ['OKAY', sg.WINDOW_CLOSED, None]:
@@ -95,13 +95,13 @@ def tei_to_json(font: tuple, icon):
                 try:
                     result = t2j(values['tei_input'], values['output_dir'], single_verse=values['single_ref'])
                     if result:
-                        popup(f'JSON transcription files saved to {values["output_dir"]}', 'Success!')
+                        popup(f'JSON transcription files saved to {values["output_dir"]}', 'Success!', icon=icon)
                         print('success!')
                     else:
                         continue
                 except Exception as e:
                     print('conversion failed')
-                    popup(f'Conversion failed. Talk to David. See error below:\n{e}', 'Bummer...')
+                    popup(f'Conversion failed. Talk to David. See error below:\n{e}', 'Bummer...', icon)
 
     window.close()
     return False
