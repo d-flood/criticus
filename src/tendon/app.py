@@ -13,7 +13,7 @@ from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 from tendon.py.ce_config import configure_ce
 from tendon.py.txt_from_json import get_text_from_json_files
 
-__version = '0.7'
+__version = '0.8'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
