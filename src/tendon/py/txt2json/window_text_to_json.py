@@ -29,25 +29,26 @@ def disable_buttons(window: sg.Window, values: dict):
         window['convert_dir'].update(disabled=False) 
         window['convert_file'].update(disabled=False)
 
-def convert_file(values: dict):
+def convert_file(values: dict, icon):
     settings = es.get_settings()
-    filename = sg.popup_get_file('', no_window=True, default_path=settings['tx_dir'], file_types=(('Plain Text Files', '*.txt'),))
-    if filename:
-        f = Path(filename)
-        f = f.parent.absolute().as_posix()
-        es.edit_settings('tx_dir', f)
-        t2j(
-            filename, output_dir=values['output_dir_input'], 
-            convert_all=values['all_verses_in_file'],
-            reference_prefix=values['ref_prefix_input'],
-            auto=values['auto'], verse_from=values['range_from'],
-            verse_to=values['range_to'], siglum=values['siglum_input']
-        )
-        sg.popup_ok('Done!', title='Text File Converted')
+    filename = sg.popup_get_file('', no_window=True, initial_folder=settings['tx_dir'], file_types=(('Plain Text Files', '*.txt'),))
+    if not filename:
+        return
+    f = Path(filename)
+    f = f.parent.absolute().as_posix()
+    es.edit_settings('tx_dir', f)
+    t2j(
+        filename, output_dir=values['output_dir_input'], 
+        convert_all=values['all_verses_in_file'],
+        reference_prefix=values['ref_prefix_input'],
+        auto=values['auto'], verse_from=values['range_from'],
+        verse_to=values['range_to'], siglum=values['siglum_input']
+    )
+    sg.popup_ok('Done!', title='Text File Converted', icon=icon)
 
-def convert_dir(values: dict):
+def convert_dir(values: dict, icon):
     settings = es.get_settings()
-    folder = sg.popup_get_folder('', no_window=True, default_path=settings['tx_dir'])
+    folder = sg.popup_get_folder('', no_window=True, initial_folder=settings['tx_dir'], icon=icon)
     if folder:
         es.edit_settings('tx_dir', folder)
         folder = Path(folder)
@@ -63,7 +64,7 @@ def convert_dir(values: dict):
                     verse_to=values['range_to'], 
                     siglum=values['siglum_input']
                 )
-        sg.popup_ok('Done!', title='Text File Converted')
+        sg.popup_ok('Done!', title='Text File Converted', icon=icon)
 
 
 def txt_to_json(font: tuple, icon):
@@ -91,9 +92,9 @@ def txt_to_json(font: tuple, icon):
         [sg.Button('Back', key='exit'), sg.Stretch()],
         [sg.Frame('Units to Convert', frame_prepare_all_or_rage)],
         [sg.Frame('Transcription Info', frame_ref_format)],
+        [sg.T('Output Directory '), output_folder_elem, sg.Button('Browse')],
         [sg.Button('Convert File', key='convert_file', disabled=True), space,
                 sg.Button('Convert Directory', key='convert_dir', disabled=True)],
-        [sg.T('Output Directory '), output_folder_elem, sg.Button('Browse')]
     ]
 
     window = sg.Window('Convert Plain Text to JSON', win_txt_to_json, font=font, icon=icon)
@@ -127,10 +128,10 @@ def txt_to_json(font: tuple, icon):
             browse_for_output_dir(window, output_dir)
 
         elif event == 'convert_file':
-            convert_file(values)
+            convert_file(values, icon)
 
         elif event == 'convert_dir':
-            convert_dir(values)
+            convert_dir(values, icon)
 
     window.close()
     return False
