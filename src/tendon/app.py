@@ -11,6 +11,7 @@ from tendon.py.tei2json.tei2json_ui import tei_to_json
 from tendon.py.reformat_collation.reformat_xml_ui import start_reformat_ui as reform
 from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 from tendon.py.ce_config import configure_ce
+from tendon.py.txt_from_json import get_text_from_json_files
 
 __version = '0.7'
 #pylint: disable=no-member
@@ -42,10 +43,11 @@ def main():
         font = ('Cambria', 12)
     else:
         icon = f'{main_dir}/resources/tendon.png'
-        font = ('Arial', 14)
+        font = ('Arial', 12)
     bs = (30, 2)
     layout = [
         [sg.Button('Plain Text to JSON', key='txt_to_json', size=bs)],
+        [sg.Button('Get Plain Text from JSON', key='json_to_txt', size=bs)],
         [sg.Button('Markdown to TEI', key='md_to_tei', size=bs)],
         [sg.Button('TEI to JSON', key='tei_to_json', size=bs)],
         [sg.Button('Combine Collation Files', key='combine_verses', size=bs)],
@@ -81,5 +83,8 @@ def main():
 
         elif event == 'ce_config':
             open_new_window(configure_ce, window, main_dir, font, icon)
+
+        elif event == 'json_to_txt':
+            open_new_window(get_text_from_json_files, window, main_dir, font, icon)
 
     window.close()

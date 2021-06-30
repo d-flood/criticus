@@ -8,6 +8,19 @@ def get_settings():
     try:
         with open(f'{main_dir}/settings.json', 'r') as f:
             settings = json.load(f)
+        _ = (
+            settings['ce_repo_dir'],
+            settings['tx_dir'],
+            settings['ce_output_dir'],
+            settings['markdown_tx_dir'],
+            settings['converted_markdown_tx_dir'],
+            settings['tei_dir'],
+            settings['combined_xml_dir'],
+            settings['reformatted_xml_dir'],
+            settings['ce_config_fn'],
+            settings['txt_from_json_dir'],
+            settings['plain_text_dir']        
+            ) 
     except:
         settings = {
             'ce_repo_dir': '',
@@ -18,7 +31,9 @@ def get_settings():
             'tei_dir': '',
             'combined_xml_dir': '',
             'reformatted_xml_dir': '',
-            'ce_config_fn': ''
+            'ce_config_fn': '',
+            'txt_from_json_dir': '',
+            'plain_text_dir': ''
         }
         save_settings(settings)
     return settings
