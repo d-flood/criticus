@@ -8,14 +8,15 @@ The standard tool for transcribing ancient New Testament manuscripts ([ITSEE's O
 Moving from transcription to collation to analysis requires several steps of intermediate conversion of the data along the way. Tendon is a collection of tools to help 'connect' these three basic tasks.
 
 ## What Tendon Does
-Tendon is a desktop app with seven tools:
+Tendon is a desktop app with eight tools:
 1. Convert a plain text transcription of a chapter or other unit into single-verse JSON files properly formatted for use in the Collation Editor. This is the simplest way to get data into the Collation Editor.
-2. Convert a repurposed superset of Markdown to TEI XML. Included is a graphical user interface (GUI) to my CLI [MarkdownTEI](https://github.com/d-flood/MarkdownTEI). This is presented as simple and offline alternative to the [Online Transcription Editor (OTE)](https://itsee-wce.birmingham.ac.uk/ote/transcriptiontool). MarkdownTEI converted files can even be uploaded to the OTE.
-3. Convert TEI transcriptions (from MarkdownTEI or the OTE) to single-verse JSON files for use in the Collation Editor. This is a GUI version of my [TEI to JSON](https://github.com/d-flood/TEI-to-JSON) CLI.
-4. Combine any number of single-verse collation files produced by the Collation Editor.
-5. Reformat the collation file output of the Collation Editor for use with the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) and with Apparatus Explorer (a [desktop](https://github.com/d-flood/apparatus-explorer) and [web app](https://davidaflood.com/appex/demo/)) for visualization and editing.
-6. Provide a simple way to view TEI XML transcriptions offline using the same styling as the [IGNTP online transcriptions](http://www.itseeweb.bham.ac.uk/epistulae/XML/igntp.xml).
-7. Provide an interface to conveniently edit the project configuration. This is how one chooses which witnesses to collate, and which witness should be the basetext.
+2. Get a consolidated plain text file from an entire folder of JSON files.
+3. Convert a repurposed superset of Markdown to TEI XML. Included is a graphical user interface (GUI) to my CLI [MarkdownTEI](https://github.com/d-flood/MarkdownTEI). This is presented as simple and offline alternative to the [Online Transcription Editor (OTE)](https://itsee-wce.birmingham.ac.uk/ote/transcriptiontool). MarkdownTEI converted files can even be uploaded to the OTE.
+4. Convert TEI transcriptions (from MarkdownTEI or the OTE) to single-verse JSON files for use in the Collation Editor. This is a GUI version of my [TEI to JSON](https://github.com/d-flood/TEI-to-JSON) CLI.
+5. Combine any number of single-verse collation files produced by the Collation Editor.
+6. Reformat the collation file output of the Collation Editor for use with the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) and with Apparatus Explorer (a [desktop](https://github.com/d-flood/apparatus-explorer) and [web app](https://davidaflood.com/appex/demo/)) for visualization and editing.
+7. Provide a simple way to view TEI XML transcriptions offline using the same styling as the [IGNTP online transcriptions](http://www.itseeweb.bham.ac.uk/epistulae/XML/igntp.xml).
+8. Provide an interface to conveniently edit the project configuration. This is how one chooses which witnesses to collate, and which witness should be the basetext.
 
 ## Installation
 ### Windows standalone version
@@ -64,6 +65,14 @@ The structure of the plain text (.txt) file is important. Tendon assumes:
    - Tendon also creates and places a `metadata.json` file that must exist for the Collation Editor to work.
 5. Caution. If you have many plain text transcription files in the same folder, and all adhere to the naming convention required by "auto from file name", then all chapter files can be converted at once by clicking "Convert Directory". 
    - This can easily result in the creation of hundreds or thousands of JSON files (which may be what you want!). So, make sure to test one of the files to ensure that its format is compatible and that the result is satisfactory before converting an entire folder.
+
+### Get Plain Text from JSON Files
+![Get Plain Text from JSON Files window screenshot](images/text_from_json_window.png)
+
+This is a simple module for extracting the plain text of the first hand of a witness and exporting it as plain text. The output of this feature will produce a single plain text file with one verse per line, each line started with the verse number, and chapter headings.
+1. Select a folder that contains the JSON files from which a plain text version is to be extracted. These JSON files are assumed to have been produced by Tendon.
+2. Click "Get Text".
+3. You will be prompted to save the text file.
 
 ### MarkdownTEI
 This tool began as a [CLI](https://github.com/d-flood/MarkdownTEI) but here it is much more user-friendly as a GUI.
