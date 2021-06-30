@@ -55,15 +55,27 @@ def simplify_ref(text: str, icon):
 
     return text
 
+def get_folder(font, icon, settings):
+    layout = [
+        [sg.T('Select a folder containing the target JSON files')],
+        [sg.I(settings['txt_from_json_dir'], key='folder'), sg.FolderBrowse(initial_folder=settings['tx_dir'])],
+        [sg.B('Get Text'), sg.T(''), sg.B('Cancel')]
+    ]
+    window = sg.Window('Plain Text from JSON Files', layout, font=font, icon=icon)
+    folder = None
+    while True:
+        event, values = window.read()
+        if event in [sg.WINDOW_CLOSED, None, 'Cancel']:
+            break
+        elif event == 'Get Text':
+            folder = Path(values['folder']).absolute().as_posix()
+            break
+    window.close()
+    return folder
+
 def get_text_from_json_files(font, icon):
     settings = es.get_settings()
-    folder = sg.popup_get_folder(
-        'Select a folder containing the target JSON files', 
-        title='Plain Text from JSON',
-        default_path=settings['txt_from_json_dir'],
-        icon=icon, initial_folder=settings['txt_from_json_dir'],
-        font=font
-        )
+    folder = get_folder(font, icon, settings)
     if not folder:
         return
     folder = Path(folder).as_posix()
