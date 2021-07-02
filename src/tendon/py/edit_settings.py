@@ -19,7 +19,9 @@ def get_settings():
             settings['reformatted_xml_dir'],
             settings['ce_config_fn'],
             settings['txt_from_json_dir'],
-            settings['plain_text_dir']        
+            settings['plain_text_dir'],
+            settings['cbgm_main_dir'],
+            settings['cbgm_cx_dir']    
             ) 
     except:
         settings = {
@@ -33,7 +35,9 @@ def get_settings():
             'reformatted_xml_dir': '',
             'ce_config_fn': '',
             'txt_from_json_dir': '',
-            'plain_text_dir': ''
+            'plain_text_dir': '',
+            'cbgm_main_dir': '',
+            'cbgm_cx_dir': ''
         }
         save_settings(settings)
     return settings
