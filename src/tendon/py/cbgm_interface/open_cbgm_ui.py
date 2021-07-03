@@ -96,15 +96,17 @@ def view_plain_text(values):
 
 def manage_db_tab_layout(settings: dict):
     w = (25, 1)
-    xml_file_frame = [
-        [sg.T('Select XML Collation File: ', size=w), sg.I('', key='xml_file'), sg.FileBrowse(file_types=(('XML Files', '*.xml'),), initial_folder=settings['cbgm_cx_dir'])],
-        [sg.T('New Database Name: ', size=w), sg.I('', key='new_db_name')],
+    options_frame = [
         [sg.Checkbox('Readings Threshold: ', key='threshold', size=w), sg.I('', key='threshold_input')],
         [sg.Checkbox('Treat as Trivial: ', key='trivial', size=w), sg.I('', key='trivial_input')],
         [sg.Checkbox('Exclude: ', key='exclude', size=w), sg.I('', key='exclude_input')],
         [sg.Checkbox('Merge Split Attestations', key='merge_split')],
         [sg.T('Rules: '), sg.Radio('Standard', 'rules', default=True, key='standard'), sg.Radio('Classic', 'rules', key='classic')],
-        [sg.B('Populate Database')]
+    ]
+    xml_file_frame = [
+        [sg.T('Select XML Collation File: ', size=w), sg.I('', key='xml_file'), sg.FileBrowse(file_types=(('XML Files', '*.xml'),), initial_folder=settings['cbgm_cx_dir'])],
+        [sg.T('New Database Name: ', size=w), sg.I('', key='new_db_name')],
+        
     ]
     dbs_frame = [
         [sg.Listbox(oc.get_all_dbs(), select_mode=sg.SELECT_MODE_EXTENDED, key='db_listbox')],
@@ -113,7 +115,9 @@ def manage_db_tab_layout(settings: dict):
     return [
         [sg.T('open-cbgm binaries folder: '), sg.I(settings['cbgm_main_dir'], key='cbgm_main_dir'), sg.FolderBrowse(initial_folder=settings['cbgm_main_dir'])],
         [sg.Frame('Populate New Database', xml_file_frame)],
+        [sg.Frame('Optional Settings', options_frame)],
         [sg.Frame('All Databases', dbs_frame)],
+        [sg.B('Populate Database')]
     ]
 def compare_wits_tab_layout(settings: dict):
     headings = ['Witness', 'Direction', 'Passages', 'Agreement', 'Percentage', 'Prior', 'Posterior']
