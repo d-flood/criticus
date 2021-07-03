@@ -116,8 +116,8 @@ def manage_db_tab_layout(settings: dict):
         [sg.T('open-cbgm binaries folder: '), sg.I(settings['cbgm_main_dir'], key='cbgm_main_dir'), sg.FolderBrowse(initial_folder=settings['cbgm_main_dir'])],
         [sg.Frame('Populate New Database', xml_file_frame)],
         [sg.Frame('Optional Settings', options_frame)],
+        [sg.B('Populate Database')],
         [sg.Frame('All Databases', dbs_frame)],
-        [sg.B('Populate Database')]
     ]
 def compare_wits_tab_layout(settings: dict):
     headings = ['Witness', 'Direction', 'Passages', 'Agreement', 'Percentage', 'Prior', 'Posterior']
