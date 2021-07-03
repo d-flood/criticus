@@ -17,7 +17,7 @@ Tendon is a desktop app with nine distinct tools:
 6. Reformat the collation file output of the Collation Editor for use with the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) and with Apparatus Explorer (a [desktop](https://github.com/d-flood/apparatus-explorer) and [web app](https://davidaflood.com/appex/demo/)) for visualization and editing.
 7. Provide a simple way to view TEI XML transcriptions offline using the same styling as the [IGNTP online transcriptions](http://www.itseeweb.bham.ac.uk/epistulae/XML/igntp.xml).
 8. Provide an interface to conveniently edit the project configuration. This is how one chooses which witnesses to collate, and which witness should be the basetext.
-9. A simple graphical interface for the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) CLI application.
+9. A simple graphical interface for the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) CLI application. This tool is windows only right now.
 
 ## Installation
 ### Windows standalone version
@@ -141,7 +141,7 @@ Note, however, that the Collation Editor has its own dependencies: Python 3 and 
 7. "Update" is only needed to save the "Project Title" and "Basetext". The "Witnesses" are saved any time one is added or deleted.
 8. "Start Collation Editor" will attempt to locate the appropriate start up script and execute it. It will also attempt to open Firefox (by far the best for working in the Collation Editor) to the right port.
 
-### open-cbgm Interface
+### open-cbgm Interface - Windows only (right now)
 This is a GUI front end for [Joey McCollum's open-cbgm: a flexible and fast implementation](https://github.com/jjmccollum/open-cbgm-standalone) of the Coherence Based Genealogical Method. Only a few of the open-cbgm features are implemented in this interface at present. More will be added as I need them for my own research.
 
 #### Manage Databases
