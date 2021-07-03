@@ -134,7 +134,7 @@ def compare_wits_tab_layout(settings: dict):
 def layout(settings):
     return [
         [sg.B('Back', key='exit'), sg.Stretch()],
-        [sg.TabGroup([[sg.Tab('Manage Databases', manage_db_tab_layout(settings)), sg.Tab('Compare Witnesses', compare_wits_tab_layout(settings))]])]
+        [sg.TabGroup([[sg.Tab('Manage Databases', manage_db_tab_layout(settings)), sg.Tab('Compare Witnesses', compare_wits_tab_layout(settings))]], enable_events=True, key='tab')]
     ]
 
 def open_cbgm_ui(font, icon):
@@ -161,5 +161,8 @@ def open_cbgm_ui(font, icon):
         elif event == 'View Plain Text':
             view_plain_text(values)
 
+        elif event == 'tab':
+            window['selected_db'].update(values=oc.get_all_dbs())    
+        
     window.close()
     return False
