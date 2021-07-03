@@ -8,7 +8,7 @@ The standard tool for transcribing ancient New Testament manuscripts ([ITSEE's O
 Moving from transcription to collation to analysis requires several steps of intermediate conversion of the data along the way. Tendon is a collection of tools to help 'connect' these three basic tasks.
 
 ## What Tendon Does
-Tendon is a desktop app with eight tools:
+Tendon is a desktop app with nine distinct tools:
 1. Convert a plain text transcription of a chapter or other unit into single-verse JSON files properly formatted for use in the Collation Editor. This is the simplest way to get data into the Collation Editor.
 2. Get a consolidated plain text file from an entire folder of JSON files.
 3. Convert a repurposed superset of Markdown to TEI XML. Included is a graphical user interface (GUI) to my CLI [MarkdownTEI](https://github.com/d-flood/MarkdownTEI). This is presented as simple and offline alternative to the [Online Transcription Editor (OTE)](https://itsee-wce.birmingham.ac.uk/ote/transcriptiontool). MarkdownTEI converted files can even be uploaded to the OTE.
@@ -17,6 +17,7 @@ Tendon is a desktop app with eight tools:
 6. Reformat the collation file output of the Collation Editor for use with the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) and with Apparatus Explorer (a [desktop](https://github.com/d-flood/apparatus-explorer) and [web app](https://davidaflood.com/appex/demo/)) for visualization and editing.
 7. Provide a simple way to view TEI XML transcriptions offline using the same styling as the [IGNTP online transcriptions](http://www.itseeweb.bham.ac.uk/epistulae/XML/igntp.xml).
 8. Provide an interface to conveniently edit the project configuration. This is how one chooses which witnesses to collate, and which witness should be the basetext.
+9. A simple graphical interface for the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) CLI application.
 
 ## Installation
 ### Windows standalone version
@@ -140,5 +141,45 @@ Note, however, that the Collation Editor has its own dependencies: Python 3 and 
 7. "Update" is only needed to save the "Project Title" and "Basetext". The "Witnesses" are saved any time one is added or deleted.
 8. "Start Collation Editor" will attempt to locate the appropriate start up script and execute it. It will also attempt to open Firefox (by far the best for working in the Collation Editor) to the right port.
 
+### open-cbgm Interface
+This is a GUI front end for [Joey McCollum's open-cbgm: a flexible and fast implementation](https://github.com/jjmccollum/open-cbgm-standalone) of the Coherence Based Genealogical Method. Only a few of the open-cbgm features are implemented in this interface at present. More will be added as I need them for my own research.
+
+#### Manage Databases
+The first tab of this interface is a prerequisite for doing anything with the open-cbgm.
+![screenshot of the open-cbgm 'populate database' module](images/open-cbgm/populate_database_tab_screenshot.png)
+The two prerequisites for using the open-cbgm are:
+1. Having an XML collation file with which to feed the open-cbgm. This can be created by hand, but normally this will be the output of the output of the Collation Editor (see "Combine Collation Files" and "Reformat Collation File" above).
+2. Installing the open-cbgm. Joey has provided [excellent instructions](https://github.com/jjmccollum/open-cbgm-standalone#installation-and-dependencies) for Windows, Mac, and Linus.
+
+Using Tendon with the open-cbgm:
+1. The first (and one time) step is to tell Tendon where you have installed the open-cbgm, and specifically to designate the folder containing the executable files (files ending in ".exe" on Windows).
+2. Browse and select an XML collation file (which should be prepared using the steps mentioned above).
+3. The open-cbgm takes the XML file as input and produces a database. Enter a name for this database. You can create many databases. I recommend naming the database in a way that indicates its content and settings (see next steps below). 
+- The remaining options are optional. See Joey's [documentation](https://github.com/jjmccollum/open-cbgm-standalone#population-of-the-genealogical-cache) for what these options do. Remember that this is merely an interface for his software.
+4. Check the "Readings Threshold" box to limit witnesses to those that are extant at a given number of variation units. Enter this number in the field on the right.
+5. Check the "Treat as Trivial" box to designate which reading types should be treated as agreeing with their parent reading. Enter one or more reading types separated by a space or comma and space. 
+   - NOTE: This presumes that reading types have been added to the XML collation file.
+   - Some reading types are added with the Collation Editor: "subreading" is a type added automatically to any reading that has been regularized by the user during collation.
+   - Custom reading types can be added by hand in the XML file, or by using my [Apparatus Explorer](https://github.com/d-flood/apparatus-explorer) in either its desktop or web application version.
+6. Check the "Exclude" box to designate reading type(s) to be entire omitted and treated as lacunose.
+7. Checking "Merge Split Attestations" will "will treat split attestations of the same reading as equivalent for the purposes of witness comparison."
+8. Finally, decide whether to use Joey McCollum's updated rules (standard) for genealogical relationships or to use the same rules used by INTF's implementation (classic).
+9. Click "Populate Database" to have Tendon call the open-cbgm with the settings and options provided.
+10. The newly created database will be added to the list of databases. Note that selecting and deleting a database is permanent.
+
+#### Compare Witnesses
+This tab is for getting and viewing pre-genealogical coherence. It can be exported or viewed in multiple formats.
+![screenshot of the "compare witnesses" tab before submitting a request](images/open-cbgm/compare_witneses_starting_tab_screenshot.png)
+
+1. Select a database from the drop down menu. The options here are those created on the "Manage Databases" tab.
+2. Enter a witness to which all others will be compared. If the witness does not exist in your collation, you will get an error message.
+3. Select "Compare All Witnesses" to compare all witnesses in the original collation file against the one entered or
+4. select "Compare only these" to designate a more limited comparison. You can enter one or more witnesses to compare against the target witness.
+5. Press ENTER or click "Compare" to fill out the table with the comparison data. The completeness of the table depends upon how much was edited in the collation file _after_ it was produced by the Collation Editor. By default, there will be little to no genealogical data because this is not done during collation with the Collation Editor. I recommend using Apparatus Explorer to add genealogical relationships to the collation file. ![screenshot of the "Compare Witnesses" tab table filled in with collation data](images/open-cbgm/compare_witnesses_filled_tab_screenshot.png)
+- This table is a simplification of the output from the open-cbgm. The full output can saved or viewed in the following ways:
+  1. "Save as CSV" will save the data as a CSV file that can then be opened in Excel or any spreadsheet software.
+  2. "View Plain Text" opens a popup with the full text output of the open-cbgm as one would see when operating the CLI. ![Screenshot of plain text output of the "Compare Witnesses" tab](images/open-cbgm/compare_witnesses_plain_text_screenshot.png)
+
+#### More features of the open-cbgm will be added over time.
 
 ###### I structured and generated the standalone desktop apps with [Beeware's Briefcase](https://github.com/beeware/briefcase).
