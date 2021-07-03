@@ -66,6 +66,9 @@ def compare_witnesses(values, window):
     if not validate_compare_inputs(values):
         return
     table = oc.compare_wits(values)
+    if not table:
+        cp.ok(f'There was a problem opening the database or locating witness "{values["wit_to_compare"]}".', 'Bummer')
+        return None
     display_table = []
     for row in table['rows']:
         r = []

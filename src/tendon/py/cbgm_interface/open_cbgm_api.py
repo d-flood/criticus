@@ -65,7 +65,10 @@ def parse_compare_input(values):
 
 def compare_wits(values):
     command = parse_compare_input(values)
-    text = check_output(command)
+    try:
+        text = check_output(command)
+    except:
+        return None
     text = text.decode()
     text = text.replace('Opening database...', '')
     text = text.replace('Retrieving witness list...', '')
