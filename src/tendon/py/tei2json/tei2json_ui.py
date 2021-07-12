@@ -100,7 +100,7 @@ def tei_to_json(font: tuple, icon):
                     else:
                         continue
                 except Exception as e:
-                    print('conversion failed')
+                    # print('conversion failed')
                     popup(f'Conversion failed. Talk to David. See error below:\n{e}', 'Bummer...', icon)
 
     window.close()

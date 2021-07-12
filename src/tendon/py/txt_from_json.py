@@ -19,7 +19,8 @@ def json_to_plain_text(json_dir: str):
                 tx = json.load(f)
             lines.append(f"{tx['context']} {tx['plain_text']}")
         except:
-            print(f'Did not open {verse}')
+            # print(f'Did not open {verse}')
+            pass
     text = '\n'.join(lines)
     return text
 
@@ -35,7 +36,7 @@ def simplify_ref(text: str, icon):
         try:
             ch = re.search(r'K[0-9]+V', line).group(0)
         except:
-            print(f'Did not find a reference on this line:\n{line}')
+            # print(f'Did not find a reference on this line:\n{line}')
             skipped_lines.append(line)
             continue
         ch = ch.replace('V', '')

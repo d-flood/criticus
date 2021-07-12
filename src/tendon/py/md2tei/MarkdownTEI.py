@@ -4,19 +4,16 @@ import PySimpleGUIQt as sg
 
 import tendon.py.edit_settings as es
 from tendon.py.md2tei.markdown_to_tei import convert_md_to_tei as md2tei
+import tendon.py.custom_popups as cp
 
 # pylint: disable=no-member
-def okay_popup(msg: str, title: str):
-    window = sg.Window(title, [[sg.T(msg)], [sg.B('OKAY')]])
-    window.read()
-    window.close()
 
 def bummer():
-    okay_popup('The Markdown file failed to convert. Talk to David about it.', 'Bummer...')
+    cp.ok('The Markdown file failed to convert. Talk to David about it.', 'Bummer...')
 
 def yay(output_file):
     msg = f'Yay! The Markdown transcription was converted and saved to\n{output_file}'
-    okay_popup(msg, 'Yay!')
+    cp.ok(msg, 'Yay!')
 
 def set_initial_dirs(input_file, output_file):
     if input_file:

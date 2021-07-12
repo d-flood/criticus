@@ -52,7 +52,8 @@ def delete_db(values):
                 try:
                     os.remove(f.as_posix())
                 except Exception as e:
-                    print(f'HEADS UP: {e}')
+                    # print(f'HEADS UP: {e}')
+                    cp.ok(f'There was a problem deleting\n{f.as_posix()}\nbecause: {e}', 'Just a small problem')
 
 def parse_compare_input(values):
     settings = es.get_settings()

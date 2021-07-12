@@ -6,6 +6,7 @@ import PySimpleGUIQt as sg
 from tendon.py.reformat_collation.itsee_to_open_cbgm import reformat_xml
 from tendon.py.reformat_collation.differentiate_subreading_ids import differentiate_subreading_ids as diff_ids
 import tendon.py.edit_settings as es
+import tendon.py.custom_popups as cp
 
 # pylint: disable=no-member
 def layout(settings: dict):
@@ -46,20 +47,22 @@ def convert(values, settings):
             xml_fn = fix_NCNames(values['xml_input_file'])
             try:
                 xml_fn = reformat_xml(xml_fn)
-            except:
-                sg.popup_ok('There are invalid elements or attributes in this XML file', title='Failed to Reformat')
+            except Exception as e:
+                cp.ok(f'There are invalid elements or attributes in this XML file.\nError: {e}',
+                'Failed to Reformat')
                 return
         xml = diff_ids(xml_fn)
-        sg.popup_ok('XML Collation File was successfully reformatted!\n\
+        cp.ok('XML Collation File was successfully reformatted!\n\
 You will now be prompted to save the converted file.', title='Success!')
         fn_to_save = sg.popup_get_file('', no_window=True, save_as=True, file_types=(('XML Files', '*.xml'),), initial_folder=settings['reformatted_xml_dir'])
         if not fn_to_save:
             return
         xml.write(fn_to_save, encoding='utf-8')
-    except:
-        sg.popup_ok('Failed to reformat XML file.\n\
+    except Exception as e:
+        cp.ok(f'Failed to reformat XML file.\n\
 Check that the input file name is correct and that\n\
-this is the output of the ITSEE Collation Editor.', title='Bummer...')
+this is the output of the ITSEE Collation Editor.\n\
+Error: {e}', title='Bummer...')
         return
     set_initial_dirs(values['xml_input_file'], fn_to_save)
 

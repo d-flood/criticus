@@ -31,10 +31,10 @@ def launch_tei_viewer(tei_repo_dir, main_dir) -> socketserver.TCPServer:
     try:
         if platform.system() == 'Windows':
             from subprocess import Popen
-            Popen('start firefox http:localhost:8011', shell=True)
+            Popen(f'start firefox http://localhost:{PORT}', shell=True)
         else:
             import webbrowser
-            webbrowser.get('firefox').open('http:localhost:8011')
-    except:
-        print('cold not open browser')
+            webbrowser.get('firefox').open(f'http://localhost:{PORT}/')
+    except Exception as e:
+        print(f'Could not open browser because:\n{e}')
     return httpd
