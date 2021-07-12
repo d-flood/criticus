@@ -34,3 +34,12 @@ def textbox(text, title):
     window = sg.Window(title, layout, icon=get_icon())
     window.read()
     window.close()
+
+def listbox(message: str, items: list, title: str):
+    layout = [[sg.T(message)],
+              [sg.Listbox(items)],
+              [sg.B('Ok')]]
+    window = sg.Window(title, layout, icon=get_icon())
+    window.read()
+    window.close()
+    

@@ -6,14 +6,9 @@ from natsort import natsorted
 import PySimpleGUIQt as sg
 
 import tendon.py.edit_settings as es
+import tendon.py.custom_popups as cp
 
 #pylint: disable=no-member
-def okay_popup(message: str, title: str, icon):
-    layout = [[sg.Text(message, pad=(10, 10))],
-        [sg.Button('Okay')]]
-    popup = sg.Window(title, layout, icon=icon)
-    popup.read()
-    popup.close()
 
 def get_verse_file(f, output_dir):
     parser = et.XMLParser(remove_blank_text=True, recover=True)
@@ -28,11 +23,20 @@ def combine_verses(starting_string: str, output_dir, main_dir):
     root = tree.getroot()
     files = os.listdir(output_dir)
     files = natsorted(files)
+    failed = []
     for f in files:
         if f.startswith(starting_string):
-            all_ab_elems = get_verse_file(f, output_dir)
-            for ab in all_ab_elems:
-                root.append(ab)
+            try:
+                all_ab_elems = get_verse_file(f, output_dir)
+                for ab in all_ab_elems:
+                    root.append(ab)
+            except Exception as e:
+                failed.append(f'{f}: {e}')
+    if len(failed) > 0:
+        cp.listbox(
+            'The following files failed to parse and were skipped.',
+            failed, 'Some files failed to combine'
+            )
     return tree
 
 def combine_xml_files_interface(main_dir, font, icon):
@@ -47,8 +51,7 @@ def combine_xml_files_interface(main_dir, font, icon):
     while True:
         event, values = window.read()
         if event in [sg.WINDOW_CLOSED, 'Cancel']:
-            window.close()
-            return None
+            break
         elif event == 'Combine XML Files':
             if values['output_dir'] == '' or values['starts_with'] == '':
                 sg.popup_quick_message('First select a folder and at least one "starts with" character')
@@ -56,14 +59,16 @@ def combine_xml_files_interface(main_dir, font, icon):
             try:
                 tree = combine_verses(values['starts_with'], values['output_dir'], main_dir)
                 es.edit_settings('ce_output_dir', values['output_dir'])
-            except:
-                okay_popup('Failed to combine files.\n\
+            except Exception as e:
+                cp.ok(f'Failed to combine files because:\n" {e} "\n\
 Double-check that the selected folder contains XML files and that\n\
-these match the given "starts with" characters', 'Bummer', icon)
+these match the given "starts with" characters', 'Bummer')
                 continue
             saved_name = sg.popup_get_file('', no_window=True, file_types=(("XML Files", "*.xml"),), save_as=True, initial_folder=values['output_dir'])
-            tree.write(saved_name, encoding='utf-8', xml_declaration=True)
-            settings['ce_output_dir'] = values['output_dir']
-            okay_popup(f'Files have been combined and saved to {saved_name}', 'Combined!', icon)
-            window.close()
-            return False
+            if saved_name:
+                tree.write(saved_name, encoding='utf-8', xml_declaration=True)
+                settings['ce_output_dir'] = values['output_dir']
+                cp.ok(f'Files have been combined and saved to {saved_name}', 'Combined!')
+                break
+    window.close()
+    return False
