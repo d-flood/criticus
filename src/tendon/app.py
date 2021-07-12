@@ -13,7 +13,9 @@ from tendon.py.reformat_collation.reformat_xml_ui import start_reformat_ui as re
 from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 from tendon.py.ce_config import configure_ce
 from tendon.py.txt_from_json import get_text_from_json_files
-from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
+
+if platform.system() == 'Windows':
+        from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
 __version = '0.10'
 #pylint: disable=no-member
