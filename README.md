@@ -24,7 +24,7 @@ Tendon is a desktop app with nine distinct tools:
 Download and install the MSI from this repository.
 
 ### MacOS standalone version
-*Experimental*: Download the ***unsigned*** DMG [v0.8 here](https://1drv.ms/u/s!AqSbnTiqn1jciaYER_uM6c3i4SEqzA?e=2qXScY)
+*Experimental*: Download the ***unsigned*** DMG [v0.10 here](https://1drv.ms/u/s!AqSbnTiqn1jcicw_XWP6MODxt6fW9A?e=0166az)
 
 ### Run on any platform with Python 3.6+
 Dependencies
