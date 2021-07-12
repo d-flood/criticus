@@ -15,7 +15,7 @@ from tendon.py.ce_config import configure_ce
 from tendon.py.txt_from_json import get_text_from_json_files
 from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version = '0.9'
+__version = '0.10'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
