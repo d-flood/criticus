@@ -19,9 +19,8 @@ def get_system_specific_command(command, new_console: bool):
         if new_console:
             p = Popen(command, creationflags=CREATE_NEW_CONSOLE)
         else:
-            p = Popen(command, creationflags=CREATE_NEW_CONSOLE)
+            p = Popen(command)
     else:
-        # command = command[2:-1]
         command = command.replace(".exe", "")
         command = command.replace('\\', '/')
         p = Popen(command, shell=True)
@@ -30,8 +29,8 @@ def get_system_specific_command(command, new_console: bool):
 def get_system_output_command(command):
     if operating_system == 'Windows':
         return command
-    command = command.replace('\\', '/')
-    return f'./{command}'
+    command = command.replace('\\', '/').replace(".exe", "")
+    return command
 
 def parse_user_input(values: dict):
     settings = es.get_settings()
