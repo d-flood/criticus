@@ -1,11 +1,36 @@
 import json
 from pathlib import Path
-from subprocess import Popen, CREATE_NEW_CONSOLE, check_output
+
+import platform
+operating_system = platform.system()
+
+if operating_system == 'Windows':
+    from subprocess import Popen, CREATE_NEW_CONSOLE, check_output
+else:
+    from subprocess import Popen, check_output
 import os
 
 # pylint: disable=import-error
 import tendon.py.custom_popups as cp
 import tendon.py.edit_settings as es
+
+def get_system_specific_command(command, new_console: bool):
+    if operating_system == 'Windows':
+        if new_console:
+            p = Popen(command, creationflags=CREATE_NEW_CONSOLE)
+        else:
+            p = Popen(command, creationflags=CREATE_NEW_CONSOLE)
+    else:
+        command = f'./{command.replace(".exe", "")}'
+        command = command.replace('\\', '/')
+        p = Popen(command)
+    return p
+
+def get_system_output_command(command):
+    if operating_system == 'Windows':
+        return command
+    command = command.replace('\\', '/')
+    return f'./{command}'
 
 def parse_user_input(values: dict):
     settings = es.get_settings()
@@ -43,7 +68,7 @@ def populate_db(values: dict):
 in which to save databases.')
         return
     command = parse_user_input(values)
-    p = Popen(command, creationflags=CREATE_NEW_CONSOLE)
+    p = get_system_specific_command(command, new_console=True)
     p.wait()
 
 def get_all_dbs():
@@ -82,6 +107,7 @@ def parse_compare_input(values):
 
 def compare_wits(values):
     command = parse_compare_input(values)
+    command = get_system_output_command(command)
     try:
         text = check_output(command)
     except:
@@ -104,7 +130,7 @@ def csv_comparison(values, output_fn):
     command = f'"{script}" -f csv -o "{output_fn}" "{db}" {values["wit_to_compare"]}'
     for wit in values['wits_to_compare'].strip().split(', '):
         command = f'{command} {wit}'
-    p = Popen(command)
+    p = get_system_specific_command(command, new_console=False)
     p.wait()
     if Path(output_fn).is_file():
         return True
@@ -118,6 +144,7 @@ def view_plain_text(values):
     command = f'"{script}" "{db}" {values["wit_to_compare"]}'
     for wit in values['wits_to_compare'].strip().split(', '):
         command = f'{command} {wit}'
+    command = get_system_output_command(command)
     text = check_output(command)
     text = text.decode()
     text = text.replace('Opening database...', '')

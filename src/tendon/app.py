@@ -14,8 +14,8 @@ from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 from tendon.py.ce_config import configure_ce
 from tendon.py.txt_from_json import get_text_from_json_files
 
-if platform.system() == 'Windows':
-        from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
+# if platform.system() == 'Windows':
+from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
 __version = '0.10'
 #pylint: disable=no-member
