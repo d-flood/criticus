@@ -3,7 +3,7 @@ import platform
 import PySimpleGUIQt as sg
 
 import tendon.py.edit_settings as es
-
+import tendon.py.custom_popups as cp
 from tendon.py.tei2json.tei_to_json import tei_to_json as t2j
 
 # pylint: disable=no-member
@@ -50,14 +50,6 @@ def layout(settings: dict):
         [sg.B('Convert', disabled=True, key='convert'), space(), sg.B('Cancel', key='exit')]
         ]
 
-def popup(msg: str, title: str, icon):
-    window = sg.Window(title, [[sg.T(msg)], [sg.B('OKAY')]], icon=icon)
-    while True:
-        event, _ = window.read()
-        if event in ['OKAY', sg.WINDOW_CLOSED, None]:
-            break
-    window.close()
-
 def save_settings(values):
     es.edit_settings('tei_dir', values['tei_input'])
     es.edit_settings('ce_repo_dir', values['output_dir'])
@@ -95,13 +87,13 @@ def tei_to_json(font: tuple, icon):
                 try:
                     result = t2j(values['tei_input'], values['output_dir'], single_verse=values['single_ref'])
                     if result:
-                        popup(f'JSON transcription files saved to {values["output_dir"]}', 'Success!', icon=icon)
+                        cp.ok(f'JSON transcription files saved to {values["output_dir"]}', 'Success!')
                         print('success!')
                     else:
                         continue
                 except Exception as e:
                     # print('conversion failed')
-                    popup(f'Conversion failed. Talk to David. See error below:\n{e}', 'Bummer...', icon)
+                    cp.ok(f'Conversion failed. Talk to David. See error below:\n{e}', 'Bummer...')
 
     window.close()
     return False

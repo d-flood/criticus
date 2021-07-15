@@ -8,6 +8,7 @@ from tendon.py.tei2json.from_tei import (get_file, pre_parse_cleanup,
                       add_underdot_to_unclear_letters,
                       parse, remove_unclear_tags,
                       tei_ns, get_verse_as_tuple)
+import tendon.py.custom_popups as cp
 # pylint: disable=no-member
 #########
 def get_siglum_from_user() -> str:
@@ -58,7 +59,7 @@ def tei_to_json(tei: str, output_dir, single_verse: str):
     text = pre_parse_cleanup(text)
     parsed, root = parse(text)
     if not parsed:
-        sg.popup_ok(f'Failed to parse XML. See error:\n{root}', title='Bummer...')
+        cp.ok(f'Failed to parse XML. See error:\n{root}', title='Bummer...')
         return False
     add_underdot_to_unclear_letters(root)
     text = et.tostring(root, encoding='unicode')

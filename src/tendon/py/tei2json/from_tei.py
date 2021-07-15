@@ -23,8 +23,8 @@ def pre_parse_cleanup(text): #* PASSING
     text = re.sub(r' *<supplied[^<>]*>', '[', text)
     text = re.sub(r' *</supplied> *', ']', text)
     text = re.sub(r'<lb[^<>]*>', '', text)
-    text = re.sub(r'<abbr[^>]*', '', text)
-    text = re.sub(r'</abbr[^>]*', '', text)
+    text = re.sub(r'<abbr[^<>]*>', '', text)
+    text = re.sub(r'</abbr[^<>]*>', '', text)
     text = text.replace('\n', '')
     text = text.replace('<hi rend="overline">', '')
     text = text.replace('</hi>', '')
@@ -109,7 +109,6 @@ def handle_lacunae(words: List[str]) -> List[str]: ###* PASSING
     for i, word in enumerate(words):
         if not word:
             print(f'\n{word=}\n')
-            print(f'{words=}')
         lac_word_found = re.search(r'\[[^\[\]]*\]', word)
         if lac_word_found and lac_word_found.group(0) == word: # entire word is supplied, i.e. lacunose b/c word == [word]
             indices_of_lac_words.append(i)

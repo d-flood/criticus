@@ -6,6 +6,7 @@ from natsort import natsorted
 import PySimpleGUIQt as sg
 
 import tendon.py.edit_settings as es
+import tendon.py.custom_popups as cp
 
 # pylint: disable=no-member
 def json_to_plain_text(json_dir: str):
@@ -51,8 +52,8 @@ def simplify_ref(text: str, icon):
 
     if len(skipped_lines) > 0:
         skipped_lines = '\n'.join(skipped_lines)
-        sg.popup_ok(f'''The following lines were skipped because a reference was not found:
-{skipped_lines}''', title='Some lines skipped', icon=icon)
+        cp.ok(f'''The following lines were skipped because a reference was not found:
+{skipped_lines}''', title='Some lines skipped')
 
     return text
 
@@ -96,5 +97,5 @@ def get_text_from_json_files(font, icon):
     es.edit_settings('plain_text_dir', save_fn_setting)
     with open(save_fn, 'w', encoding='utf-8') as f:
         f.write(text)
-    sg.popup_ok(f'Plain text was extracted from JSON files \
-and saved to\n{save_fn}', title='Success!', icon=icon, font=font)
+    cp.ok(f'Plain text was extracted from JSON files \
+and saved to\n{save_fn}', title='Success!')
