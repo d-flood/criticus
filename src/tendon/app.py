@@ -50,7 +50,7 @@ def main():
     else:
         icon = f'{main_dir}/resources/tendon.png'
         font = ('Arial', 12)
-        open_cbgm = []
+        open_cbgm = [sg.B('open-cbgm Interface', key='open-cbgm', size=bs)]
     layout = [
         [sg.Button('Plain Text to JSON', key='txt_to_json', size=bs)],
         [sg.Button('Get Plain Text from JSON', key='json_to_txt', size=bs)],
