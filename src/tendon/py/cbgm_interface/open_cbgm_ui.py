@@ -99,7 +99,7 @@ def manage_db_tab_layout(settings: dict):
     options_frame = [
         [sg.Checkbox('Readings Threshold: ', key='threshold', size=w), sg.I('', key='threshold_input')],
         [sg.Checkbox('Treat as Trivial: ', key='trivial', size=w), sg.I('', key='trivial_input')],
-        [sg.Checkbox('Exclude: ', key='exclude', size=w), sg.I('', key='exclude_input')],
+        [sg.Checkbox('Ignore: ', key='exclude', size=w), sg.I('', key='exclude_input')],
         [sg.Checkbox('Merge Split Attestations', key='merge_split')],
         [sg.T('Rules: '), sg.Radio('Standard', 'rules', default=True, key='standard'), sg.Radio('Classic', 'rules', key='classic')],
     ]

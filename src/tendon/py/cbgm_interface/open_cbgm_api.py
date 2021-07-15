@@ -28,7 +28,20 @@ def parse_user_input(values: dict):
         command = f'{command} --classic'
     return f'{command} "{cx}" "{db}"'
 
+def check_db_dir(cbgm_main_dir: str):
+    db_dir = Path(f'{cbgm_main_dir}/db')
+    if not db_dir.is_dir():
+        db_dir.mkdir()
+    if db_dir.is_dir():
+        return True
+    else:
+        return False
+
 def populate_db(values: dict):
+    if not check_db_dir(values['cbgm_main_dir']):
+        cp.ok('There was an unanticipated problem making a folder\n\
+in which to save databases.')
+        return
     command = parse_user_input(values)
     p = Popen(command, creationflags=CREATE_NEW_CONSOLE)
     p.wait()
@@ -38,9 +51,12 @@ def get_all_dbs():
     try:
         db_dir = f"{settings['cbgm_main_dir']}/db"
         db_dir = Path(db_dir)
-        return [x.as_posix().split('/')[-1] for x in db_dir.iterdir() if x.as_posix().endswith('.db')]
+        databases = [x.as_posix().split('/')[-1] for x in db_dir.iterdir() if x.as_posix().endswith('.db')]
+        if databases is None or databases == []:
+            databases = ['']
     except:
-        return ['']
+        databases = ['']
+    return databases
 
 def delete_db(values):
     settings = es.get_settings()
