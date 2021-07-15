@@ -21,9 +21,10 @@ def get_system_specific_command(command, new_console: bool):
         else:
             p = Popen(command, creationflags=CREATE_NEW_CONSOLE)
     else:
-        command = f'./{command.replace(".exe", "")}'
+        # command = command[2:-1]
+        command = command.replace(".exe", "")
         command = command.replace('\\', '/')
-        p = Popen(command)
+        p = Popen(command, shell=True)
     return p
 
 def get_system_output_command(command):
