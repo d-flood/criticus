@@ -28,7 +28,7 @@ def yes_cancel(msg, title):
 
 def textbox(text, title):
     layout = [
-        [sg.Multiline(text, font=('Courier', 10), size=(140, 40))],
+        [sg.Multiline(text, font=('Courier', 10), size_px=(800, 400))],
         [sg.B('Done')]
         ]
     window = sg.Window(title, layout, icon=get_icon())

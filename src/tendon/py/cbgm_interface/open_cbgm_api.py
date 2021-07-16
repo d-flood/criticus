@@ -29,7 +29,8 @@ def get_system_specific_command(command, new_console: bool):
 def get_system_output_command(command):
     if operating_system == 'Windows':
         return command
-    command = command.replace('\\', '/').replace(".exe", "")
+    command = command.replace('\\', '/')
+    command = command.replace(".exe", "")
     return command
 
 def parse_user_input(values: dict):
@@ -109,7 +110,7 @@ def compare_wits(values):
     command = parse_compare_input(values)
     command = get_system_output_command(command)
     try:
-        text = check_output(command)
+        text = check_output(command, shell=True)
     except:
         return None
     text = text.decode()
@@ -145,7 +146,7 @@ def view_plain_text(values):
     for wit in values['wits_to_compare'].strip().split(', '):
         command = f'{command} {wit}'
     command = get_system_output_command(command)
-    text = check_output(command)
+    text = check_output(command, shell=True)
     text = text.decode()
     text = text.replace('Opening database...', '')
     text = text.replace('Retrieving witness list...', '')
