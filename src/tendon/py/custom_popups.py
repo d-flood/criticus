@@ -1,8 +1,10 @@
 from pathlib import Path
+import platform
 
 import PySimpleGUIQt as sg
 
 # pylint: disable=no-member
+op_os = platform.system()
 
 def get_icon():
     tendon_dir = Path(__file__).parent.parent.as_posix()
@@ -27,8 +29,12 @@ def yes_cancel(msg, title):
         return False
 
 def textbox(text, title):
+    if op_os == 'Windows':
+        size = (1200, 400)
+    else:
+        size = (800, 400)
     layout = [
-        [sg.Multiline(text, font=('Courier', 10), size_px=(800, 400))],
+        [sg.Multiline(text, font=('Courier', 10), size_px=size)],
         [sg.B('Done')]
         ]
     window = sg.Window(title, layout, icon=get_icon())
