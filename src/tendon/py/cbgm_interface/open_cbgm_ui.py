@@ -1,4 +1,5 @@
 from pathlib import Path
+import platform
 
 import PySimpleGUIQt as sg
 #pylint: disable=import-error
@@ -6,6 +7,8 @@ import PySimpleGUIQt as sg
 import tendon.py.edit_settings as es 
 import tendon.py.cbgm_interface.open_cbgm_api as oc
 import tendon.py.custom_popups as cp
+
+operating_system = platform.system()
 
 
 def validate_user_input(values: dict):
@@ -120,9 +123,13 @@ def manage_db_tab_layout(settings: dict):
         [sg.Frame('All Databases', dbs_frame)],
     ]
 def compare_wits_tab_layout(settings: dict):
+    if operating_system == 'Windows':
+        db_combo = sg.Combo(oc.get_all_dbs(), readonly=True, key='selected_db')
+    else:
+        db_combo = sg.Combo(oc.get_all_dbs(), readonly=True, key='selected_db', size=(20,1))
     headings = ['Witness', 'Direction', 'Passages', 'Agreement', 'Percentage', 'Prior', 'Posterior']
     return [
-        [sg.T('Select a Database'), sg.Combo(oc.get_all_dbs(), readonly=True, key='selected_db')],
+        [sg.T('Select a Database'), db_combo],
         [sg.T('Compare Witnesses to: '), sg.I('', key='wit_to_compare')],
         [sg.Radio('Compare All Witnesses', 'compare', default=True, key='compare_all')],
         [sg.Radio('Compare only these: ', 'compare', key='compare_some'), sg.I('', key='wits_to_compare')],
