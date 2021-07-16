@@ -24,7 +24,7 @@ Tendon is a desktop app with nine distinct tools:
 Download and install the MSI from this repository.
 
 ### MacOS standalone version
-*Experimental*: Download the ***unsigned*** DMG [v0.11 here](https://1drv.ms/u/s!AqSbnTiqn1jcicxBH8RENH3BHM5mRQ?e=bVp8BS)
+*Experimental*: Download the ***unsigned*** DMG [v0.12 here](https://1drv.ms/u/s!AqSbnTiqn1jcicxJbAWy8aPUrUX5mQ?e=WLArVb)
 
 ### Run on any platform with Python 3.6+
 Dependencies
@@ -141,7 +141,7 @@ Note, however, that the Collation Editor has its own dependencies: Python 3 and 
 7. "Update" is only needed to save the "Project Title" and "Basetext". The "Witnesses" are saved any time one is added or deleted.
 8. "Start Collation Editor" will attempt to locate the appropriate start up script and execute it. It will also attempt to open Firefox (by far the best for working in the Collation Editor) to the right port.
 
-### open-cbgm Interface - Windows only (right now)
+### open-cbgm Interface
 This is a GUI front end for [Joey McCollum's open-cbgm: a flexible and fast implementation](https://github.com/jjmccollum/open-cbgm-standalone) of the Coherence Based Genealogical Method. Only a few of the open-cbgm features are implemented in this interface at present. More will be added as I need them for my own research.
 
 #### Manage Databases
