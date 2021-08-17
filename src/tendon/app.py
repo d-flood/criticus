@@ -13,6 +13,7 @@ from tendon.py.reformat_collation.reformat_xml_ui import start_reformat_ui as re
 from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 from tendon.py.ce_config import configure_ce
 from tendon.py.txt_from_json import get_text_from_json_files
+from tendon.mac_layout import mac_layout
 
 # if platform.system() == 'Windows':
 from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
@@ -46,23 +47,22 @@ def main():
     if platform.system() == 'Windows':
         icon = f'{main_dir}/resources/tendon.ico'
         font = ('Cambria', 11)
-        open_cbgm = [sg.B('open-cbgm Interface', key='open-cbgm', size=bs)]
+        layout = [
+            [sg.Button('Plain Text to JSON', key='txt_to_json', size=bs)],
+            [sg.Button('Get Plain Text from JSON', key='json_to_txt', size=bs)],
+            [sg.Button('Markdown to TEI', key='md_to_tei', size=bs)],
+            [sg.Button('TEI to JSON', key='tei_to_json', size=bs)],
+            [sg.Button('Combine Collation Files', key='combine_verses', size=bs)],
+            [sg.Button('Reformat Collation File', key='reformat_xml', size=bs)],
+            [sg.Button('View TEI Transcriptions', key='tei_server', size=bs)],
+            [sg.Button('Configure Collation Editor', key='ce_config', size=bs)],
+            [sg.B('open-cbgm Interface', key='open-cbgm', size=bs)],
+            [sg.Stretch(), sg.Button('Close', pad=(20, 20), size=(20, 2)), sg.Stretch()]
+        ]
     else:
         icon = f'{main_dir}/resources/tendon.png'
-        font = ('Arial', 12)
-        open_cbgm = [sg.B('open-cbgm Interface', key='open-cbgm', size=bs)]
-    layout = [
-        [sg.Button('Plain Text to JSON', key='txt_to_json', size=bs)],
-        [sg.Button('Get Plain Text from JSON', key='json_to_txt', size=bs)],
-        [sg.Button('Markdown to TEI', key='md_to_tei', size=bs)],
-        [sg.Button('TEI to JSON', key='tei_to_json', size=bs)],
-        [sg.Button('Combine Collation Files', key='combine_verses', size=bs)],
-        [sg.Button('Reformat Collation File', key='reformat_xml', size=bs)],
-        [sg.Button('View TEI Transcriptions', key='tei_server', size=bs)],
-        [sg.Button('Configure Collation Editor', key='ce_config', size=bs)],
-        open_cbgm,
-        [sg.Stretch(), sg.Button('Close', pad=(None, 20)), sg.Stretch()]
-    ]
+        font = ('Arial', 11)
+        layout = mac_layout()
     window = sg.Window(f'Tendon v{__version}', layout, font=font, icon=icon)
     while True:
         event, _ = window.read()
