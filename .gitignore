@@ -35,6 +35,7 @@ Temporary Items
 .vscode/
 env/
 venv/
+v38/
 build/
 develop-eggs/
 dist/
