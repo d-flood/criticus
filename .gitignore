@@ -54,6 +54,7 @@ temp_repaired_xml
 settings.json
 temp_xml_collation_file
 distributables/
+*.msi
 
 # IntelliJ Idea family of suites
 .idea
