@@ -47,7 +47,7 @@ def download_root(repo: Repository, main_dir: str):
         save_path = f"{main_dir}/{f.path.replace('src/tendon/', '')}"
         save_file(save_path, f.decoded_content)
 
-def update_app(pyproject: dict):
+def update_app():
     main_dir = Path(__file__).parent.parent.as_posix()
     print(f'\n{main_dir=}\n')
     print('updating..........')
@@ -82,4 +82,10 @@ def check_for_updates(current_version: str, window: sg.Window):
     else:
         if not cp.yes_cancel(f'There is an update available. Do you want to download and update to version {newest_version}?', 'Update Available'):
             return
-        update_app(pyproject)
+        try:
+            update_app()
+        except:
+            cp.ok('There was a problem downloading the new files.\n\
+                It is possible that this has corrupted Tendon.\n\
+                If Tendon does not start up again, reinstall the newest release from\n\
+                github.com/d-flood/Tendon/releases', 'Problem Updating')
