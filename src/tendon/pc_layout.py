@@ -6,7 +6,7 @@ import PySimpleGUIQt as sg
 def pc_layout():
     bs = (32, 2)
 
-    menu = [['App Info', ['Check for Updates']]]
+    menu = [['File', ['Check for Updates']]]
 
     layout = [
         [sg.Menu(menu)],
