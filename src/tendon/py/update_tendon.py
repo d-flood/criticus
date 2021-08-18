@@ -21,7 +21,7 @@ def save_file(fname: str, new_file):
     with open(fname, 'w') as f:
         f.write(new_file)
 
-def download_folder(repo: Repository, folder_name: str, cwd: str):
+def download_folder(repo: Repository, folder_name: str, main_dir: str):
     py_dirs = []
     py_files = []
     py_folder = repo.get_contents(f'src/tendon/{folder_name}')
@@ -35,24 +35,25 @@ def download_folder(repo: Repository, folder_name: str, cwd: str):
     for d in py_dirs:
         Path(d).mkdir(parents=True, exist_ok=True)
     for f in py_files:
-        save_path = f"{cwd}/{f.path.replace('src/tendon/', '')}"
+        save_path = f"{main_dir}/{f.path.replace('src/tendon/', '')}"
         save_file(save_path, f.decoded_content.decode())
 
-def download_root(repo: Repository, cwd: str):
+def download_root(repo: Repository, main_dir: str):
     root_files = repo.get_contents('')
     for f in root_files:
         if f.type == 'dir':
             continue
-        save_path = f"{cwd}/{f.path.replace('src/tendon/', '')}"
+        save_path = f"{main_dir}/{f.path.replace('src/tendon/', '')}"
         save_file(save_path, f.decoded_content.decode())
 
 def update_app(pyproject: dict):
-    cwd = Path.cwd().as_posix()
+    main_dir = Path(__file__).parent.parent.as_posix()
+    print(f'\n{main_dir=}\n')
     print('updating..........')
     repo = gh.Github().get_repo('d-flood/Tendon')
-    download_folder(repo, 'py', cwd)
-    download_folder(repo, 'resources', cwd)
-    download_root(repo, cwd)
+    download_folder(repo, 'py', main_dir)
+    download_folder(repo, 'resources', main_dir)
+    download_root(repo, main_dir)
     print('done')
 
 def check_for_updates(current_version: str, window: sg.Window):
