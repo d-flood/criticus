@@ -18,7 +18,8 @@ def eligible_for_update(current_version, min_needed):
     return False
 
 def save_file(fname: str, new_file):
-    with open(fname, 'w') as f:
+    print(f'downloading {fname}')
+    with open(fname, 'wb') as f:
         f.write(new_file)
 
 def download_folder(repo: Repository, folder_name: str, main_dir: str):
@@ -36,15 +37,15 @@ def download_folder(repo: Repository, folder_name: str, main_dir: str):
         Path(d).mkdir(parents=True, exist_ok=True)
     for f in py_files:
         save_path = f"{main_dir}/{f.path.replace('src/tendon/', '')}"
-        save_file(save_path, f.decoded_content.decode())
+        save_file(save_path, f.decoded_content)
 
 def download_root(repo: Repository, main_dir: str):
-    root_files = repo.get_contents('')
+    root_files = repo.get_contents('src/tendon')
     for f in root_files:
         if f.type == 'dir':
             continue
         save_path = f"{main_dir}/{f.path.replace('src/tendon/', '')}"
-        save_file(save_path, f.decoded_content.decode())
+        save_file(save_path, f.decoded_content)
 
 def update_app(pyproject: dict):
     main_dir = Path(__file__).parent.parent.as_posix()
