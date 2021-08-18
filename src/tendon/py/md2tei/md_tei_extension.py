@@ -265,8 +265,8 @@ class TEI(Extension):
         md.preprocessors.register(TokenizeText(md), 'tokenize', 200)
 
 
-punctuation = (' . ', ' , ', ' · ', ' : ', ' + ', ' ~ ')
-punctuation_no_spaces = ('.', ',', '·', ':', '+', '~')
+punctuation = (' . ', ' , ', ' \u0387 ', ' : ', ' + ', ' ~ ')
+punctuation_no_spaces = ('.', ',', '\u0387', ':', '+', '~')
 
 html_to_tei = (
     ('<h1', '<title'),
