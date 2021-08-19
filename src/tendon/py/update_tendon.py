@@ -58,7 +58,7 @@ def update_app():
     print('done')
 
 def check_for_updates(current_version: str, window: sg.Window):
-    g = gh.Github(timeout=5)
+    g = gh.Github()
     try:
         t = g.get_repo('d-flood/Tendon')
     except:
