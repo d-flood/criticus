@@ -20,7 +20,7 @@ import tendon.py.update_tendon as ut
 # if platform.system() == 'Windows':
 from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version = '0.13'
+__version = '0.14'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
