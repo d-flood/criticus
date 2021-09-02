@@ -105,7 +105,7 @@ def convert_text_to_json(
     capture = False
     for line in text:
         line = line.split()
-        if len(line) > 2 and line[0][0].isdigit() and line[0][-1].isdigit(): # check that line contains a reference and a text unit and is not a heading
+        if len(line) > 1 and line[0][0].isdigit() and line[0][-1].isdigit(): # check that line contains a reference and a text unit and is not a heading
             line, reference, verse = format_reference(line, reference_prefix)
 
             if not convert_all and verse_to != verse_from: # handle a range of text units to convert
