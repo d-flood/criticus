@@ -46,7 +46,8 @@ def layout():
     return [
         [sg.T('Collation Config File'), sg.I(settings['ce_config_fn'], key='config_fn'), sg.FileBrowse(file_types=(('JSON Files', '*.json'),))],
         [sg.Frame('Collation Configuration', settings_frame)],
-        [sg.B('Update'), sg.T(''), launch_ce, sg.T(''), sg.B('Done', key='exit')]
+        [sg.B('Update'), sg.T(''), launch_ce, sg.T(''), sg.B('Done', key='exit')],
+        [sg.T('Removed'), sg.Listbox(['hello', 'world', 'yay'], select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='removed')],
     ]
 
 def edit_config(values):
@@ -66,18 +67,21 @@ def update_window(window: sg.Window, values):
     window['basetext'].update(config['base_text'])
     window['witnesses'].update(config['witnesses'])
 
-def add_witness(values, window):
+def add_witness(values, window, removed_wits: list):
     if values['wit_to_add'] == '':
         return
     config = get_config(values['config_fn'])
     config['witnesses'].append(values['wit_to_add'])
     save_config(config, values['config_fn'])
     update_window(window, values)
+    if values['wit_to_add'] in removed_wits:
+        removed_wits.remove(values['wit_to_add'])
+        window['removed'].update(removed_wits)
     window['wit_to_add'].update('')
 
-def remove_witnesses(values, window):
+def remove_witnesses(values, window, removed_wits: list):
     if values['witnesses'] == []:
-        return
+        return removed_wits
     config = get_config(values['config_fn'])
     for wit in values['witnesses']:
         try:
@@ -86,7 +90,10 @@ def remove_witnesses(values, window):
             pass
     save_config(config, values['config_fn'])
     update_window(window, values)
+    removed_wits += values['witnesses']
+    window['removed'].update(removed_wits)
     sg.popup_quick_message(f'Removed:\n{", ".join(values["witnesses"])}\n')
+    return removed_wits
 
 def start_ce(values):
     if values['config_fn'] == '':
@@ -110,6 +117,7 @@ def start_ce(values):
 
 def configure_ce(font, icon):
     window = sg.Window('Configure Collation Editor', layout(), font=font, icon=icon)
+    removed_wits = []
     while True:
         event, values = window.read()
         if event in [None, sg.WINDOW_CLOSED, 'exit']:
@@ -124,10 +132,14 @@ def configure_ce(font, icon):
                 sg.popup_quick_message('Are you sure that is the right config.json file?\nIt did not work.')
             es.edit_settings('ce_config_fn', values['config_fn'])
         elif event == 'Add Witness':
-            add_witness(values, window)
+            add_witness(values, window, removed_wits)
         elif event == 'Delete Selected':
-            remove_witnesses(values, window)
+            removed_wits = remove_witnesses(values, window, removed_wits)
         elif event == 'Start Collation Editor':
             start_ce(values)
+        elif event == 'Test':
+            print(
+                window['removed'].get()
+            )
     window.close()
     return False
