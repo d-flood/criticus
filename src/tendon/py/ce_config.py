@@ -47,7 +47,7 @@ def layout():
         [sg.T('Collation Config File'), sg.I(settings['ce_config_fn'], key='config_fn'), sg.FileBrowse(file_types=(('JSON Files', '*.json'),))],
         [sg.Frame('Collation Configuration', settings_frame)],
         [sg.B('Update'), sg.T(''), launch_ce, sg.T(''), sg.B('Done', key='exit')],
-        [sg.T('Removed'), sg.Listbox(['hello', 'world', 'yay'], select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='removed')],
+        [sg.T('Removed'), sg.Listbox([], select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='removed')],
     ]
 
 def edit_config(values):
