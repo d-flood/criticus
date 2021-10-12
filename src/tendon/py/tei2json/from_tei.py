@@ -17,11 +17,16 @@ def get_file(tei: str):
 ###########################################################
 
 # pre parse cleanup
-def pre_parse_cleanup(text): #* PASSING
+def pre_parse_cleanup(text):
     text = re.sub(r' +|\t', ' ', text)
     text = re.sub(r' *<supplied[^<>]*>', '[', text)
     text = re.sub(r' *</supplied> *', ']', text)
     text = re.sub(r'<lb[^<>]*>', '', text)
+    text = re.sub(r'</lb[^<>]*>', '', text)
+    text = re.sub(r'<cb[^<>]*>', '', text)
+    text = re.sub(r'</cb[^<>]*>', '', text)
+    text = re.sub(r'<pb[^<>]*>', '', text)
+    text = re.sub(r'</pb[^<>]*>', '', text)
     text = re.sub(r'<abbr[^<>]*>', '', text)
     text = re.sub(r'</abbr[^<>]*>', '', text)
     text = re.sub(r'<hi[^<>]*>', '', text)
