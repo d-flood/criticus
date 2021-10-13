@@ -16,7 +16,10 @@ def get_config(fn = None) -> dict:
         fn = settings['ce_config_fn']
     try:
         with open(fn, 'r', encoding='utf-8') as c:
-            return json.load(c)
+            config = json.load(c)
+            if config.get('excluded_witnesses') is None:
+                config['excluded_witnesses'] = []
+            return config
     except:
         sg.popup_quick_message('No config file found.\nBrowse for the Config File')
         return None
@@ -39,15 +42,18 @@ def layout():
     settings_frame = [
         [sg.T('Project Title'), sg.I(config['name'], size=i_size, key='name')],
         [sg.T('Basetext'), sg.I(config['base_text'], size=i_size, key='basetext')],
-        [sg.T('Witnesses'), sg.Listbox(config['witnesses'], select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='witnesses')],
-        [sg.B('Add Witness', bind_return_key=True), sg.I('', key='wit_to_add'), sg.T(''), sg.B('Delete Selected')]
+        [sg.T('Included'), sg.Listbox(config['witnesses'], select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='witnesses')],
+        [sg.B('Add Witness', bind_return_key=True), sg.I('', key='wit_to_add'), sg.T(''), sg.B('Delete Selected')],
+        [sg.T('Excluded'), sg.Listbox(config['excluded_witnesses'], select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='excluded')],
+        [sg.B('Include Selected')]
+
     ]
 
     return [
-        [sg.T('Collation Config File'), sg.I(settings['ce_config_fn'], key='config_fn'), sg.FileBrowse(file_types=(('JSON Files', '*.json'),))],
-        [sg.Frame('Collation Configuration', settings_frame)],
-        [sg.B('Update'), sg.T(''), launch_ce, sg.T(''), sg.B('Done', key='exit')],
-        [sg.T('Removed'), sg.Listbox([], select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='removed')],
+        [sg.T('Collation Config File'), sg.I(settings['ce_config_fn'], key='config_fn'), sg.FileBrowse(file_types=(('JSON Files', '*.json'),)), sg.B('Update')],
+        [sg.Frame('Collation Configuration', settings_frame, border_width=4)],
+        [sg.HorizontalSeparator()],
+        [launch_ce, sg.T(''), sg.B('Done', key='exit')],
     ]
 
 def edit_config(values):
@@ -56,8 +62,8 @@ def edit_config(values):
         config['name'] = values['name']
     if values['basetext'] != '':
         config['base_text'] = values['basetext']
-    sg.popup_quick_message('Configuration File Updated')
     save_config(config, values['config_fn'])
+    sg.popup_quick_message('Configuration File Updated')
 
 def update_window(window: sg.Window, values):
     config = get_config(values['config_fn'])
@@ -66,34 +72,41 @@ def update_window(window: sg.Window, values):
     window['name'].update(config['name'])
     window['basetext'].update(config['base_text'])
     window['witnesses'].update(config['witnesses'])
+    window['excluded'].update(config['excluded_witnesses'])
+    window['wit_to_add'].update('')
 
-def add_witness(values, window, removed_wits: list):
+def add_witness(values, window):
     if values['wit_to_add'] == '':
         return
     config = get_config(values['config_fn'])
     config['witnesses'].append(values['wit_to_add'])
+    if values['wit_to_add'] in config['excluded_witnesses']:
+        config['excluded_witnesses'].remove(values['wit_to_add'])
     save_config(config, values['config_fn'])
     update_window(window, values)
-    if values['wit_to_add'] in removed_wits:
-        removed_wits.remove(values['wit_to_add'])
-        window['removed'].update(removed_wits)
-    window['wit_to_add'].update('')
 
-def remove_witnesses(values, window, removed_wits: list):
+def remove_witnesses(values, window):
     if values['witnesses'] == []:
-        return removed_wits
+        return
     config = get_config(values['config_fn'])
     for wit in values['witnesses']:
         try:
             config['witnesses'].remove(wit)
+            config['excluded_witnesses'].append(wit)
         except:
             pass
     save_config(config, values['config_fn'])
     update_window(window, values)
-    removed_wits += values['witnesses']
-    window['removed'].update(removed_wits)
-    sg.popup_quick_message(f'Removed:\n{", ".join(values["witnesses"])}\n')
-    return removed_wits
+
+def include_selected(values: dict, window: sg.Window):
+    if values['excluded'] == []:
+        return
+    config = get_config(values['config_fn'])
+    for wit in values['excluded']:
+        config['witnesses'].append(wit)
+        config['excluded_witnesses'].remove(wit)
+    save_config(config, values['config_fn'])
+    update_window(window, values)
 
 def start_ce(values):
     if values['config_fn'] == '':
@@ -117,7 +130,6 @@ def start_ce(values):
 
 def configure_ce(font, icon):
     window = sg.Window('Configure Collation Editor', layout(), font=font, icon=icon)
-    removed_wits = []
     while True:
         event, values = window.read()
         if event in [None, sg.WINDOW_CLOSED, 'exit']:
@@ -132,14 +144,12 @@ def configure_ce(font, icon):
                 sg.popup_quick_message('Are you sure that is the right config.json file?\nIt did not work.')
             es.edit_settings('ce_config_fn', values['config_fn'])
         elif event == 'Add Witness':
-            add_witness(values, window, removed_wits)
+            add_witness(values, window)
         elif event == 'Delete Selected':
-            removed_wits = remove_witnesses(values, window, removed_wits)
+            remove_witnesses(values, window)
         elif event == 'Start Collation Editor':
             start_ce(values)
-        elif event == 'Test':
-            print(
-                window['removed'].get()
-            )
+        elif event == 'Include Selected':
+            include_selected(values, window)
     window.close()
     return False
