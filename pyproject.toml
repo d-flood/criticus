@@ -2,7 +2,7 @@
 project_name = "Tendon"
 bundle = "com.davidaflood.tendon"
 version = "0.15"
-min_needed_to_update = "0.13"
+min_needed_to_update = "0.15"
 url = "https://github.com/d-flood/Tendon"
 license = "MIT license"
 author = "David Flood"
