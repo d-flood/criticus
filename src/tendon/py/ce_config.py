@@ -3,8 +3,10 @@ import os
 from pathlib import Path
 import platform
 import subprocess
+from typing import Dict, List
 import webbrowser
 
+from natsort import natsorted
 import PySimpleGUIQt as sg
 
 import tendon.py.edit_settings as es
@@ -17,14 +19,16 @@ def get_config(fn = None) -> dict:
     try:
         with open(fn, 'r', encoding='utf-8') as c:
             config = json.load(c)
-            if config.get('excluded_witnesses') is None:
+            if not config.get('excluded_witnesses'):
                 config['excluded_witnesses'] = []
             return config
     except:
         sg.popup_quick_message('No config file found.\nBrowse for the Config File')
-        return None
+        return {}
 
 def save_config(config: dict, fn: str):
+    config['witnesses'] = sort_by_ga(config['witnesses'])
+    config['excluded_witnesses'] = sort_by_ga(config['excluded_witnesses'])
     with open(fn, 'w', encoding='utf-8') as f:
         json.dump(config, f, ensure_ascii=False, indent=4)
 
@@ -32,21 +36,18 @@ def layout():
     settings = es.get_settings()
     i_size = (30, 1)
     config = get_config()
-    if not config:
-        config = {'name': '', 'base_text': '', 'witnesses': []}
     if platform.system() == 'Windows':
         launch_ce = sg.B('Start Collation Editor')
     else:
         launch_ce = sg.T('')
 
     settings_frame = [
-        [sg.T('Project Title'), sg.I(config['name'], size=i_size, key='name')],
-        [sg.T('Basetext'), sg.I(config['base_text'], size=i_size, key='basetext')],
-        [sg.T('Included'), sg.Listbox(config['witnesses'], select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='witnesses')],
-        [sg.B('Add Witness', bind_return_key=True), sg.I('', key='wit_to_add'), sg.T(''), sg.B('Delete Selected')],
-        [sg.T('Excluded'), sg.Listbox(config['excluded_witnesses'], select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='excluded')],
-        [sg.B('Include Selected')]
-
+        [sg.T('Project Title'), sg.I(config.get('name', ''), size=i_size, key='name')],
+        [sg.T('Basetext'), sg.I(config.get('base_text', ''), size=i_size, key='basetext')],
+        [sg.T('Included'), sg.Listbox(config.get('witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='witnesses')],
+        [sg.B('Add Witness', bind_return_key=True), sg.I('', key='wit_to_add'), sg.T(''), sg.B('Move to Excluded')],
+        [sg.T('Excluded'), sg.Listbox(config.get('excluded_witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='excluded')],
+        [sg.B('Move to Included'), sg.B('Delete Selected')]
     ]
 
     return [
@@ -65,6 +66,33 @@ def edit_config(values):
     save_config(config, values['config_fn'])
     sg.popup_quick_message('Configuration File Updated')
 
+def sort_by_ga(wits: List[str]):
+    papyri = []
+    majuscules = []
+    minuscules = []
+    lectionaries = []
+    editions = []
+    for wit in wits:
+        if wit.lower().startswith('p'):
+            papyri.append(wit)
+        elif wit.startswith('0'):
+            majuscules.append(wit)
+        elif wit[0].isdigit():
+            minuscules.append(wit)
+        elif wit.lower().startswith('l'):
+            lectionaries.append(wit)
+        else:
+            editions.append(wit)
+    return natsorted(papyri) + natsorted(majuscules) + natsorted(minuscules) + natsorted(lectionaries) + natsorted(editions)
+  
+def remove_from_config(config: dict, key, item_to_remove: str):
+    new_list = []
+    for wit in config[key]:
+        if wit != item_to_remove and wit not in new_list:
+            new_list.append(wit)
+    config[key] = new_list
+    return config
+
 def update_window(window: sg.Window, values):
     config = get_config(values['config_fn'])
     if not config:
@@ -80,8 +108,7 @@ def add_witness(values, window):
         return
     config = get_config(values['config_fn'])
     config['witnesses'].append(values['wit_to_add'])
-    if values['wit_to_add'] in config['excluded_witnesses']:
-        config['excluded_witnesses'].remove(values['wit_to_add'])
+    config = remove_from_config(config, 'excluded_witnesses', values['wit_to_add'])
     save_config(config, values['config_fn'])
     update_window(window, values)
 
@@ -90,11 +117,9 @@ def remove_witnesses(values, window):
         return
     config = get_config(values['config_fn'])
     for wit in values['witnesses']:
-        try:
-            config['witnesses'].remove(wit)
+        if wit not in config['excluded_witnesses']:
             config['excluded_witnesses'].append(wit)
-        except:
-            pass
+        config = remove_from_config(config, 'witnesses', wit)
     save_config(config, values['config_fn'])
     update_window(window, values)
 
@@ -104,7 +129,16 @@ def include_selected(values: dict, window: sg.Window):
     config = get_config(values['config_fn'])
     for wit in values['excluded']:
         config['witnesses'].append(wit)
-        config['excluded_witnesses'].remove(wit)
+        config = remove_from_config(config, 'excluded_witnesses', wit)
+    save_config(config, values['config_fn'])
+    update_window(window, values)
+
+def delete_selection(window: sg.Window, values: dict):
+    if values['excluded'] == []:
+        return
+    config = get_config(values['config_fn'])
+    for wit in values['excluded']:
+        config = remove_from_config(config, 'excluded_witnesses', wit)
     save_config(config, values['config_fn'])
     update_window(window, values)
 
@@ -145,11 +179,13 @@ def configure_ce(font, icon):
             es.edit_settings('ce_config_fn', values['config_fn'])
         elif event == 'Add Witness':
             add_witness(values, window)
-        elif event == 'Delete Selected':
+        elif event == 'Move to Excluded':
             remove_witnesses(values, window)
         elif event == 'Start Collation Editor':
             start_ce(values)
-        elif event == 'Include Selected':
+        elif event == 'Move to Included':
             include_selected(values, window)
+        elif event == 'Delete Selected':
+            delete_selection(window, values)
     window.close()
     return False
