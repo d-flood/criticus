@@ -1,7 +1,11 @@
+import codecs
 import re
 from typing import List
 
 import lxml.etree as et
+
+import tendon.py.edit_settings as es
+import tendon.py.custom_popups as ce
 
 ###########################################################
 ###########################################################
@@ -17,7 +21,11 @@ def get_file(tei: str):
 ###########################################################
 
 # pre parse cleanup
+def unescape_string(text: str):
+    return codecs.decode(text, 'unicode-escape')
+
 def pre_parse_cleanup(text):
+    settings = es.get_settings()
     text = re.sub(r' +|\t', ' ', text)
     text = re.sub(r' *<supplied[^<>]*>', '[', text)
     text = re.sub(r' *</supplied> *', ']', text)
@@ -35,6 +43,11 @@ def pre_parse_cleanup(text):
     # text = text.replace('<hi rend="overline">', '') # this should be removed with the general sub above
     # text = text.replace('</hi>', '')
     text = text.replace('encoding="utf-8"', '')
+    for regex in settings['pre_parse_regex']:
+        try:
+            text = re.sub(regex[0], regex[1], text)
+        except Exception as e:
+            ce.ok(f'Failed regular expression: {regex}\n{e}', 'RegEx Fail')
     return text
 
 def parse(text: str):
