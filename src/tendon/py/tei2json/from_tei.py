@@ -22,7 +22,8 @@ def get_file(tei: str):
 
 # pre parse cleanup
 def unescape_string(text: str):
-    return codecs.decode(text, 'unicode-escape')
+    cleaned = codecs.decode(text, 'unicode-escape')
+    return cleaned
 
 def pre_parse_cleanup(text):
     settings = es.get_settings()
@@ -39,13 +40,15 @@ def pre_parse_cleanup(text):
     text = re.sub(r'</abbr[^<>]*>', '', text)
     text = re.sub(r'<hi[^<>]*>', '', text)
     text = re.sub(r'</hi[^<>]*>', '', text)
+    text = re.sub(r'<ex*+</ex>', '', text)
     text = text.replace('\n', '')
-    # text = text.replace('<hi rend="overline">', '') # this should be removed with the general sub above
-    # text = text.replace('</hi>', '')
     text = text.replace('encoding="utf-8"', '')
     for regex in settings['pre_parse_regex']:
         try:
-            text = re.sub(regex[0], regex[1], text)
+            to_replace = unescape_string(regex[0])
+            replacement = unescape_string(regex[1])
+            text = re.sub(to_replace, replacement, text)
+            print(f'{to_replace=}\n{replacement=}')
         except Exception as e:
             ce.ok(f'Failed regular expression: {regex}\n{e}', 'RegEx Fail')
     return text
