@@ -21,7 +21,8 @@ def get_settings():
             settings['txt_from_json_dir'],
             settings['plain_text_dir'],
             settings['cbgm_main_dir'],
-            settings['cbgm_cx_dir']    
+            settings['cbgm_cx_dir'],
+            settings['pre_parse_regex']    
             ) 
     except:
         settings = {
@@ -37,7 +38,8 @@ def get_settings():
             'txt_from_json_dir': '',
             'plain_text_dir': '',
             'cbgm_main_dir': '',
-            'cbgm_cx_dir': ''
+            'cbgm_cx_dir': '',
+            'pre_parse_regex': []
         }
         save_settings(settings)
     return settings

@@ -5,6 +5,7 @@ import PySimpleGUIQt as sg
 import tendon.py.edit_settings as es
 import tendon.py.custom_popups as cp
 from tendon.py.tei2json.tei_to_json import tei_to_json as t2j
+from tendon.py.tei2json.edit_regex import edit_regex
 
 # pylint: disable=no-member
 def get_siglum_from_user(msg: str, title: str, icon) -> str:
@@ -36,6 +37,7 @@ def layout(settings: dict):
         space = get_space
         input_elem = sg.I('', key='tei_input', size=(30, 1))
         output_folder_elem = sg.I(settings['ce_repo_dir'], key='output_dir', size=(30, 1))
+    menu = [['Settings', ['Add/Remove Regular Expressions']]]
     input_frame = [
         [input_elem, sg.FileBrowse(initial_folder=settings['tei_dir'], file_types=(('XML Files', '*.xml'), ))],
         [sg.Radio('Convert All Verses', 'all_or_one', key='all', enable_events=True)],
@@ -45,6 +47,7 @@ def layout(settings: dict):
         [output_folder_elem, sg.FolderBrowse(initial_folder=settings['ce_repo_dir'])]
     ]
     return [
+        [sg.Menu(menu)],
         [sg.Frame('TEI Transcription File', input_frame)],
         [sg.Frame('Output Folder', output_frame)],
         [sg.B('Convert', disabled=True, key='convert'), space(), sg.B('Cancel', key='exit')]
@@ -94,6 +97,8 @@ def tei_to_json(font: tuple, icon):
                 except Exception as e:
                     # print('conversion failed')
                     cp.ok(f'Conversion failed. Talk to David. See error below:\n{e}', 'Bummer...')
+        elif event == 'Add/Remove Regular Expressions':
+            edit_regex(icon)
 
     window.close()
     return False
