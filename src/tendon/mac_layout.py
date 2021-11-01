@@ -16,6 +16,7 @@ def mac_layout():
         [sg.Button('View TEI Transcriptions', key='tei_server', size=bs)],
         [sg.Button('Configure Collation Editor', key='ce_config', size=bs)],
         [sg.Button('open-cbgm Interface', key='open-cbgm', size=bs)],
+        [sg.Button('Export Collation to DOCX', key='export_to_docx', size=bs)],
         [sg.Button('Close', size=(30, 1.5), pad=(10, 15))]
         ]
     return layout

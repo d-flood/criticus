@@ -39,7 +39,12 @@ def get_settings():
             'plain_text_dir': '',
             'cbgm_main_dir': '',
             'cbgm_cx_dir': '',
-            'pre_parse_regex': []
+            'pre_parse_regex': [],
+            'export_docx_folder': '',
+            'text_wits_separator': ' // ',
+            'rdg_n_text_separator': '\t',
+            'words_per_line': 10,
+            'text_bold': False,
         }
         save_settings(settings)
     return settings

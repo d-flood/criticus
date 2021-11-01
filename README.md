@@ -8,7 +8,7 @@ The standard tool for transcribing ancient New Testament manuscripts ([ITSEE's O
 Moving from transcription to collation to analysis requires several steps of intermediate conversion of the data along the way. Tendon is a collection of tools to help 'connect' these three basic tasks.
 
 ## What Tendon Does
-Tendon is a desktop app with nine distinct tools:
+Tendon is a desktop app with ten distinct tools:
 1. Convert a plain text transcription of a chapter or other unit into single-verse JSON files properly formatted for use in the Collation Editor. This is the simplest way to get data into the Collation Editor.
 2. Get a consolidated plain text file from an entire folder of JSON files.
 3. Convert a repurposed superset of Markdown to TEI XML. Included is a graphical user interface (GUI) to my CLI [MarkdownTEI](https://github.com/d-flood/MarkdownTEI). This is presented as simple and offline alternative to the [Online Transcription Editor (OTE)](https://itsee-wce.birmingham.ac.uk/ote/transcriptiontool). MarkdownTEI converted files can even be uploaded to the OTE.
@@ -18,6 +18,7 @@ Tendon is a desktop app with nine distinct tools:
 7. Provide a simple way to view TEI XML transcriptions offline using the same styling as the [IGNTP online transcriptions](http://www.itseeweb.bham.ac.uk/epistulae/XML/igntp.xml).
 8. Provide an interface to conveniently edit the project configuration. This is how one chooses which witnesses to collate, and which witness should be the basetext.
 9. A simple graphical interface for the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) CLI application. This tool is windows only right now.
+10. Export the TEI XML output of the ITSEE Collation Editor to a Microsoft Word DOCX file suitable for print publication.
 
 ## Installation
 ### Windows standalone version
@@ -179,6 +180,9 @@ This tab is for getting and viewing pre-genealogical coherence. It can be export
 - This table is a simplification of the output from the open-cbgm. The full output can saved or viewed in the following ways:
   1. "Save as CSV" will save the data as a CSV file that can then be opened in Excel or any spreadsheet software.
   2. "View Plain Text" opens a popup with the full text output of the open-cbgm as one would see when operating the CLI. ![Screenshot of plain text output of the "Compare Witnesses" tab](images/open-cbgm/compare_witnesses_plain_text_screenshot.png)
+
+#### Export XML Collation File to DOCX (Microsoft Word)
+This feature is working and ready, detailed instructions to come...
 
 #### More features of the open-cbgm will be added over time.
 

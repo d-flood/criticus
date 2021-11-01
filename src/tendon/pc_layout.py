@@ -18,7 +18,8 @@ def pc_layout():
         [sg.Button('Reformat Collation File', key='reformat_xml', size=bs)],
         [sg.Button('View TEI Transcriptions', key='tei_server', size=bs)],
         [sg.Button('Configure Collation Editor', key='ce_config', size=bs)],
-        [sg.B('open-cbgm Interface', key='open-cbgm', size=bs)],
+        [sg.Button('open-cbgm Interface', key='open-cbgm', size=bs)],
+        [sg.Button('Export Collation to DOCX', key='export_to_docx', size=bs)],
         [sg.Stretch(), sg.Button('Close', pad=(20, 20), size=(20, 2)), sg.Stretch()]
     ]
     return layout

@@ -16,11 +16,12 @@ from tendon.py.txt_from_json import get_text_from_json_files
 from tendon.mac_layout import mac_layout
 from tendon.pc_layout import pc_layout
 import tendon.py.update_tendon as ut
+from tendon.py.export_to_docx.xml_to_docx_ui import export_to_docx
 
 # if platform.system() == 'Windows':
 from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version = '0.17.1'
+__version = '0.18'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
@@ -88,7 +89,9 @@ def main():
             open_new_window(open_cbgm_ui, window, main_dir, font, icon)
 
         elif event == 'Check for Updates':
-            # ut.check_for_updates(__version)
             ut.check_for_updates(__version, window)
+
+        elif event == 'export_to_docx':
+            open_new_window(export_to_docx, window, main_dir, font, icon)
 
     window.close()
