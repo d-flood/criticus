@@ -22,10 +22,10 @@ Tendon is a desktop app with ten distinct tools:
 
 ## Installation
 ### Windows standalone version
-Download and install the MSI from this repository.
+Download and install the MSI from the zip file in the latest latest [release](https://github.com/d-flood/Tendon/releases).
 
 ### MacOS standalone version
-*Experimental*: Download the ***unsigned*** DMG [v0.12 here](https://1drv.ms/u/s!AqSbnTiqn1jcicxJbAWy8aPUrUX5mQ?e=WLArVb)
+Download and install the DMG from the dmg.zip in the latest latest [release](https://github.com/d-flood/Tendon/releases).
 
 ### Run on any platform with Python 3.6+
 Dependencies
@@ -35,6 +35,7 @@ Dependencies
 - `PySimpleGUIQt`
 - `Markdown==3.2.2`
 - `markdown-del-ins`
+- `python-docx`
 
 With the dependencies installed, go to `<root>/src/` and call `python -m tendon`
 
