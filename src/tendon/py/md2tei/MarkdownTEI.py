@@ -1,6 +1,6 @@
 from pathlib import Path
 
-import PySimpleGUIQt as sg 
+import PySimpleGUI as sg 
 
 import tendon.py.edit_settings as es
 from tendon.py.md2tei.markdown_to_tei import convert_md_to_tei as md2tei

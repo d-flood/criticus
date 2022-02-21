@@ -7,7 +7,7 @@ from typing import Dict, List
 import webbrowser
 
 from natsort import natsorted
-import PySimpleGUIQt as sg
+import PySimpleGUI as sg
 
 import tendon.py.edit_settings as es
 

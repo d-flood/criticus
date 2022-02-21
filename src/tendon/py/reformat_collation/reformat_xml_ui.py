@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from lxml import etree as et
-import PySimpleGUIQt as sg
+import PySimpleGUI as sg
 
 from tendon.py.reformat_collation.itsee_to_open_cbgm import reformat_xml
 from tendon.py.reformat_collation.differentiate_subreading_ids import differentiate_subreading_ids as diff_ids

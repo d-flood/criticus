@@ -1,6 +1,6 @@
 import platform
 
-import PySimpleGUIQt as sg
+import PySimpleGUI as sg
 
 import tendon.py.edit_settings as es
 import tendon.py.custom_popups as cp

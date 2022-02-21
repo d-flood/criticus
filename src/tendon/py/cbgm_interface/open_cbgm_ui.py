@@ -1,7 +1,7 @@
 from pathlib import Path
 import platform
 
-import PySimpleGUIQt as sg
+import PySimpleGUI as sg
 #pylint: disable=import-error
 # pylint: disable=no-member
 import tendon.py.edit_settings as es 

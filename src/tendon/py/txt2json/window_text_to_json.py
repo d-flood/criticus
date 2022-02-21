@@ -1,6 +1,6 @@
 from pathlib import Path
 import platform
-import PySimpleGUIQt as sg
+import PySimpleGUI as sg
 import tendon.py.edit_settings as es
 from tendon.py.txt2json.convert_text_to_json import convert_text_to_json as t2j
 

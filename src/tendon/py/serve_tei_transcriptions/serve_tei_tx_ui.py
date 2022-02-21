@@ -1,4 +1,4 @@
-import PySimpleGUIQt as sg 
+import PySimpleGUI as sg 
 import tendon.py.edit_settings as es
 from pathlib import Path
 import os

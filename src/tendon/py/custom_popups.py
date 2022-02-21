@@ -1,7 +1,7 @@
 from pathlib import Path
 import platform
 
-import PySimpleGUIQt as sg
+import PySimpleGUI as sg
 
 # pylint: disable=no-member
 op_os = platform.system()

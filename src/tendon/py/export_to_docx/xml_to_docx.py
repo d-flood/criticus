@@ -6,7 +6,7 @@ from typing import List
 from lxml import etree as et
 from docx import Document
 from natsort import natsorted
-import PySimpleGUIQt as sg
+import PySimpleGUI as sg
 
 from tendon.py.reformat_collation.itsee_to_open_cbgm import reformat_xml
 import tendon.py.edit_settings as es

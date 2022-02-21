@@ -2,7 +2,7 @@ import pathlib
 from types import FunctionType
 import platform
 
-import PySimpleGUIQt as sg 
+import PySimpleGUI as sg 
 
 from tendon.py.txt2json.window_text_to_json import txt_to_json
 import tendon.py.edit_settings as es

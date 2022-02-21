@@ -1,7 +1,7 @@
 import json
 import lxml.etree as et
 
-import PySimpleGUIQt as sg
+import PySimpleGUI as sg
 
 from tendon.py.tei2json.to_json import verse_to_dict, save_tx
 from tendon.py.tei2json.from_tei import (get_file, pre_parse_cleanup,
