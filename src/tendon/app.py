@@ -21,7 +21,7 @@ from tendon.py.export_to_docx.xml_to_docx_ui import export_to_docx
 # if platform.system() == 'Windows':
 from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version = '0.18'
+__version = '0.19'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
@@ -35,6 +35,7 @@ def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, i
     window.un_hide()
 
 def main():
+    sg.set_options(dpi_awareness=True)
     sg.LOOK_AND_FEEL_TABLE['Parchment'] = {'BACKGROUND': '#FFE9C6',
                                         'TEXT': '#533516',
                                         'INPUT': '#EAC8A3',
