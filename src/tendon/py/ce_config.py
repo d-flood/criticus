@@ -44,15 +44,15 @@ def layout():
     settings_frame = [
         [sg.T('Project Title'), sg.I(config.get('name', ''), size=i_size, key='name')],
         [sg.T('Basetext'), sg.I(config.get('base_text', ''), size=i_size, key='basetext')],
-        [sg.T('Included'), sg.Listbox(config.get('witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='witnesses')],
+        [sg.T('Included'), sg.Listbox(config.get('witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='witnesses', expand_x=True, expand_y=True)],
         [sg.B('Add Witness', bind_return_key=True), sg.I('', key='wit_to_add'), sg.T(''), sg.B('Move to Excluded')],
-        [sg.T('Excluded'), sg.Listbox(config.get('excluded_witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='excluded')],
+        [sg.T('Excluded'), sg.Listbox(config.get('excluded_witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='excluded', expand_x=True, expand_y=True)],
         [sg.B('Move to Included'), sg.B('Delete Selected')]
     ]
 
     return [
         [sg.T('Collation Config File'), sg.I(settings['ce_config_fn'], key='config_fn'), sg.FileBrowse(file_types=(('JSON Files', '*.json'),)), sg.B('Update')],
-        [sg.Frame('Collation Configuration', settings_frame, border_width=4)],
+        [sg.Frame('Collation Configuration', settings_frame, border_width=4, expand_x=True, expand_y=True)],
         [sg.HorizontalSeparator()],
         [launch_ce, sg.T(''), sg.B('Done', key='exit')],
     ]
@@ -163,7 +163,7 @@ def start_ce(values):
     return
 
 def configure_ce(font, icon):
-    window = sg.Window('Configure Collation Editor', layout(), font=font, icon=icon)
+    window = sg.Window('Configure Collation Editor', layout(), font=font, icon=icon, resizable=True)
     while True:
         event, values = window.read()
         if event in [None, sg.WINDOW_CLOSED, 'exit']:
