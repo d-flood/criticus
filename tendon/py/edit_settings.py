@@ -1,8 +1,12 @@
 import json
 from pathlib import Path
+import sys
 
+if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'): # shipped app
+    main_dir = Path(sys.executable).parent.joinpath('resources').as_posix()
+else: # dev
+    main_dir = Path(__file__).parent.parent.joinpath('resources').as_posix()
 
-main_dir = Path(__file__).parent.parent.as_posix()
 
 def get_settings():
     try:

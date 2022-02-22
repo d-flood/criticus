@@ -39,7 +39,8 @@ def layout():
     if platform.system() == 'Windows':
         launch_ce = sg.B('Start Collation Editor')
     else:
-        launch_ce = sg.T('')
+        # launch_ce = sg.T('')
+        launch_ce = sg.B('Start Collation Editor')
 
     settings_frame = [
         [sg.T('Project Title'), sg.I(config.get('name', ''), size=i_size, key='name')],
@@ -53,7 +54,6 @@ def layout():
     return [
         [sg.T('Collation Config File'), sg.I(settings['ce_config_fn'], key='config_fn'), sg.FileBrowse(file_types=(('JSON Files', '*.json'),)), sg.B('Update')],
         [sg.Frame('Collation Configuration', settings_frame, border_width=4, expand_x=True, expand_y=True)],
-        [sg.HorizontalSeparator()],
         [launch_ce, sg.T(''), sg.B('Done', key='exit')],
     ]
 
@@ -106,8 +106,14 @@ def update_window(window: sg.Window, values):
 def add_witness(values, window):
     if values['wit_to_add'] == '':
         return
+    if values['config_fn'] == '':
+        return
     config = get_config(values['config_fn'])
-    config['witnesses'].append(values['wit_to_add'])
+    try:
+        config['witnesses'].append(values['wit_to_add'])
+    except:
+        sg.popup_quick_message('Are you sure that is the right config.json file?\nIt did not work.')
+        return
     config = remove_from_config(config, 'excluded_witnesses', values['wit_to_add'])
     save_config(config, values['config_fn'])
     update_window(window, values)
@@ -155,7 +161,7 @@ def start_ce(values):
             subprocess.Popen('start startup.bat', shell=True, creationflags=CREATE_NEW_CONSOLE)
             subprocess.Popen('start firefox http://localhost:8080/collation', shell=True)
         else:
-            subprocess.Popen('./startup.sh', shell=True)
+            subprocess.Popen('bash startup.sh', shell=True)
             webbrowser.get('firefox').open('http:localhost:8080/collation')
     except:
         print('cold not open browser')

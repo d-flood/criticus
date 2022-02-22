@@ -57,6 +57,7 @@ settings.json
 temp_xml_collation_file
 distributables/
 *.msi
+output/
 
 # IntelliJ Idea family of suites
 .idea

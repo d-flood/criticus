@@ -1,6 +1,7 @@
-import pathlib
+from pathlib import Path
 from types import FunctionType
 import platform
+import sys
 
 import PySimpleGUI as sg 
 
@@ -21,7 +22,7 @@ from tendon.py.export_to_docx.xml_to_docx_ui import export_to_docx
 # if platform.system() == 'Windows':
 from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version = '0.19'
+__version = '0.20'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
@@ -34,7 +35,17 @@ def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, i
             stay_open = function(font, icon)
     window.un_hide()
 
+def get_actual_dir():
+    '''Since PyInstaller unpacks modules into a virtual 
+    directory, this is required to get the actual absolute 
+    path of the main directory both for dev and frozen states.'''
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'): # shipped app
+        return Path(sys.executable).parent.as_posix()
+    else: # dev
+        return Path(__file__).parent.as_posix()
+
 def main():
+    main_dir = get_actual_dir()
     sg.set_options(dpi_awareness=True)
     sg.LOOK_AND_FEEL_TABLE['Parchment'] = {'BACKGROUND': '#FFE9C6',
                                         'TEXT': '#533516',
@@ -46,7 +57,6 @@ def main():
                                         'BORDER': 1, 'SLIDER_DEPTH': 0, 'PROGRESS_DEPTH': 0,
                                         }
     sg.theme('Parchment')
-    main_dir = pathlib.Path(__file__).parent.as_posix()
     if platform.system() == 'Windows':
         icon = f'{main_dir}/resources/tendon.ico'
         font = ('Cambria', 11)

@@ -186,5 +186,3 @@ This tab is for getting and viewing pre-genealogical coherence. It can be export
 This feature is working and ready, detailed instructions to come...
 
 #### More features of the open-cbgm will be added over time.
-
-###### I structured and generated the standalone desktop apps with [Beeware's Briefcase](https://github.com/beeware/briefcase).

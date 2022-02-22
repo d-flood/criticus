@@ -1,21 +1,21 @@
-project_name = "Tendon"
-bundle = "com.davidaflood.tendon"
-version = "0.19"
-url = "https://github.com/d-flood/Tendon"
-license = "MIT license"
-author = "David Flood"
-author_email = "davidfloodii@gmail.com"
+[tool.poetry]
+name = "tendon"
+version = "0.20.0"
+description = "A suite of tools for the creation of digital and print criticla editions including transcription and collation."
+authors = ["David Flood <davidfloodii@gmail.com>"]
+license = "MIT"
 
-formal_name = "Tendon"
-description = "a suite of tools for integrating transcription and collation software"
-icon = "src/tendon/resources/tendon"
-sources = ["src/tendon"]
-requires = [
-    "lxml",
-    "natsort",
-    "PySimpleGUI",
-    "Markdown==3.2.2",
-    "markdown-del-ins",
-    "toml",
-    "python-docx==0.8.11"
-]
+[tool.poetry.dependencies]
+python = "^3.8"
+lxml = "^4.8.0"
+natsort = "^8.1.0"
+Markdown = "==3.2.2"
+markdown-del-ins = "^1.0.0"
+python-docx = "^0.8.11"
+PySimpleGUI = "^4.57.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
