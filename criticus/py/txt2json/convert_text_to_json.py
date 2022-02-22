@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from typing import List
-import tendon.py.edit_settings as es
+import criticus.py.edit_settings as es
 
 
 def get_file(filename):

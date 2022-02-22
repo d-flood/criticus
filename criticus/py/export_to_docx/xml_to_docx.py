@@ -8,8 +8,8 @@ from docx import Document
 from natsort import natsorted
 import PySimpleGUI as sg
 
-from tendon.py.reformat_collation.itsee_to_open_cbgm import reformat_xml
-import tendon.py.edit_settings as es
+from criticus.py.reformat_collation.itsee_to_open_cbgm import reformat_xml
+import criticus.py.edit_settings as es
 
 TEI_NS = '{http://www.tei-c.org/ns/1.0}'
 XML_NS = '{http://www.w3.org/XML/1998/namespace}'

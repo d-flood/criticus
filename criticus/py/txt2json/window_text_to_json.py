@@ -1,8 +1,8 @@
 from pathlib import Path
 import platform
 import PySimpleGUI as sg
-import tendon.py.edit_settings as es
-from tendon.py.txt2json.convert_text_to_json import convert_text_to_json as t2j
+import criticus.py.edit_settings as es
+from criticus.py.txt2json.convert_text_to_json import convert_text_to_json as t2j
 
 #pylint: disable=no-member
 def disable_from_and_to(window: sg.Window, switch: bool, values):

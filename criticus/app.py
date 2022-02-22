@@ -5,24 +5,23 @@ import sys
 
 import PySimpleGUI as sg 
 
-from tendon.py.txt2json.window_text_to_json import txt_to_json
-import tendon.py.edit_settings as es
-from tendon.py.combine_xml import combine_xml_files_interface as combine_xml
-from tendon.py.md2tei.MarkdownTEI import md_to_tei
-from tendon.py.tei2json.tei2json_ui import tei_to_json
-from tendon.py.reformat_collation.reformat_xml_ui import start_reformat_ui as reform
-from tendon.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
-from tendon.py.ce_config import configure_ce
-from tendon.py.txt_from_json import get_text_from_json_files
-from tendon.mac_layout import mac_layout
-from tendon.pc_layout import pc_layout
-import tendon.py.update_tendon as ut
-from tendon.py.export_to_docx.xml_to_docx_ui import export_to_docx
+from criticus.py.txt2json.window_text_to_json import txt_to_json
+import criticus.py.edit_settings as es
+from criticus.py.combine_xml import combine_xml_files_interface as combine_xml
+from criticus.py.md2tei.MarkdownTEI import md_to_tei
+from criticus.py.tei2json.tei2json_ui import tei_to_json
+from criticus.py.reformat_collation.reformat_xml_ui import start_reformat_ui as reform
+from criticus.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
+from criticus.py.ce_config import configure_ce
+from criticus.py.txt_from_json import get_text_from_json_files
+from criticus.mac_layout import mac_layout
+from criticus.pc_layout import pc_layout
+from criticus.py.export_to_docx.xml_to_docx_ui import export_to_docx
 
 # if platform.system() == 'Windows':
-from tendon.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
+from criticus.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version = '0.20'
+__version = '0.21'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
@@ -58,14 +57,14 @@ def main():
                                         }
     sg.theme('Parchment')
     if platform.system() == 'Windows':
-        icon = f'{main_dir}/resources/tendon.ico'
+        icon = f'{main_dir}/resources/criticus.ico'
         font = ('Cambria', 11)
         layout = pc_layout()
     else:
-        icon = f'{main_dir}/resources/tendon.png'
+        icon = f'{main_dir}/resources/criticus.png'
         font = ('Arial', 11)
         layout = mac_layout()
-    window = sg.Window(f'Tendon v{__version}', layout, font=font, icon=icon)
+    window = sg.Window(f'Criticus v{__version}', layout, font=font, icon=icon)
     while True:
         event, _ = window.read()
 
@@ -98,9 +97,6 @@ def main():
 
         elif event == 'open-cbgm':
             open_new_window(open_cbgm_ui, window, main_dir, font, icon)
-
-        elif event == 'Check for Updates':
-            ut.check_for_updates(__version, window)
 
         elif event == 'export_to_docx':
             open_new_window(export_to_docx, window, main_dir, font, icon)

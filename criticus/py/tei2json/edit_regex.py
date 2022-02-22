@@ -2,7 +2,7 @@ import codecs
 
 import PySimpleGUI as sg
 
-import tendon.py.edit_settings as es
+import criticus.py.edit_settings as es
 
 
 def unescape_string(text: str):

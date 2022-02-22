@@ -3,16 +3,16 @@ import lxml.etree as et
 
 import PySimpleGUI as sg
 
-from tendon.py.tei2json.to_json import verse_to_dict, save_tx
-from tendon.py.tei2json.from_tei import (get_file, pre_parse_cleanup,
+from criticus.py.tei2json.to_json import verse_to_dict, save_tx
+from criticus.py.tei2json.from_tei import (get_file, pre_parse_cleanup,
                       add_underdot_to_unclear_letters,
                       parse, remove_unclear_tags,
                       tei_ns, get_verse_as_tuple)
-import tendon.py.custom_popups as cp
+import criticus.py.custom_popups as cp
 # pylint: disable=no-member
 #########
 def get_siglum_from_user() -> str:
-    msg = '''Tendon could not find the siglum.
+    msg = '''criticus could not find the siglum.
 Please enter a witness ID: '''
     layout = [[sg.T(msg)],
               [sg.I('', key='siglum')],

@@ -1,10 +1,10 @@
 import PySimpleGUI as sg 
-import tendon.py.edit_settings as es
+import criticus.py.edit_settings as es
 from pathlib import Path
 import os
 import threading
 
-from tendon.py.serve_tei_transcriptions.serve_tei import launch_tei_viewer as launch
+from criticus.py.serve_tei_transcriptions.serve_tei import launch_tei_viewer as launch
 
 # pylint: disable=no-member
 def layout(settings: dict):

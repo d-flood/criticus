@@ -2,9 +2,9 @@ from pathlib import Path
 
 import PySimpleGUI as sg 
 
-import tendon.py.edit_settings as es
-from tendon.py.md2tei.markdown_to_tei import convert_md_to_tei as md2tei
-import tendon.py.custom_popups as cp
+import criticus.py.edit_settings as es
+from criticus.py.md2tei.markdown_to_tei import convert_md_to_tei as md2tei
+import criticus.py.custom_popups as cp
 
 # pylint: disable=no-member
 

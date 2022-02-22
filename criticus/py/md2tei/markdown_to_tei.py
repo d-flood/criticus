@@ -1,6 +1,6 @@
 import lxml.etree as et
 from markdown import Markdown
-from tendon.py.md2tei.md_tei_extension import TEI, postprocess_xml, preprocess_md, postprocess_markup # pylint: disable=import-error
+from criticus.py.md2tei.md_tei_extension import TEI, postprocess_xml, preprocess_md, postprocess_markup # pylint: disable=import-error
 
 
 def convert_md_to_tei(md_file, xml_file, plain: bool, lines: bool):

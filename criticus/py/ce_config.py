@@ -9,7 +9,7 @@ import webbrowser
 from natsort import natsorted
 import PySimpleGUI as sg
 
-import tendon.py.edit_settings as es
+import criticus.py.edit_settings as es
 
 # pylint: disable=no-member
 def get_config(fn = None) -> dict:

@@ -5,8 +5,8 @@ import re
 from natsort import natsorted
 import PySimpleGUI as sg
 
-import tendon.py.edit_settings as es
-import tendon.py.custom_popups as cp
+import criticus.py.edit_settings as es
+import criticus.py.custom_popups as cp
 
 # pylint: disable=no-member
 def json_to_plain_text(json_dir: str):

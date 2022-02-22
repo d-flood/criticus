@@ -3,10 +3,10 @@ from pathlib import Path
 from lxml import etree as et
 import PySimpleGUI as sg
 
-from tendon.py.reformat_collation.itsee_to_open_cbgm import reformat_xml
-from tendon.py.reformat_collation.differentiate_subreading_ids import differentiate_subreading_ids as diff_ids
-import tendon.py.edit_settings as es
-import tendon.py.custom_popups as cp
+from criticus.py.reformat_collation.itsee_to_open_cbgm import reformat_xml
+from criticus.py.reformat_collation.differentiate_subreading_ids import differentiate_subreading_ids as diff_ids
+import criticus.py.edit_settings as es
+import criticus.py.custom_popups as cp
 
 # pylint: disable=no-member
 def layout(settings: dict):

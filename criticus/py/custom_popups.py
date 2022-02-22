@@ -7,8 +7,8 @@ import PySimpleGUI as sg
 op_os = platform.system()
 
 def get_icon():
-    tendon_dir = Path(__file__).parent.parent.as_posix()
-    return f'{tendon_dir}/resources/tendon.ico'
+    criticus_dir = Path(__file__).parent.parent.as_posix()
+    return f'{criticus_dir}/resources/criticus.ico'
 
 def ok(msg, title):
     layout = [[sg.T(msg)],

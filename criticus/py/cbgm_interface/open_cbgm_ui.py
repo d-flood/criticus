@@ -4,9 +4,9 @@ import platform
 import PySimpleGUI as sg
 #pylint: disable=import-error
 # pylint: disable=no-member
-import tendon.py.edit_settings as es 
-import tendon.py.cbgm_interface.open_cbgm_api as oc
-import tendon.py.custom_popups as cp
+import criticus.py.edit_settings as es 
+import criticus.py.cbgm_interface.open_cbgm_api as oc
+import criticus.py.custom_popups as cp
 
 operating_system = platform.system()
 
@@ -112,7 +112,7 @@ def manage_db_tab_layout(settings: dict):
         
     ]
     dbs_frame = [
-        [sg.Listbox(oc.get_all_dbs(), select_mode=sg.SELECT_MODE_EXTENDED, key='db_listbox')],
+        [sg.Listbox(oc.get_all_dbs(), select_mode=sg.SELECT_MODE_EXTENDED, key='db_listbox', expand_x=True, expand_y=True)],
         [sg.B('Delete Selected')]
     ]
     return [
@@ -120,7 +120,7 @@ def manage_db_tab_layout(settings: dict):
         [sg.Frame('Populate New Database', xml_file_frame)],
         [sg.Frame('Optional Settings', options_frame)],
         [sg.B('Populate Database')],
-        [sg.Frame('All Databases', dbs_frame)],
+        [sg.Frame('All Databases', dbs_frame, expand_x=True, expand_y=True)],
     ]
 def compare_wits_tab_layout(settings: dict):
     if operating_system == 'Windows':

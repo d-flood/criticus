@@ -11,8 +11,8 @@ else:
 import os
 
 # pylint: disable=import-error
-import tendon.py.custom_popups as cp
-import tendon.py.edit_settings as es
+import criticus.py.custom_popups as cp
+import criticus.py.edit_settings as es
 
 def get_system_specific_command(command, new_console: bool):
     if operating_system == 'Windows':

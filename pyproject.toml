@@ -1,18 +1,18 @@
 [tool.poetry]
-name = "tendon"
-version = "0.20.0"
-description = "A suite of tools for the creation of digital and print criticla editions including transcription and collation."
+name = "criticus"
+version = "0.21.0"
+description = "A suite of tools for transcribing, collating and and creating an apparatus criticus."
 authors = ["David Flood <davidfloodii@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
 lxml = "^4.8.0"
+PySimpleGUI = "^4.57.0"
 natsort = "^8.1.0"
 Markdown = "==3.2.2"
 markdown-del-ins = "^1.0.0"
 python-docx = "^0.8.11"
-PySimpleGUI = "^4.57.0"
 
 [tool.poetry.dev-dependencies]
 

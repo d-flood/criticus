@@ -4,8 +4,8 @@ from typing import List
 
 import lxml.etree as et
 
-import tendon.py.edit_settings as es
-import tendon.py.custom_popups as ce
+import criticus.py.edit_settings as es
+import criticus.py.custom_popups as ce
 
 ###########################################################
 ###########################################################

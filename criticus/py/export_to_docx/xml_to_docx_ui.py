@@ -3,9 +3,9 @@ from pathlib import Path
 
 import PySimpleGUI as sg
 
-import tendon.py.edit_settings as es
-import tendon.py.custom_popups as cp
-from tendon.py.export_to_docx.xml_to_docx import export_xml_to_docx
+import criticus.py.edit_settings as es
+import criticus.py.custom_popups as cp
+from criticus.py.export_to_docx.xml_to_docx import export_xml_to_docx
 
 
 def unescape_string(text: str):

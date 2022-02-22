@@ -2,10 +2,10 @@ import platform
 
 import PySimpleGUI as sg
 
-import tendon.py.edit_settings as es
-import tendon.py.custom_popups as cp
-from tendon.py.tei2json.tei_to_json import tei_to_json as t2j
-from tendon.py.tei2json.edit_regex import edit_regex
+import criticus.py.edit_settings as es
+import criticus.py.custom_popups as cp
+from criticus.py.tei2json.tei_to_json import tei_to_json as t2j
+from criticus.py.tei2json.edit_regex import edit_regex
 
 # pylint: disable=no-member
 def get_siglum_from_user(msg: str, title: str, icon) -> str:
