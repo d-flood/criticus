@@ -50,7 +50,7 @@ Dependencies
 - `lxml`
 - `natsort`
 - `PySide2`
-- `PySimpleGUIQt`
+- `PySimpleGUI`
 - `Markdown==3.2.2`
 - `markdown-del-ins`
 - `python-docx`
