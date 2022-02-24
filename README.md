@@ -19,19 +19,19 @@ Criticus is a desktop app with ten distinct tools:
 6. Reformat the collation file output of the Collation Editor for use with the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) and with Apparatus Explorer (a [desktop](https://github.com/d-flood/apparatus-explorer) and [web app](https://davidaflood.com/appex/demo/)) for visualization and editing.
 7. Provide a simple way to view TEI XML transcriptions offline using the same styling as the [IGNTP online transcriptions](http://www.itseeweb.bham.ac.uk/epistulae/XML/igntp.xml).
 8. Provide an interface to conveniently edit the project configuration. This is how one chooses which witnesses to collate, and which witness should be the basetext.
-9. A simple graphical interface for the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) CLI application. This tool is windows only right now.
+9. A simple graphical interface for (some of the modules from) the [open-cbgm](https://github.com/jjmccollum/open-cbgm-standalone) CLI application.
 10. Export the TEI XML output of the ITSEE Collation Editor to a Microsoft Word DOCX file suitable for print publication.
 
 ## Installation
 ### Windows standalone version
 Download and install the MSI from the zip file in the latest latest [release](https://github.com/d-flood/Criticus/releases).
 
-I will soon release this as a simple executable instead.
+This version is going to be phased out in favor of a simple executable.
 
 ### MacOS standalone version
 Download and install the DMG from the dmg.zip in the latest latest [release](https://github.com/d-flood/Criticus/releases).
 
-The standalone version does not work on the new M1 chip. The next easiest way to run Criticus is by installing Python and launching from a terminal (see below).
+This version will be phased out soon in favor of an executable. The standalone version does not work on the new M1 chip, and it is unlikely I will be able to create an executable for the M1 chips. For M1 users, the recommended method of installing is via pip (see below).
 
 ### Run on any platform with Python 3.8+
 - Install the latest version of Python from https://www.python.org/
@@ -49,7 +49,6 @@ Dependencies
 - python 3.8+
 - `lxml`
 - `natsort`
-- `PySide2`
 - `PySimpleGUI`
 - `Markdown==3.2.2`
 - `markdown-del-ins`

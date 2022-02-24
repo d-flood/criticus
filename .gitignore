@@ -58,6 +58,7 @@ temp_xml_collation_file
 distributables/
 *.msi
 output/
+pypi*
 
 # IntelliJ Idea family of suites
 .idea

@@ -20,7 +20,7 @@ from criticus.py.export_to_docx.xml_to_docx_ui import export_to_docx
 # if platform.system() == 'Windows':
 from criticus.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version = '0.21.1'
+__version = '0.21.2'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
