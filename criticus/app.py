@@ -6,7 +6,6 @@ import sys
 import PySimpleGUI as sg 
 
 from criticus.py.txt2json.window_text_to_json import txt_to_json
-import criticus.py.edit_settings as es
 from criticus.py.combine_xml import combine_xml_files_interface as combine_xml
 from criticus.py.md2tei.MarkdownTEI import md_to_tei
 from criticus.py.tei2json.tei2json_ui import tei_to_json

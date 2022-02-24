@@ -6,10 +6,8 @@ import PySimpleGUI as sg
 def pc_layout():
     bs = (32, 2)
 
-    menu = [['File', ['Check for Updates']]]
-
     layout = [
-        [sg.Menu(menu)],
+        # [sg.Menu(menu)],
         [sg.Button('Plain Text to JSON', key='txt_to_json', size=bs)],
         [sg.Button('Get Plain Text from JSON', key='json_to_txt', size=bs)],
         [sg.Button('Markdown to TEI', key='md_to_tei', size=bs)],
