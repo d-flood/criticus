@@ -1,9 +1,13 @@
 [tool.poetry]
 name = "criticus"
-version = "0.21.0"
+version = "0.21.1"
 description = "A suite of tools for transcribing, collating and and creating an apparatus criticus."
 authors = ["David Flood <davidfloodii@gmail.com>"]
 license = "MIT"
+readme = "./README.md"
+homepage = "https://github.com/d-flood/criticus"
+repository = "https://github.com/d-flood/Criticus"
+keywords = ["TEI", "transcription", "collation", "critical", "apparatus"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
