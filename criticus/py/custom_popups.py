@@ -30,15 +30,15 @@ def yes_cancel(msg, title):
         return False
 
 def textbox(text, title):
-    # if op_os == 'Windows':
-    #     size = (1200, 400)
-    # else:
-    #     size = (800, 400)
+    if op_os == 'Windows':
+        size = (1200, 400)
+    else:
+        size = (800, 400)
     layout = [
-        [sg.Multiline(text, font=('Courier', 10))],
+        [sg.Multiline(text, font=('Courier', 10), expand_x=True, expand_y=True)],
         [sg.B('Done')]
         ]
-    window = sg.Window(title, layout, icon=get_icon())
+    window = sg.Window(title, layout, icon=get_icon(), resizable=True, size=size)
     window.read()
     window.close()
 
