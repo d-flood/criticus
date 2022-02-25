@@ -53,8 +53,8 @@ def listbox(message: str, items: list, title: str):
 def mac_win_cmd(text: str, title: str, mac_cmd: str, win_cmd: str):
     layout = [
         [sg.T(text)],
-        [sg.T('MacOS:', size=(10, 1)), sg.Input(mac_cmd, readonly=True, disabled_readonly_background_color='#000000', disabled_readonly_text_color='#ffffff')],
-        [sg.T('Windows:', size=(10, 1)), sg.Input(win_cmd, readonly=True, disabled_readonly_background_color='#000000', disabled_readonly_text_color='#ffffff')],
+        [sg.T('MacOS:', size=(10, 1)), sg.Input(mac_cmd, readonly=True, disabled_readonly_background_color='#ffffff', disabled_readonly_text_color='#000000')],
+        [sg.T('Windows:', size=(10, 1)), sg.Input(win_cmd, readonly=True, disabled_readonly_background_color='#ffffff', disabled_readonly_text_color='#000000')],
         [sg.Stretch(), sg.Button('Ok', size=(5, 1)), sg.Stretch()],
     ]
     window = sg.Window(title, layout, icon=get_icon())
