@@ -146,7 +146,10 @@ def view_plain_text(values):
     for wit in values['wits_to_compare'].strip().split(', '):
         command = f'{command} {wit}'
     command = get_system_output_command(command)
-    text = check_output(command, shell=True)
+    try:
+        text = check_output(command, shell=True)
+    except:
+        text = b'Operation Failed'
     text = text.decode()
     text = text.replace('Opening database...', '')
     text = text.replace('Retrieving witness list...', '')
