@@ -1,4 +1,3 @@
-from enum import unique
 from lxml import etree as et
 
 def version_rdgs(elem: et._Element, regularized: dict):
