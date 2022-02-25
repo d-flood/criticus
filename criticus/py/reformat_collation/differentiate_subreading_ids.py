@@ -30,8 +30,6 @@ def differentiate_subreading_ids(xml_filename) -> et._ElementTree:
                                 if node.tag == f'{ns}node':
                                     if 'r' in node.get('n'):
                                         regularized, distinct_attrib = version_rdgs(node, regularized)
-                                        # distinct_attrib = f'{node.get("n")}{node_num}'
-                                        # node.attrib['n'] = distinct_attrib
                                         arc = et.Element('arc')
                                         arc.attrib['from'] = distinct_attrib[0]
                                         arc.attrib['to'] = distinct_attrib
