@@ -45,9 +45,9 @@ def layout():
     settings_frame = [
         [sg.T('Project Title'), sg.I(config.get('name', ''), size=i_size, key='name')],
         [sg.T('Basetext'), sg.I(config.get('base_text', ''), size=i_size, key='basetext')],
-        [sg.T('Included'), sg.Listbox(config.get('witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='witnesses', expand_x=True, expand_y=True)],
+        [sg.T('Included'), sg.Listbox(config.get('witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='witnesses', expand_x=True, size=(None, 12))],
         [sg.B('Add Witness', bind_return_key=True), sg.I('', key='wit_to_add'), sg.T(''), sg.B('Move to Excluded')],
-        [sg.T('Excluded'), sg.Listbox(config.get('excluded_witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='excluded', expand_x=True, expand_y=True)],
+        [sg.T('Excluded'), sg.Listbox(config.get('excluded_witnesses', []), select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, key='excluded', expand_x=True, size=(None, 12))],
         [sg.B('Move to Included'), sg.B('Delete Selected')]
     ]
 
