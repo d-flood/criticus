@@ -61,7 +61,7 @@ def main():
     else:
         icon = f'{main_dir}/resources/criticus.png'
         font = ('Arial', 11)
-    window = sg.Window(f'Criticus v{__version}', main_layout(), font=font, icon=icon)
+    window = sg.Window(f'Criticus v{__version}', main_layout(), font=font, icon=icon, debugger_enabled=False)
     while True:
         event, _ = window.read()
 

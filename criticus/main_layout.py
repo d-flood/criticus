@@ -4,7 +4,7 @@ import PySimpleGUI as sg
 
 #pylint: disable=no-member
 def main_layout():
-    bs = (32, 2)
+    bs = (32, 1)
 
     menu = [['File', ['Check for Updates']]]
     layout = [
