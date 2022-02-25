@@ -13,9 +13,9 @@ from criticus.py.reformat_collation.reformat_xml_ui import start_reformat_ui as 
 from criticus.py.serve_tei_transcriptions.serve_tei_tx_ui import serve_tei_tx
 from criticus.py.ce_config import configure_ce
 from criticus.py.txt_from_json import get_text_from_json_files
-from criticus.mac_layout import mac_layout
-from criticus.pc_layout import pc_layout
+from criticus.main_layout import main_layout
 from criticus.py.export_to_docx.xml_to_docx_ui import export_to_docx
+from criticus.py.check_for_updates import check_for_update
 
 # if platform.system() == 'Windows':
 from criticus.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
@@ -58,12 +58,10 @@ def main():
     if platform.system() == 'Windows':
         icon = f'{main_dir}/resources/criticus.ico'
         font = ('Cambria', 11)
-        layout = pc_layout()
     else:
         icon = f'{main_dir}/resources/criticus.png'
         font = ('Arial', 11)
-        layout = mac_layout()
-    window = sg.Window(f'Criticus v{__version}', layout, font=font, icon=icon)
+    window = sg.Window(f'Criticus v{__version}', main_layout(), font=font, icon=icon)
     while True:
         event, _ = window.read()
 
@@ -99,5 +97,8 @@ def main():
 
         elif event == 'export_to_docx':
             open_new_window(export_to_docx, window, main_dir, font, icon)
+
+        elif event == 'Check for Updates':
+            check_for_update(__version)
 
     window.close()

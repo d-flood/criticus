@@ -17,8 +17,10 @@ natsort = "^8.1.0"
 Markdown = "==3.2.2"
 markdown-del-ins = "^1.0.0"
 python-docx = "^0.8.11"
+toml = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
+rich = "^11.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

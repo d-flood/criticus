@@ -53,6 +53,7 @@ Dependencies
 - `Markdown==3.2.2`
 - `markdown-del-ins`
 - `python-docx`
+- `toml`
 
 With the dependencies installed, go to `<root>/` and call `python -m criticus`
 
