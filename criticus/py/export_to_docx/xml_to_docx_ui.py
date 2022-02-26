@@ -27,16 +27,16 @@ def update_settings(settings: dict, values: dict):
     settings['reformatted_xml_dir'] = Path(values['xml_filename']).parent.as_posix()
     es.save_settings(settings)
 
-def export(settings, values: dict):
+def export(settings, values: dict, collapse_regularized: bool = False):
     if not validate_form(values):
         return
     update_settings(settings, values)
-    try:
-        saved_file = export_xml_to_docx(values['xml_filename'])
-        if saved_file:
-            cp.ok(f'Collation exported to {saved_file}', 'Success!')
-    except Exception as e:
-        cp.ok(f'{e}', 'Failed to Export')
+    # try:
+    saved_file = export_xml_to_docx(values['xml_filename'], collapse_regularized)
+    if saved_file:
+        cp.ok(f'Collation exported to {saved_file}', 'Success!')
+    # except Exception as e:
+    #     cp.ok(f'{e}', 'Failed to Export')
 
 def layout(settings: dict):
     options_frame = [
@@ -54,6 +54,9 @@ def layout(settings: dict):
         ],
         [
             sg.Check('Make Reading Text Bold', default=settings.get('text_bold', False), key='text_bold')
+        ],
+        [
+            sg.Check('Collapse regularized readings to parent reading', key='collapse_regularized')
         ]
     ]
     return [
@@ -78,5 +81,5 @@ def export_to_docx(font, icon):
         if event in [None, sg.WIN_CLOSED, 'Close']:
             break
         elif event == 'Export':
-            export(settings, values)
+            export(settings, values, values['collapse_regularized'])
     window.close()

@@ -8,6 +8,8 @@ from docx import Document
 from natsort import natsorted
 import PySimpleGUI as sg
 
+# from rich import print
+
 from criticus.py.reformat_collation.itsee_to_open_cbgm import reformat_xml
 import criticus.py.edit_settings as es
 
@@ -124,7 +126,7 @@ def get_xml_file(xml: str) -> et._Element:
 def get_document():
     this_dir = Path(__file__).parent
     template = this_dir.joinpath('template.docx').as_posix()
-    print(template)
+    # print(template)
     return Document(template)
 
 def load_xml_file(xml_file: str):
@@ -213,6 +215,7 @@ def sort_by_ga(wits: List[str]):
     lectionaries = []
     editions = []
     for wit in wits:
+        # try:
         if wit.lower().startswith('p'):
             papyri.append(wit)
         elif wit.startswith('0'):
@@ -223,6 +226,8 @@ def sort_by_ga(wits: List[str]):
             lectionaries.append(wit)
         else:
             editions.append(wit)
+        # except:
+        #     print(wit)
     return natsorted(papyri) + natsorted(majuscules) + natsorted(minuscules) + natsorted(lectionaries) + natsorted(editions)
 
 def print_rdg(
@@ -257,7 +262,33 @@ def save_docx(document: Document, settings: dict):
     document.save(docx_filename)
     return docx_filename
 
-def export_xml_to_docx(xml_filename: str):
+def combine_regularized(app: et._Element):
+    reg_wits = {}
+    for rdg in app.findall(f'{TEI_NS}rdg'): #type: List[et._Element]
+        rdg_id = rdg.get('n')
+        if 'r' not in rdg_id:
+            parent = rdg_id
+        elif rdg_id[0] != parent[0]:
+            continue
+        else:
+            reg_wits[parent] = f"{reg_wits.get(parent, '')} {rdg.get('wit')}".lstrip()
+
+    for parent, wits in reg_wits.items():
+        wits = wits.split()
+        wits = [f'{w}r' for w in wits]
+        wits = ' '.join(wits)
+        reg_wits[parent] = wits
+
+    for rdg in app.findall(f'{TEI_NS}rdg'): #type: list[et._Element]
+        if rdg.get('n') in reg_wits:
+            combined = f'{rdg.get("wit")} {reg_wits[rdg.get("n")]}'.lstrip()
+            rdg.attrib['wit'] = combined
+        elif 'r' in rdg.get('n'):
+            app.remove(rdg)
+
+    return app
+
+def export_xml_to_docx(xml_filename: str, collapse_regularized: bool = False):
     settings = es.get_settings()
     document = get_document()
     root = load_xml_file(xml_filename)
@@ -265,10 +296,16 @@ def export_xml_to_docx(xml_filename: str):
         print_reference(document, ab)
         print_basetext(document, ab, settings['words_per_line'])
         for app in ab.findall(f'{TEI_NS}app'):
+            if collapse_regularized:
+                app = combine_regularized(app)
+            if len(app.findall(f'{TEI_NS}rdg')) == 1:
+                continue
+
             print_app(document, app)
             for rdg in app.findall(f'{TEI_NS}rdg'): #type: List[et._Element]
                 print_rdg(
                     document, rdg, settings['text_wits_separator'], 
                     settings['rdg_n_text_separator'], settings['text_bold']
                     )
+
     return save_docx(document, settings)
