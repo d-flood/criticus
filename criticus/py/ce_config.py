@@ -158,7 +158,7 @@ def start_ce(values):
     try:
         if platform.system() == 'Windows':
             from subprocess import CREATE_NEW_CONSOLE
-            subprocess.Popen('start startup.bat', shell=True, creationflags=CREATE_NEW_CONSOLE)
+            subprocess.Popen('start ./startup.bat', shell=True, creationflags=CREATE_NEW_CONSOLE)
             subprocess.Popen('start firefox http://localhost:8080/collation', shell=True)
         else:
             subprocess.Popen('bash startup.sh', shell=True)
