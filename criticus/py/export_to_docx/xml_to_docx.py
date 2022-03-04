@@ -135,13 +135,13 @@ def load_xml_file(xml_file: str):
     return get_xml_file(xml)
 
 def construct_full_ref(ab: et. _Element):
-    ref = ab.get(f'{XML_NS}id').replace('-APP', '') #type: str
+    ref = ab.get(f'{XML_NS}id').replace('-APP', '').upper() #type: str
     if ref.startswith('B'): # then it is an INTF/IGNTP style reference... probably
         book = re.search(r'B\d+', ref).group(0)
         book = ABBR_TO_FULL[book]
         chapter = re.search(r'K\d+', ref).group(0)
         verse = re.search(r'V\d+', ref).group(0)
-        ref = f'{book} {chapter}:{verse}'
+        ref = f'{book} {chapter.replace("K", "")}:{verse.replace("V", "")}'
     else:
         book = re.search(r'.[a-zA-Z]+', ref)
         if not book:
