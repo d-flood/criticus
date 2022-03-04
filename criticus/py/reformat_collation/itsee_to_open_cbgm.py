@@ -80,6 +80,12 @@ def get_wits(xml):
     wits = []
     distinct_wits = set()
     for rdg in xml.xpath('//tei:rdg', namespaces={'tei': tei_ns}):
+        if not rdg.get('wit'):
+            ar = rdg.getnext()
+            rdg.getparent().remove(rdg)
+            ar.attrib['n'] = 'a'
+            ar.attrib.pop('type')
+            continue
         for wit in rdg.get('wit').split():
             if wit not in distinct_wits:
                 distinct_wits.add(wit)
