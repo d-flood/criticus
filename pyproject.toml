@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "criticus"
-version = "0.30.0"
+version = "0.31.0"
 description = "A suite of tools for transcribing, collating and and creating an apparatus criticus."
 authors = ["David Flood <davidfloodii@gmail.com>"]
 license = "MIT"
