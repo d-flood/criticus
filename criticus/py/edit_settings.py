@@ -26,7 +26,8 @@ def get_settings():
             settings['plain_text_dir'],
             settings['cbgm_main_dir'],
             settings['cbgm_cx_dir'],
-            settings['pre_parse_regex']    
+            settings['pre_parse_regex'],
+            settings['custom_template_path']
             ) 
     except:
         settings = {
@@ -49,6 +50,7 @@ def get_settings():
             'rdg_n_text_separator': '\t',
             'words_per_line': 10,
             'text_bold': False,
+            'custom_template_path': ''
         }
         save_settings(settings)
     return settings

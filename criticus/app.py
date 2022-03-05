@@ -20,7 +20,7 @@ from criticus.py.check_for_updates import check_for_update
 # if platform.system() == 'Windows':
 from criticus.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version = '0.31.0'
+__version = '0.32.0'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):

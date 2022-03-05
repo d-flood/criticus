@@ -129,6 +129,15 @@ def get_document():
     # print(template)
     return Document(template)
 
+def get_custom_document(filepath: str):
+    try:
+        return Document(filepath)
+    except:
+        if sg.popup_yes_no('Criticus failed to open the custom template.\nWould you like to use the default template instead?', title='Failed to Load Custom Template') == 'Yes':
+            return get_document()
+        else:
+            return
+
 def load_xml_file(xml_file: str):
     with open(xml_file, 'r', encoding='utf-8') as file:
         xml = file.read()
@@ -288,9 +297,14 @@ def combine_regularized(app: et._Element):
 
     return app
 
-def export_xml_to_docx(xml_filename: str, collapse_regularized: bool = False):
+def export_xml_to_docx(xml_filename: str, collapse_regularized: bool = False, use_custom_template: str = None):
     settings = es.get_settings()
-    document = get_document()
+    if use_custom_template:
+        document = get_custom_document(use_custom_template)
+    else:
+        document = get_document()
+    if not document:
+        return
     root = load_xml_file(xml_filename)
     for ab in root.findall(f'{TEI_NS}ab'):
         print_reference(document, ab)
