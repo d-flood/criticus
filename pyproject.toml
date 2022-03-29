@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "criticus"
-version = "0.32.1"
-description = "A suite of tools for transcribing, collating and and creating an apparatus criticus."
+version = "0.32.2"
+description = "A suite of tools for transcribing, collating and creating an apparatus criticus."
 authors = ["David Flood <davidfloodii@gmail.com>"]
 license = "MIT"
 readme = "./pypi_readme.md"

@@ -245,10 +245,16 @@ def print_rdg(
     rdg_n_text_separator: str, 
     text_bold: bool
     ):
-    if rdg.text:
-        greek_text = rdg.text
-    else:
+    if rdg.get('type') and rdg.text:
+        greek_text = f"{rdg.get('type')}\t{rdg.text}"
+    elif rdg.get('type'):
         greek_text = rdg.get('type')
+    else:
+        greek_text = rdg.text
+    # if rdg.text:
+    #     greek_text = rdg.text
+    # else:
+    #     greek_text = rdg.get('type')
     p = document.add_paragraph()
     p.style = document.styles['reading']
     rdg_name = re.sub(r'\d', '', rdg.get('n'))
@@ -268,7 +274,10 @@ def save_docx(document: Document, settings: dict):
         docx_filename = f'{docx_filename}.docx'
     docx_dir = Path(docx_filename).parent.as_posix()
     es.edit_settings('export_docx_folder', docx_dir)
-    document.save(docx_filename)
+    try:
+        document.save(docx_filename)
+    except PermissionError:
+        sg.popup_ok('You cannot overwrite a file that is currently open in another app.', 'Oopsie')
     return docx_filename
 
 def combine_regularized(app: et._Element):
@@ -284,16 +293,20 @@ def combine_regularized(app: et._Element):
 
     for parent, wits in reg_wits.items():
         wits = wits.split()
-        wits = [f'{w}r' for w in wits]
+        wits = [f'{w}' for w in wits]
         wits = ' '.join(wits)
         reg_wits[parent] = wits
 
+    previous = ''
     for rdg in app.findall(f'{TEI_NS}rdg'): #type: list[et._Element]
         if rdg.get('n') in reg_wits:
             combined = f'{rdg.get("wit")} {reg_wits[rdg.get("n")]}'.lstrip()
             rdg.attrib['wit'] = combined
+        elif 'r' in rdg.get('n') and rdg.get('n')[0] != previous[0]:
+            continue
         elif 'r' in rdg.get('n'):
             app.remove(rdg)
+        previous = rdg.get('n')
 
     return app
 

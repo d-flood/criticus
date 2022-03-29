@@ -35,3 +35,11 @@ def differentiate_subreading_ids(xml_filename) -> et._ElementTree:
                                         node.getparent().append(arc)
     # xml.write(xml_filename, encoding='utf8')
     return xml
+
+# def rename_orphan_subreadings(xml_filename):
+#     ns = '{http://www.tei-c.org/ns/1.0}'
+#     parser = et.XMLParser(remove_blank_text=True)
+#     xml = et.parse(xml_filename, parser=parser)
+#     root = xml.getroot()
+#     for rdg in root.xpath('tei:rdg', namespaces={'tei': ns}):
+#         if
