@@ -23,15 +23,6 @@ Criticus is a desktop app with ten distinct tools:
 10. Export the TEI XML output of the ITSEE Collation Editor to a Microsoft Word DOCX file suitable for print publication.
 
 ## Installation
-### Windows standalone version
-Download and install the MSI from the zip file in the latest latest [release](https://github.com/d-flood/Criticus/releases).
-
-This version is going to be phased out in favor of a simple executable.
-
-### MacOS standalone version
-Download and install the DMG from the dmg.zip in the latest latest [release](https://github.com/d-flood/Criticus/releases).
-
-This version will be phased out soon in favor of an executable. The standalone version does not work on the new M1 chip, and it is unlikely I will be able to create an executable for the M1 chips. For M1 users, the recommended method of installing is via pip (see below).
 
 ### Run on any platform with Python 3.8+
 - Install the latest version of Python from https://www.python.org/
@@ -42,6 +33,10 @@ This version will be phased out soon in favor of an executable. The standalone v
    - On MacOS: 
       - `pip3 install criticus`
       - `python3 -m criticus`
+
+To update simply call:
+   - Windows: `python -m pip install criticus --upgrade`
+   - MacOS: `python3 -m pip install criticus --upgrade`
 
 ### Download and run the source code
 
@@ -56,6 +51,8 @@ Dependencies
 - `toml`
 
 With the dependencies installed, go to `<root>/` and call `python -m criticus`
+
+This project is managed with `poetry`. If you are familiar, close this repository and call `poetry install`, then `poetry run python -m criticus`.
 
 ## Brief Tutorial
 Please [contact](https://www.davidaflood.com/contact/), message me on Twitter, or fill out a GitHub issue for help using these tools and to report bugs. There are certain to be untested edge cases especially when converting TEI to JSON.
