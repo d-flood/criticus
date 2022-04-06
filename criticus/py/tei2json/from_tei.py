@@ -28,6 +28,7 @@ def unescape_string(text: str):
 def pre_parse_cleanup(text):
     settings = es.get_settings()
     text = re.sub(r' +|\t', ' ', text)
+    text = re.sub(r' *<supplied[^<>]*/>', '', text)
     text = re.sub(r' *<supplied[^<>]*>', '[', text)
     text = re.sub(r' *</supplied> *', ']', text)
     text = re.sub(r'<lb[^<>]*>', '', text)
@@ -42,6 +43,9 @@ def pre_parse_cleanup(text):
     text = re.sub(r'</hi[^<>]*>', '', text)
     text = re.sub(r'<ex[^<>]*>', '', text)
     text = re.sub(r'</ex>', '', text)
+    text = re.sub(r'<pc>[^<>]+</pc>', '', text)
+    # text = re.sub(r'(<rdg[^<>]*>)<seg[^<>]*>', r'\1', text)
+    # text = re.sub(r'</seg></rdg>', '</rdg>', text)
     text = text.replace('\n', '')
     text = text.replace('encoding="utf-8"', '')
     for regex in settings['pre_parse_regex']:
@@ -93,6 +97,17 @@ def handle_abbr(abbr: et._Element): #* PASSING
         return abbr.text
 
 def handle_app(app: et._Element, hand: str):
+    def get_text(word: et._Element, words: list):
+        if word.text and word.tag != '{http://www.tei-c.org/ns/1.0}pc':
+            words.append(word.text)
+        elif word.getchildren():
+            if word.getchildren()[0].text and word.tag != '{http://www.tei-c.org/ns/1.0}pc':
+                words.append(word.getchildren()[0].text)
+            elif word.getchildren()[0].tag == '{http://www.tei-c.org/ns/1.0}abbr':
+                t = handle_abbr(word.getchildren()[0])
+                if t:
+                    words.append(t)
+        return words
     words = []
     if hand == 'firsthand':
         rdg_type = 'orig'
@@ -100,16 +115,12 @@ def handle_app(app: et._Element, hand: str):
         rdg_type = 'corr'
     for rdg in app.getchildren():
         if rdg.get('type') == rdg_type and rdg.get('hand') == hand:
-            for word in rdg.getchildren():
-                if word.text:
-                    words.append(word.text)
-                elif word.getchildren():
-                    if word.getchildren()[0].text:
-                        words.append(word.getchildren()[0].text)
-                    elif word.getchildren()[0].tag == '{http://www.tei-c.org/ns/1.0}abbr':
-                        t = handle_abbr(word.getchildren()[0])
-                        if t:
-                            words.append(t)
+            for elem in rdg.getchildren():
+                if elem.tag == '{http://www.tei-c.org/ns/1.0}seg':
+                    for word in elem.getchildren():
+                        words = get_text(word, words)
+                else:
+                    words = get_text(elem, words)
     return words
 
 def get_all_words_in_verse(verse: et._Element, hand: str) -> List[str]:
