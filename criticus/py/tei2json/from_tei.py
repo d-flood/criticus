@@ -40,7 +40,8 @@ def pre_parse_cleanup(text):
     text = re.sub(r'</abbr[^<>]*>', '', text)
     text = re.sub(r'<hi[^<>]*>', '', text)
     text = re.sub(r'</hi[^<>]*>', '', text)
-    text = re.sub(r'<ex.*</ex>', '', text)
+    text = re.sub(r'<ex[^<>]*>', '', text)
+    text = re.sub(r'</ex>', '', text)
     text = text.replace('\n', '')
     text = text.replace('encoding="utf-8"', '')
     for regex in settings['pre_parse_regex']:
