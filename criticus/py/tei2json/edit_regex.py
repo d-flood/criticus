@@ -37,7 +37,7 @@ def delete_selected(values: dict, window: sg.Window):
 def create_layout(regexes: list = []):
     return [
         [sg.T('Regular Expression: '), sg.I('', key='regex'), sg.T('for'), sg.I('', key='replacement'), sg.B('Add')],
-        [sg.Listbox(regexes, select_mode=sg.SELECT_MODE_EXTENDED, key='regexes')],
+        [sg.Listbox(regexes, select_mode=sg.SELECT_MODE_EXTENDED, key='regexes', expand_x=True, expand_y=True)],
         [sg.B('Delete Selected')],
         [sg.B('Done')]
     ]
@@ -46,7 +46,7 @@ def edit_regex(icon):
     settings = es.get_settings()
     layout = create_layout(settings['pre_parse_regex'])
 
-    window = sg.Window('Add/Remove Regular Expressions', layout, icon=icon)
+    window = sg.Window('Add/Remove Regular Expressions', layout, icon=icon, resizable=True)
 
     while True:
         event, values = window.read()

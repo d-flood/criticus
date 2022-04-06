@@ -8,7 +8,7 @@ import criticus.py.edit_settings as es
 import criticus.py.cbgm_interface.open_cbgm_api as oc
 import criticus.py.custom_popups as cp
 
-operating_system = platform.system()
+# operating_system = platform.system(
 
 
 def validate_user_input(values: dict):
@@ -123,30 +123,26 @@ def manage_db_tab_layout(settings: dict):
         [sg.Frame('All Databases', dbs_frame, expand_x=True, expand_y=True)],
     ]
 def compare_wits_tab_layout(settings: dict):
-    if operating_system == 'Windows':
-        db_combo = sg.Combo(oc.get_all_dbs(), readonly=True, key='selected_db')
-    else:
-        db_combo = sg.Combo(oc.get_all_dbs(), readonly=True, key='selected_db', size=(20,1))
     headings = ['Witness', 'Direction', 'Passages', 'Agreement', 'Percentage', 'Prior', 'Posterior']
     return [
-        [sg.T('Select a Database'), db_combo],
+        [sg.T('Select a Database'), sg.Combo(oc.get_all_dbs(), readonly=True, key='selected_db', expand_x=True)],
         [sg.T('Compare Witnesses to: '), sg.I('', key='wit_to_compare')],
         [sg.Radio('Compare All Witnesses', 'compare', default=True, key='compare_all')],
         [sg.Radio('Compare only these: ', 'compare', key='compare_some'), sg.I('', key='wits_to_compare')],
         [sg.B('Compare', bind_return_key=True)],
-        [sg.Table([['','','','','','','',]], headings=headings, key='table')],
+        [sg.Table([['','','','','','','',]], headings=headings, key='table', expand_x=True, expand_y=True)],
         [sg.B('Save as CSV'), sg.B('View Plain Text')],
     ]
 
 def layout(settings):
     return [
+        [sg.TabGroup([[sg.Tab('Manage Databases', manage_db_tab_layout(settings), expand_x=True, expand_y=True), sg.Tab('Compare Witnesses', compare_wits_tab_layout(settings), expand_x=True, expand_y=True)]], enable_events=True, key='tab', expand_x=True, expand_y=True)],
         [sg.B('Back', key='exit'), sg.Stretch()],
-        [sg.TabGroup([[sg.Tab('Manage Databases', manage_db_tab_layout(settings)), sg.Tab('Compare Witnesses', compare_wits_tab_layout(settings))]], enable_events=True, key='tab')]
     ]
 
 def open_cbgm_ui(font, icon):
     settings = es.get_settings()
-    window = sg.Window('open-cbgm Interface', layout(settings), font=font, icon=icon)
+    window = sg.Window('open-cbgm Interface', layout(settings), font=font, icon=icon, resizable=True)
 
     while True:
         event, values = window.read()
