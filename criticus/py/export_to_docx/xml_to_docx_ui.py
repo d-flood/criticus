@@ -28,12 +28,12 @@ def update_settings(settings: dict, values: dict):
     settings['reformatted_xml_dir'] = Path(values['xml_filename']).parent.as_posix()
     es.save_settings(settings)
 
-def export(settings, values: dict, collapse_regularized: bool = False, use_custom_template: bool = None):
+def export(settings, values: dict, collapse_regularized: bool = False, use_custom_template: bool = None, add_suffix: bool = False):
     if not validate_form(values):
         return
     update_settings(settings, values)
     # try:
-    saved_file = export_xml_to_docx(values['xml_filename'], collapse_regularized, use_custom_template)
+    saved_file = export_xml_to_docx(values['xml_filename'], collapse_regularized, use_custom_template, add_suffix)
     if saved_file:
         cp.ok(f'Collation exported to {saved_file}', 'Success!')
     # except Exception as e:
@@ -66,7 +66,8 @@ def layout(settings: dict):
             sg.Check('Make Reading Text Bold', default=settings.get('text_bold', False), key='text_bold')
         ],
         [
-            sg.Check('Collapse regularized readings to parent reading', key='collapse_regularized')
+            sg.Checkbox('Collapse regularized readings to parent reading', key='collapse_regularized'),
+            sg.Checkbox('Add "r" suffix to each witness moved to its parent reading', key='add_r_suffix')
         ]
     ]
     return [
@@ -91,10 +92,10 @@ def export_to_docx(font, icon):
         if event in [None, sg.WIN_CLOSED, 'Close']:
             break
         elif event == 'Export' and not values['use_custom_template']:
-            export(settings, values, values['collapse_regularized'], None)
+            export(settings, values, values['collapse_regularized'], None, values['add_r_suffix'])
 
         elif event == 'Export' and values['use_custom_template'] is True and values['custom_template_path'] != '':
-            export(settings, values, values['collapse_regularized'], values['custom_template_path'])
+            export(settings, values, values['collapse_regularized'], values['custom_template_path'], values['add_r_suffix'])
             es.edit_settings('custom_template_path', values['custom_template_path'])
 
         elif event == 'use_custom_template':

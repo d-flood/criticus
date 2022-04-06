@@ -280,7 +280,7 @@ def save_docx(document: Document, settings: dict):
         sg.popup_ok('You cannot overwrite a file that is currently open in another app.', 'Oopsie')
     return docx_filename
 
-def combine_regularized(app: et._Element):
+def combine_regularized(app: et._Element, add_suffix: bool):
     reg_wits = {}
     for rdg in app.findall(f'{TEI_NS}rdg'): #type: List[et._Element]
         rdg_id = rdg.get('n')
@@ -293,7 +293,8 @@ def combine_regularized(app: et._Element):
 
     for parent, wits in reg_wits.items():
         wits = wits.split()
-        wits = [f'{w}' for w in wits]
+        if add_suffix:
+            wits = [f'{w  }r' for w in wits]
         wits = ' '.join(wits)
         reg_wits[parent] = wits
 
@@ -310,7 +311,7 @@ def combine_regularized(app: et._Element):
 
     return app
 
-def export_xml_to_docx(xml_filename: str, collapse_regularized: bool = False, use_custom_template: str = None):
+def export_xml_to_docx(xml_filename: str, collapse_regularized: bool = False, use_custom_template: str = None, add_suffix: bool = False):
     settings = es.get_settings()
     if use_custom_template:
         document = get_custom_document(use_custom_template)
@@ -324,7 +325,7 @@ def export_xml_to_docx(xml_filename: str, collapse_regularized: bool = False, us
         print_basetext(document, ab, settings['words_per_line'])
         for app in ab.findall(f'{TEI_NS}app'):
             if collapse_regularized:
-                app = combine_regularized(app)
+                app = combine_regularized(app, add_suffix)
             if len(app.findall(f'{TEI_NS}rdg')) == 1:
                 continue
 
