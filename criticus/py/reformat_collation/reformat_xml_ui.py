@@ -25,6 +25,8 @@ def set_initial_dirs(combined_xml_dir: str, reformatted_xml_dir: str):
     es.edit_settings('reformatted_xml_dir', reformatted_xml_dir)
 
 def fix_NCNames(xml_fn):
+    '''lxml throws a syntax eror when the id attribute is set to a number, even though it is a string.
+    The Collation Editor is allowing invalid XML to be created, I guess'''
     fixed = 'temp_repaired_xml'
     with open(xml_fn, 'r', encoding='utf-8') as f:
         xml = f.read()
@@ -57,7 +59,7 @@ You will now be prompted to save the converted file.', title='Success!')
         fn_to_save = sg.popup_get_file('', no_window=True, save_as=True, file_types=(('XML Files', '*.xml'),), initial_folder=settings['reformatted_xml_dir'])
         if not fn_to_save:
             return
-        xml.write(fn_to_save, encoding='utf-8')
+        xml.write(fn_to_save, encoding='utf-8', xml_declaration=True, pretty_print=True)
     except Exception as e:
         cp.ok(f'Failed to reformat XML file.\n\
 Check that the input file name is correct and that\n\
