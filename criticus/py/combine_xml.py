@@ -7,6 +7,7 @@ import PySimpleGUI as sg
 
 import criticus.py.edit_settings as es
 import criticus.py.custom_popups as cp
+import criticus.py.reformat_collation.itsee_to_open_cbgm as itoc
 
 #pylint: disable=no-member
 
@@ -18,7 +19,7 @@ def get_verse_file(f, output_dir):
     all_ab_elems = root.findall('ab', ns)
     return deepcopy(all_ab_elems)
 
-def combine_verses(starting_string: str, output_dir, main_dir):
+def combine_verses(starting_string: str, output_dir, main_dir, already_formatted: bool):
     tree = et.parse(f'{main_dir}/resources/template.xml')
     root = tree.getroot()
     files = os.listdir(output_dir)
@@ -37,6 +38,8 @@ def combine_verses(starting_string: str, output_dir, main_dir):
             'The following files failed to parse and were skipped.',
             failed, 'Some files failed to combine'
             )
+    if already_formatted:
+        itoc.add_tei_header(tree)
     return tree
 
 def combine_xml_files_interface(main_dir, font, icon):
@@ -45,6 +48,7 @@ def combine_xml_files_interface(main_dir, font, icon):
         [sg.Text('Select the folder that contains the individual XML files to be combined')],
         [sg.Text('Folder:'), sg.Input(settings['ce_output_dir'], key='output_dir'), sg.FolderBrowse(initial_folder=settings['ce_output_dir'])],
         [sg.Text('Combine all files that start with:'), sg.Stretch(), sg.Input('', key='starts_with')],
+        [sg.Checkbox('Files have already been reformatted', key='already_reformatted')],
         [sg.Button('Combine XML Files'), sg.Button('Cancel')]
     ]
     window = sg.Window('Combine XML Files', layout, icon=icon, font=font)
@@ -57,7 +61,7 @@ def combine_xml_files_interface(main_dir, font, icon):
                 sg.popup_quick_message('First select a folder and at least one "starts with" character')
                 continue
             try:
-                tree = combine_verses(values['starts_with'], values['output_dir'], main_dir)
+                tree = combine_verses(values['starts_with'], values['output_dir'], main_dir, values['already_reformatted'])
                 es.edit_settings('ce_output_dir', values['output_dir'])
             except Exception as e:
                 cp.ok(f'Failed to combine files because:\n" {e} "\n\
