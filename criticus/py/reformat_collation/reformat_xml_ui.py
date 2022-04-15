@@ -1,3 +1,4 @@
+from cmath import exp
 from pathlib import Path
 
 from lxml import etree as et
@@ -10,11 +11,15 @@ import criticus.py.custom_popups as cp
 
 # pylint: disable=no-member
 def layout(settings: dict):
+    titlestmt_tip = '''E.g. "Collation of Romans with Emphasis on Lectionary Witnesses"'''
+    pub_tip = '''E.g. "This is an open access work licensed under a Creative Commons Attribution 4.0 International license."'''
     input_frame = [
         [sg.I('', key='xml_input_file'), sg.FileBrowse(initial_folder=settings['combined_xml_dir'], file_types=(('XML Files', '*.xml'), ))]
     ]
     return [
         [sg.Frame('Combined Collation File', input_frame)],
+        [sg.T('Collation Title:'), sg.Input('untitled', key='title_stmt', expand_x=True, tooltip=titlestmt_tip)],
+        [sg.T('Publication Statement:'), sg.Input('unspecified', key='publication_stmt', expand_x=True, tooltip=pub_tip)],
         [sg.B('Convert', key='convert'), sg.B('Cancel', key='exit')]
         ]
 
@@ -43,12 +48,12 @@ def convert(values, settings):
         return
     try:
         try:
-            xml_fn = reformat_xml(values['xml_input_file'])
+            xml_fn = reformat_xml(values['xml_input_file'], values['title_stmt'], values['publication_stmt'])
         except et.XMLSyntaxError:
             sg.popup_quick_message('file contains invalid NCNames, attempting to repair...')
             xml_fn = fix_NCNames(values['xml_input_file'])
             try:
-                xml_fn = reformat_xml(xml_fn)
+                xml_fn = reformat_xml(xml_fn, values['title_stmt'], values['publication_stmt'])
             except Exception as e:
                 cp.ok(f'There are invalid elements or attributes in this XML file.\nError: {e}',
                 'Failed to Reformat')

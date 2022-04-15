@@ -96,7 +96,7 @@ def get_wits(xml):
 Adds a <teiHeader> with appropriate subelements as the first child of the input XML's <TEI> element.
 The <listWit> element in particular is needed for the open-cbgm library.
 """
-def add_tei_header(xml):
+def add_tei_header(xml, title_stmt: str, publication_stmt: str):
     #Get a List of witness sigla first:
     wits = get_wits(xml)
     #Get the <TEI> element:
@@ -113,14 +113,14 @@ def add_tei_header(xml):
     #Append a placeholder paragraph to the titleStmt:
     titleStmt_p = et.Element('p', nsmap={None: tei_ns, 'xml': xml_ns})
     # TODO: Replace these 'temporary' statements with user-supplied statements
-    titleStmt_p.text = 'Temporary titleStmt for validation'
+    titleStmt_p.text = title_stmt
     titleStmt.append(titleStmt_p)
     #Append a <publicationStmt> element to the fileDesc:
     publicationStmt= et.Element('titleStmt', nsmap={None: tei_ns, 'xml': xml_ns})
     fileDesc.append(publicationStmt)
     #Append a placeholder paragraph to the publicationStmt:
     publicationStmt_p = et.Element('p', nsmap={None: tei_ns, 'xml': xml_ns})
-    publicationStmt_p.text = 'Temporary publicationStmt for validation'
+    publicationStmt_p.text = publication_stmt
     publicationStmt.append(publicationStmt_p )
     #Append a <sourceDesc> element to the fileDesc:
     sourceDesc = et.Element('sourceDesc', nsmap={None: tei_ns, 'xml': xml_ns})
@@ -239,11 +239,11 @@ def add_app_notes(xml):
     return
 
 
-def reformat_xml(input_addr):
+def reformat_xml(input_addr, title_stmt, publication_stmt):
     output_addr = 'temp_xml_collation_file'
     parser = et.XMLParser(remove_blank_text=True)
     xml = et.parse(input_addr, parser)
-    add_tei_header(xml)
+    add_tei_header(xml, title_stmt, publication_stmt)
     strip_wit_subelements(xml)
     strip_unitless_apps(xml)
     strip_om_text(xml)
