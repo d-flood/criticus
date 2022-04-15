@@ -104,9 +104,27 @@ def add_tei_header(xml):
     #Append a <teiHeader> element to it:
     teiHeader = et.Element('teiHeader', nsmap={None: tei_ns, 'xml': xml_ns})
     TEI.insert(0, teiHeader)
-    #Append a <sourceDesc> element to the teiHeader:
+    #Append a <fileDesc> element to the teiHeader:
+    fileDesc = et.Element('fileDesc', nsmap={None: tei_ns, 'xml': xml_ns})
+    teiHeader.append(fileDesc)
+    #Append a <titleStmt> element to the fileDesc:
+    titleStmt = et.Element('titleStmt', nsmap={None: tei_ns, 'xml': xml_ns})
+    fileDesc.append(titleStmt)
+    #Append a placeholder paragraph to the titleStmt:
+    titleStmt_p = et.Element('p', nsmap={None: tei_ns, 'xml': xml_ns})
+    # TODO: Replace these 'temporary' statements with user-supplied statements
+    titleStmt_p.text = 'Temporary titleStmt for validation'
+    titleStmt.append(titleStmt_p)
+    #Append a <publicationStmt> element to the fileDesc:
+    publicationStmt= et.Element('titleStmt', nsmap={None: tei_ns, 'xml': xml_ns})
+    fileDesc.append(publicationStmt)
+    #Append a placeholder paragraph to the publicationStmt:
+    publicationStmt_p = et.Element('p', nsmap={None: tei_ns, 'xml': xml_ns})
+    publicationStmt_p.text = 'Temporary publicationStmt for validation'
+    publicationStmt.append(publicationStmt_p )
+    #Append a <sourceDesc> element to the fileDesc:
     sourceDesc = et.Element('sourceDesc', nsmap={None: tei_ns, 'xml': xml_ns})
-    teiHeader.append(sourceDesc)
+    fileDesc.append(sourceDesc)
     #Append a <listWit> element to the sourceDesc:
     listWit = et.Element('listWit', nsmap={None: tei_ns, 'xml': xml_ns})
     sourceDesc.append(listWit)
