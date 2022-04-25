@@ -19,7 +19,7 @@ def get_verse_file(f, output_dir):
     all_ab_elems = root.findall('ab', ns)
     return deepcopy(all_ab_elems)
 
-def combine_verses(starting_string: str, output_dir, main_dir, already_formatted: bool):
+def combine_verses(starting_string: str, output_dir, main_dir, already_formatted: bool, title_stmt: str, publication_stmt: str):
     tree = et.parse(f'{main_dir}/resources/template.xml')
     root = tree.getroot()
     files = os.listdir(output_dir)
@@ -39,16 +39,20 @@ def combine_verses(starting_string: str, output_dir, main_dir, already_formatted
             failed, 'Some files failed to combine'
             )
     if already_formatted:
-        itoc.add_tei_header(tree)
+        itoc.add_tei_header(tree, title_stmt, publication_stmt)
     return tree
 
 def combine_xml_files_interface(main_dir, font, icon):
+    titlestmt_tip = '''E.g. "Collation of Romans with Emphasis on Lectionary Witnesses"'''
+    pub_tip = '''E.g. "This is an open access work licensed under a Creative Commons Attribution 4.0 International license."'''
     settings = es.get_settings()
     layout = [
         [sg.Text('Select the folder that contains the individual XML files to be combined')],
         [sg.Text('Folder:'), sg.Input(settings['ce_output_dir'], key='output_dir'), sg.FolderBrowse(initial_folder=settings['ce_output_dir'])],
         [sg.Text('Combine all files that start with:'), sg.Stretch(), sg.Input('', key='starts_with')],
-        [sg.Checkbox('Files have already been reformatted', key='already_reformatted')],
+        [sg.Checkbox('Files have already been reformatted', key='already_reformatted', enable_events=True)],
+        [sg.T('Collation Title:'), sg.Input('untitled', key='title_stmt', expand_x=True, tooltip=titlestmt_tip, disabled=True)],
+        [sg.T('Publication Statement:'), sg.Input('unspecified', key='publication_stmt', expand_x=True, tooltip=pub_tip, disabled=True)],
         [sg.Button('Combine XML Files'), sg.Button('Cancel')]
     ]
     window = sg.Window('Combine XML Files', layout, icon=icon, font=font)
@@ -61,7 +65,7 @@ def combine_xml_files_interface(main_dir, font, icon):
                 sg.popup_quick_message('First select a folder and at least one "starts with" character')
                 continue
             try:
-                tree = combine_verses(values['starts_with'], values['output_dir'], main_dir, values['already_reformatted'])
+                tree = combine_verses(values['starts_with'], values['output_dir'], main_dir, values['already_reformatted'], values['title_stmt'], values['publication_stmt'])
                 es.edit_settings('ce_output_dir', values['output_dir'])
             except Exception as e:
                 cp.ok(f'Failed to combine files because:\n" {e} "\n\
@@ -74,5 +78,8 @@ these match the given "starts with" characters', 'Bummer')
                 settings['ce_output_dir'] = values['output_dir']
                 cp.ok(f'Files have been combined and saved to {saved_name}', 'Combined!')
                 break
+        elif event == 'already_reformatted':
+            window['title_stmt'].update(disabled=not values['already_reformatted'])
+            window['publication_stmt'].update(disabled=not values['already_reformatted'])
     window.close()
     return False
