@@ -1,4 +1,3 @@
-from cmath import exp
 from pathlib import Path
 
 from lxml import etree as et
@@ -6,6 +5,7 @@ import PySimpleGUI as sg
 
 from criticus.py.reformat_collation.itsee_to_open_cbgm import reformat_xml
 from criticus.py.reformat_collation.differentiate_subreading_ids import differentiate_subreading_ids as diff_ids
+from criticus.py.reformat_collation.clean_wits import remove_redundant_correctors
 import criticus.py.edit_settings as es
 import criticus.py.custom_popups as cp
 
@@ -20,7 +20,7 @@ def layout(settings: dict):
         [sg.Frame('Combined Collation File', input_frame)],
         [sg.T('Collation Title:'), sg.Input('untitled', key='title_stmt', expand_x=True, tooltip=titlestmt_tip)],
         [sg.T('Publication Statement:'), sg.Input('unspecified', key='publication_stmt', expand_x=True, tooltip=pub_tip)],
-        [sg.B('Convert', key='convert'), sg.B('Cancel', key='exit')]
+        [sg.B('Convert', key='convert'), sg.B('Cancel', key='exit'), sg.Stretch(), sg.B('Remove Redundant Correctors', k='clean_wits')],
         ]
 
 def set_initial_dirs(combined_xml_dir: str, reformatted_xml_dir: str):
@@ -73,6 +73,28 @@ Error: {e}', title='Bummer...')
         return
     set_initial_dirs(values['xml_input_file'], fn_to_save)
 
+
+def clean_wits(values: dict, settings: dict):
+    if values['xml_input_file'] == '':
+        sg.popup_quick_message('Browse to select an XML collation file to convert')
+        return
+    try:
+        xml = remove_redundant_correctors(values['xml_input_file'])
+    except Exception as e:
+        cp.ok(f'Failed to clean wits.\n{e}', 'Bummer')
+        return
+    cp.ok('Witnesses in the collation file have been saved, ready to save.', 'Cleaned!')
+    fn_to_save = sg.popup_get_file('', no_window=True, save_as=True, file_types=(('XML Files', '*.xml'),), initial_folder=settings['reformatted_xml_dir'])
+    if not fn_to_save:
+        return
+    try:
+        xml.write(fn_to_save, encoding='utf-8', xml_declaration=True, pretty_print=True)
+        cp.ok(f'Collation was saved to\n{fn_to_save}', 'Saved!')
+    except Exception as e:
+        cp.ok(f'Could not write the file to disk.\n{e}', 'Bummer')
+        return
+    set_initial_dirs(values['xml_input_file'], fn_to_save)
+
 def start_reformat_ui(font: tuple, icon):
     settings = es.get_settings()
     window = sg.Window('Reformat XML Collation File', layout(settings), font=font, icon=icon)
@@ -85,6 +107,9 @@ def start_reformat_ui(font: tuple, icon):
 
         elif event == 'convert':
             convert(values, settings)
+
+        elif event == 'clean_wits':
+            clean_wits(values, settings)
 
     window.close()
     return False
