@@ -239,6 +239,13 @@ def sort_by_ga(wits: List[str]):
         #     print(wit)
     return natsorted(papyri) + natsorted(majuscules) + natsorted(minuscules) + natsorted(lectionaries) + natsorted(editions)
 
+# TODO: format wits same as Apparatus Explorer
+# def format_wits(wits: str):
+#     wits = re.sub(r'\([^()]\)', '', wits)
+#     wits = wits.split()
+#     wits = sort_by_ga(wits)
+    
+
 def print_rdg(
     document, rdg: et._Element, 
     text_wits_separator: str, 
@@ -261,7 +268,8 @@ def print_rdg(
     p.add_run(rdg_name).italic = True
     p.add_run(rdg_n_text_separator)
     p.add_run(greek_text).bold = text_bold
-    wits = rdg.get('wit').split(' ')
+    wits = rdg.get('wit')
+
     wits = sort_by_ga(wits)
     wits = ' '.join(wits)
     p.add_run(f"{text_wits_separator}{wits}")
