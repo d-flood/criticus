@@ -19,8 +19,7 @@ def remove_redundant_correctors(input_addr: str):
 
     parser = et.XMLParser(remove_blank_text=True)
     xml = et.parse(input_addr, parser)
-    rdg: et._Element
-    for rdg in xml.xpath('//tei:rdg', namespaces={'tei': tei_ns}): #type: et._Element
+    for rdg in xml.xpath('//tei:rdg', namespaces={'tei': tei_ns}):
         wits = rdg.get('wit').split()
         cleaned_wits = clean_wits(wits)
         rdg.attrib['wit'] = cleaned_wits
