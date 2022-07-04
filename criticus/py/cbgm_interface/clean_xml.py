@@ -73,12 +73,14 @@ def replace_header(xml):
     add_tei_header(xml, 'title', 'publication')
 
 def clean_xml(xml_path: str):
+    source = Path(xml_path)
+    output = source.parent / f'{source.name}_CLEANED.xml'
     parser = et.XMLParser(remove_blank_text=True)
-    xml = et.parse(xml_path, parser)
+    xml = et.parse(source.as_posix(), parser)
     for ab in xml.xpath('//tei:ab', namespaces={'tei': tei_ns}):
         ab.text = ''
     clean_wits(xml)
     replace_header(xml)
-    temp = Path('temp_cleaned_xml_open-cbgm').absolute().as_posix()
-    xml.write(temp, encoding='utf-8')
-    return temp
+    # temp = Path('temp_cleaned_xml_open-cbgm').absolute().as_posix()
+    xml.write(output, encoding='utf-8')
+    return output
