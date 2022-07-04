@@ -112,7 +112,6 @@ def add_tei_header(xml, title_stmt: str, publication_stmt: str):
     fileDesc.append(titleStmt)
     #Append a placeholder paragraph to the titleStmt:
     titleStmt_p = et.Element('p', nsmap={None: tei_ns, 'xml': xml_ns})
-    # TODO: Replace these 'temporary' statements with user-supplied statements
     titleStmt_p.text = title_stmt
     titleStmt.append(titleStmt_p)
     #Append a <publicationStmt> element to the fileDesc:
