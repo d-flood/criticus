@@ -16,11 +16,12 @@ from criticus.py.txt_from_json import get_text_from_json_files
 from criticus.main_layout import main_layout
 from criticus.py.export_to_docx.xml_to_docx_ui import export_to_docx
 from criticus.py.check_for_updates import check_for_update
+from criticus.py.analyze_collation.analyze_collation_ui import main as analyze
 
 # if platform.system() == 'Windows':
 from criticus.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version__ = '0.36.1'
+__version__ = '0.37.0'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
@@ -97,6 +98,9 @@ def main():
 
         elif event == 'export_to_docx':
             open_new_window(export_to_docx, window, main_dir, font, icon)
+
+        elif event == 'analyze_collation':
+            open_new_window(analyze, window, main_dir, font, icon)
 
         elif event == 'Check for Updates':
             check_for_update(__version__)
