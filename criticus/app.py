@@ -20,7 +20,7 @@ from criticus.py.check_for_updates import check_for_update
 # if platform.system() == 'Windows':
 from criticus.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version = '0.35.1'
+__version__ = '0.36.0'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
@@ -61,7 +61,7 @@ def main():
     else:
         icon = f'{main_dir}/resources/criticus.png'
         font = ('Arial', 11)
-    window = sg.Window(f'Criticus v{__version}', main_layout(), font=font, icon=icon, debugger_enabled=False)
+    window = sg.Window(f'Criticus v{__version__}', main_layout(), font=font, icon=icon, debugger_enabled=False)
     while True:
         event, _ = window.read()
 
@@ -99,6 +99,6 @@ def main():
             open_new_window(export_to_docx, window, main_dir, font, icon)
 
         elif event == 'Check for Updates':
-            check_for_update(__version)
+            check_for_update(__version__)
 
     window.close()

@@ -3,7 +3,7 @@ import re
 from lxml import etree as et
 
 
-def clean_wits(wits: list[str]) -> str:
+def clean_wits(wits) -> str:
     cleaned_wits = list(wits)
     for wit in wits:
         if 'c' not in wit:
@@ -14,7 +14,7 @@ def clean_wits(wits: list[str]) -> str:
     return ' '.join(cleaned_wits)
 
 
-def remove_redundant_correctors(input_addr: str):
+def remove_redundant_correctors(input_addr):
     tei_ns = 'http://www.tei-c.org/ns/1.0'
 
     parser = et.XMLParser(remove_blank_text=True)

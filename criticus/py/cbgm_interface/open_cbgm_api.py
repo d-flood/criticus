@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from criticus.py.cbgm_interface.clean_xml import clean_xml
+
 import platform
 operating_system = platform.system()
 
@@ -68,6 +70,13 @@ def populate_db(values: dict):
         cp.ok('There was an unanticipated problem making a folder\n\
 in which to save databases.')
         return
+    if values['clean_wits']:
+        try:
+            temp = clean_xml(values['xml_file'])
+            values['xml_file'] = temp
+        except Exception as e:
+            cp.ok(f'Failed to clean wits.\n{e}', 'Bummer')
+            return
     command = parse_user_input(values)
     p = get_system_specific_command(command, new_console=True)
     p.wait()

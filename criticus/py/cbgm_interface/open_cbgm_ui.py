@@ -108,7 +108,7 @@ def manage_db_tab_layout(settings: dict):
     ]
     xml_file_frame = [
         [sg.T('Select XML Collation File: ', size=w), sg.I('', key='xml_file'), sg.FileBrowse(file_types=(('XML Files', '*.xml'),), initial_folder=settings['cbgm_cx_dir'])],
-        [sg.T('New Database Name: ', size=w), sg.I('', key='new_db_name')],
+        [sg.T('New Database Name: ', size=w), sg.I('', key='new_db_name'), sg.Checkbox('Clean Wits', k='clean_wits', tooltip='removes parentheticals from witnesses')],
         
     ]
     dbs_frame = [
