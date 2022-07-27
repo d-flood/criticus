@@ -64,6 +64,7 @@ def clean_wits(xml):
     for rdg in xml.xpath('//tei:rdg', namespaces={'tei': tei_ns}):
         wits = rdg.get('wit')
         wits = re.sub(r'\([^()]*\)', '', wits)
+        wits = wits.replace('v', '').replace('V', '')
         rdg.attrib['wit'] = wits
 
 def replace_header(xml):
