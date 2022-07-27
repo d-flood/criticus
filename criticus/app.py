@@ -21,7 +21,7 @@ from criticus.py.analyze_collation.analyze_collation_ui import main as analyze
 # if platform.system() == 'Windows':
 from criticus.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version__ = '0.37.0'
+__version__ = '0.37.1'
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
