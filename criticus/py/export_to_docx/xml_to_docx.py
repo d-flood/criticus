@@ -270,7 +270,7 @@ def print_rdg(
     p.add_run(greek_text).bold = text_bold
     wits = rdg.get('wit')
 
-    wits = sort_by_ga(wits)
+    wits = sort_by_ga(wits.split())
     wits = ' '.join(wits)
     p.add_run(f"{text_wits_separator}{wits}")
 
