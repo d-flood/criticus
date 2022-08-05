@@ -60,6 +60,7 @@ distributables/
 *.msi
 output/
 pypi*
+*.ps1
 
 # IntelliJ Idea family of suites
 .idea
