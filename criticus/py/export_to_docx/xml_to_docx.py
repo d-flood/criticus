@@ -187,6 +187,8 @@ def group_basetext_words(basetext: str, words_per_line: int) -> List[list]:
     return grouped_basetext
 
 def construct_basetext(ab: et._Element) -> str:
+    if ab.text:
+        return ab.text
     basetext = []
     for elem in ab:
         if elem.tag == f'{TEI_NS}seg':
@@ -272,6 +274,7 @@ def print_rdg(
 
     wits = sort_by_ga(wits.split())
     wits = ' '.join(wits)
+    wits = wits.replace('(', ' (').replace('_', ' ')
     p.add_run(f"{text_wits_separator}{wits}")
 
 def save_docx(document: Document, settings: dict):
