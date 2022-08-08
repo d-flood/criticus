@@ -27,7 +27,8 @@ def get_settings():
             settings['cbgm_main_dir'],
             settings['cbgm_cx_dir'],
             settings['pre_parse_regex'],
-            settings['custom_template_path']
+            settings['custom_template_path'],
+            settings['wits_separator'],
             ) 
     except:
         settings = {
@@ -48,9 +49,10 @@ def get_settings():
             'export_docx_folder': '',
             'text_wits_separator': ' // ',
             'rdg_n_text_separator': '\t',
+            'wits_separator': '',
             'words_per_line': 10,
             'text_bold': False,
-            'custom_template_path': ''
+            'custom_template_path': '',
         }
         save_settings(settings)
     return settings

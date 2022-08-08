@@ -23,6 +23,7 @@ def validate_form(values):
 def update_settings(settings: dict, values: dict):
     settings['text_wits_separator'] = unescape_string(values['text_wits_separator'])
     settings['rdg_n_text_separator'] = unescape_string(values['rdg_n_text_separator'])
+    settings['wits_separator'] = unescape_string(values['wits_separator'])
     settings['words_per_line'] = values[ 'words_per_line']
     settings['text_bold'] = values['text_bold']
     settings['reformatted_xml_dir'] = Path(values['xml_filename']).parent.as_posix()
@@ -57,6 +58,10 @@ def layout(settings: dict):
         [
             sg.T('Reading ID and Reading Text Separator: '),
             sg.I(settings.get('rdg_n_text_separator', '\t'), key='rdg_n_text_separator')
+        ],
+        [
+            sg.T('Witnesses Separator: '),
+            sg.I(settings.get('wits_separator', '\t'), key='wits_separator')
         ],
         [
             sg.T('Basetext Words Per Line: '), 

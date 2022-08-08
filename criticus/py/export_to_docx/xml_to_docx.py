@@ -252,7 +252,8 @@ def print_rdg(
     document, rdg: et._Element, 
     text_wits_separator: str, 
     rdg_n_text_separator: str, 
-    text_bold: bool
+    text_bold: bool,
+    wits_separator: str
     ):
     if rdg.get('type') and rdg.text:
         greek_text = f"{rdg.get('type')}\t{rdg.text}"
@@ -273,7 +274,7 @@ def print_rdg(
     wits = rdg.get('wit')
 
     wits = sort_by_ga(wits.split())
-    wits = ' '.join(wits)
+    wits = wits_separator.join(wits)
     wits = wits.replace('(', ' (').replace('_', ' ')
     p.add_run(f"{text_wits_separator}{wits}")
 
@@ -344,7 +345,8 @@ def export_xml_to_docx(xml_filename: str, collapse_regularized: bool = False, us
             for rdg in app.findall(f'{TEI_NS}rdg'): #type: List[et._Element]
                 print_rdg(
                     document, rdg, settings['text_wits_separator'], 
-                    settings['rdg_n_text_separator'], settings['text_bold']
-                    )
+                    settings['rdg_n_text_separator'], settings['text_bold'],
+                    settings['wits_separator']
+                )
 
     return save_docx(document, settings)
