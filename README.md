@@ -166,7 +166,7 @@ The first tab of this interface is a prerequisite for doing anything with the op
 ![screenshot of the open-cbgm 'populate database' module](images/open-cbgm/populate_database_tab_screenshot.png)
 The two prerequisites for using the open-cbgm are:
 1. Having an XML collation file with which to feed the open-cbgm. This can be created by hand, but normally this will be the output of the output of the Collation Editor (see "Combine Collation Files" and "Reformat Collation File" above).
-2. Installing the open-cbgm. Joey has provided [excellent instructions](https://github.com/jjmccollum/open-cbgm-standalone#installation-and-dependencies) for Windows, Mac, and Linus.
+2. Installing the open-cbgm. Joey has provided [excellent instructions](https://github.com/jjmccollum/open-cbgm-standalone#installation-and-dependencies) for Windows, Mac, and Linux.
 
 Using Criticus with the open-cbgm:
 1. The first (and one time) step is to tell Criticus where you have installed the open-cbgm, and specifically to designate the folder containing the executable files (files ending in ".exe" on Windows).
