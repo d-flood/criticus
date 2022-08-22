@@ -1,0 +1,123 @@
+<!DOCTYPE TEI>
+<?xml-stylesheet type="text/xsl" href="tei_transcription.xsl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title n="31506" type="document">A Transcription of GA 1506</title>
+                <respStmt>
+                    <resp when-iso="2020-09-12">Transcribed by </resp>
+                    <name type="person"> David A Flood, II</name>
+                </respStmt>
+            </titleStmt>
+        </fileDesc>
+    </teiHeader>
+    <text xml:lang="grc">
+        <body>
+            <div type="book" n="B06">
+                <div type="chapter" n="B06K11">
+                    <pb n="323v" type="folio"/>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb n="9"/>
+                    <note type="commentary">untranscribed commentary text</note>
+                    <ab n="B06K11V4">
+                        <w>αλλα</w>
+                        <w>τι</w>
+                        <w>λεγει</w>
+                        <w>αυτω</w>
+                        <w>ο</w>
+                        <w>χρ<supplied>η</supplied>μα<lb n="10"/>τισμος</w>
+                        <pc>.</pc>
+                        <w>κατεληψα</w>
+                        <w>εμαυτω</w>
+                        <w>επτακισχιλιους</w>
+                        <w>ανδρας</w>
+                        <w>οιτινες</w>
+                        <w>ουκ</w>
+                        <w>ε<lb n="11"/>καμψαν</w>
+                        <w>γωνοι</w>
+                        <w>τη</w>
+                        <w>βαλ</w>
+                        <note type="local">expected βααλ</note>
+                    </ab>
+                    <ab n="B06K11V5">
+                        <w>ουτως</w>
+                        <w>ουν</w>
+                        <w>και</w>
+                        <w>εν</w>
+                        <w>τω</w>
+                        <w>ν̣υ̣ν</w>
+                        <w>καιρω</w>
+                        <w>λημμα</w>
+                        <lb n="12"/>
+                        <w>κατ</w>
+                        <w>εκλογη<unclear>ν</unclear>
+                        </w>
+                        <w>
+                            <supplied>χαρι</supplied>τος</w>
+                        <w>γεγονεν</w>
+                    </ab>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb/>
+                    <note type="commentary">One line of untranscribed commentary text</note>
+                    <lb n="18"/>
+                    <ab n="B06K11V6">
+                        <w>
+                            <unclear>ε</unclear>ι</w>
+                        <w>δε</w>
+                        <w>χ<unclear>αρ</unclear>ι<unclear>τ</unclear>ι</w>
+                        <w>ουκ<unclear>ε</unclear>τι</w>
+                        <w>ε<unclear reason="see note">ξ</unclear>
+                        </w>
+                        <w>εργ<supplied>ω</supplied>ν</w>
+                        <w>επ<supplied>ει</supplied>
+                        </w>
+                        <w>
+                            <supplied>η</supplied>
+                        </w>
+                        <w>χ<unclear>α</unclear>ρις</w>
+                        <w>
+                            <supplied>ου</supplied>κ</w>
+                        <w>
+                            <unclear>ε</unclear>τι</w>
+                        <w>γιν<supplied>ε</supplied>τ<supplied>αι</supplied>
+                        </w>
+                        <w>χαρις</w>
+                        <note type="local">this line is difficult to read because the reverse-side commentary is more visible than the front-facing lemma</note>
+                        <lb/>
+                        <note type="commentary">One line of untranscribed commentary text</note>
+                        <lb/>
+                        <note type="commentary">One line of untranscribed commentary text</note>
+                        <lb/>
+                        <note type="commentary">One line of untranscribed commentary text</note>
+                        <lb/>
+                        <note type="commentary">One line of untranscribed commentary text</note>
+                        <note type="commentary">untranscribed commentary text</note>
+                    </ab>
+                </div>
+            </div>
+        </body>
+    </text>
+</TEI>

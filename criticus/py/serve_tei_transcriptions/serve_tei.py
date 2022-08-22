@@ -12,9 +12,9 @@ def start_tei_server(tei_repo_dir, main_dir, httpd, PORT):
     tei_repo_dir = Path(tei_repo_dir).as_posix()
     main_dir = Path(main_dir).as_posix()
     try:
-        shutil.copy(f'{main_dir}/tei_transcription.xsl', tei_repo_dir)
+        shutil.copy(f'{main_dir}/resources/tei_transcription.xsl', tei_repo_dir)
     except:
-        pass
+        print('The XML style sheet, "tei_transcription.xsl" is missing.')
     print('changing to tei dir')
     os.chdir(tei_repo_dir)
     print(f'Server started at localhost: {PORT}')

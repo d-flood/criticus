@@ -78,6 +78,3 @@ windows/
 android/
 linux/
 django/
-
-# temporarily ignore
-tei_transcription.xsl
