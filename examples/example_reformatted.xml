@@ -1,0 +1,1188 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <p>untitled</p>
+      </titleStmt>
+      <titleStmt>
+        <p>unspecified</p>
+      </titleStmt>
+      <sourceDesc>
+        <listWit>
+          <witness n="04"/>
+          <witness n="01"/>
+          <witness n="0151"/>
+          <witness n="02"/>
+          <witness n="03"/>
+          <witness n="06"/>
+          <witness n="1506"/>
+          <witness n="2110"/>
+          <witness n="33"/>
+          <witness n="NA28"/>
+          <witness n="P46"/>
+          <witness n="RP"/>
+          <witness n="0150"/>
+          <witness n="P46c"/>
+          <witness n="03c2"/>
+          <witness n="01c2"/>
+          <witness n="03c2′"/>
+          <witness n="0150a"/>
+          <witness n="02c"/>
+          <witness n="04c2"/>
+          <witness n="04c3"/>
+        </listWit>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <ab xml:id="Rom13.5-APP">
+    <app type="main" n="Rom13.5" from="2" to="2">
+      <lem wit="NA28">διο</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 02 03 06 1506 2110 33 NA28 P46 RP">διο</rdg>
+      <rdg n="zz" type="lac" varSeq="2" wit="0150">lac</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="zz"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.5" from="4" to="4">
+      <lem wit="NA28">αναγκη</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 02 03 1506 2110 33 NA28 RP">αναγκη</rdg>
+      <rdg n="b" varSeq="2" wit="P46">και</rdg>
+      <rdg n="c" type="om" varSeq="3" wit="06"/>
+      <rdg n="zz" type="lac" varSeq="4" wit="0150">lac</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+          <node n="zz"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.5" from="6" to="6">
+      <lem wit="NA28">υποτασσεσθαι</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 02 03 06 1506 2110 33 NA28 RP">υποτασσεσθαι</rdg>
+      <rdg n="b" varSeq="2" wit="P46c">υποτασσεσθε</rdg>
+      <rdg n="br1" type="subreading" varSeq="2" wit="P46">υποτασεσθε</rdg>
+      <rdg n="zz" type="lac" varSeq="3" wit="0150">lac</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="br1"/>
+          <node n="zz"/>
+          <arc from="b" to="br1"/>
+        </graph>
+      </note>
+    </app>
+    <seg>ου μονον δια την οργην αλλα</seg>
+    <app type="main" n="Rom13.5" from="20" to="20">
+      <lem wit="NA28">και</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 06 1506 33 NA28 P46 RP">και</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="2110">ϗ</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+    <seg>δια την</seg>
+    <app type="main" n="Rom13.5" from="26" to="26">
+      <lem wit="NA28">συνειδησιν</lem>
+      <rdg n="a" varSeq="1" wit="0150 0151 02 03 1506 2110 NA28 P46 RP">συνειδησιν</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="01 06 33">συνιδησιν</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+  </ab>
+  <ab xml:id="Rom13.6-APP">
+    <seg>δια τουτο γαρ και φορους</seg>
+    <app type="main" n="Rom13.6" from="12" to="12">
+      <lem wit="NA28">τελειτε</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 03 06 33 NA28 P46 RP">τελειτε</rdg>
+      <rdg n="b" varSeq="2" wit="0150 02 1506 2110">τελειται</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.6" from="14" to="14">
+      <lem wit="NA28">λειτουργοι</lem>
+      <rdg n="a" varSeq="1" wit="0151 02 03c2 06 1506 33 NA28 P46 RP">λειτουργοι</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="01 03">λιτουργοι</rdg>
+      <rdg n="ar2" type="subreading" varSeq="1" wit="0150 2110">λητουργοι</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="ar2"/>
+          <arc from="a" to="ar1"/>
+          <arc from="a" to="ar2"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.6" from="16" to="16">
+      <lem wit="NA28">γαρ</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 02 03 06 1506 2110 33 NA28 P46 RP">γαρ</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="0151"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>θυ εισιν εις αυτο</seg>
+    <app type="main" n="Rom13.6" from="26" to="26">
+      <lem wit="NA28">τουτο</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 06 2110 33 NA28 P46 RP">τουτο</rdg>
+      <rdg n="b" varSeq="2" wit="1506">του</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>προσκαρτερουντες</seg>
+  </ab>
+  <ab xml:id="Rom13.7-APP">
+    <app type="main" n="Rom13.7" from="2" to="2">
+      <lem wit="NA28">αποδοτε</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 02 03 06 33 NA28 RP">αποδοτε</rdg>
+      <rdg n="b" varSeq="2" wit="0150 2110">αποδοται</rdg>
+      <rdg n="c" varSeq="3" wit="1506">αποδοτ(ε)</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.7" from="3" to="3">
+      <lem wit="NA28" type="om"/>
+      <rdg n="a" type="om" varSeq="1" wit="01 0150 02 03 06 1506 2110 NA28"/>
+      <rdg n="b" varSeq="2" wit="0151 01c2 33 RP">ουν</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.7" from="4" to="20">
+      <lem wit="NA28">πασιν τας οφειλας τω τον φορον τον φορον τω</lem>
+      <rdg n="a" varSeq="1" wit="0151 33 NA28 RP">πασιν τας οφειλας τω τον φορον τον φορον τω</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="01">πασι τας οφιλας τω τον φορον τον φορον τω</rdg>
+      <rdg n="ar2" type="subreading" varSeq="1" wit="0150 03 1506 2110">πασι τας οφειλας τω τον φορον τον φορον τω</rdg>
+      <rdg n="ar3" type="subreading" varSeq="1" wit="01c2 02 06">πασιν τας οφιλας τω τον φορον τον φορον τω</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="ar2"/>
+          <node n="ar3"/>
+          <arc from="a" to="ar1"/>
+          <arc from="a" to="ar2"/>
+          <arc from="a" to="ar3"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.7" from="22" to="24">
+      <lem wit="NA28">το τελος</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 02 03 06 1506 2110 33 NA28 RP">το τελος</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="0150"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.7" from="26" to="48">
+      <lem wit="NA28">το τελος τω τον φοβον τον φοβον τω την τιμην την τιμην</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03c2 1506 2110 33 NA28 RP">το τελος τω τον φοβον τον φοβον τω την τιμην την τιμην</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="03 06">το τελος τω τον φοβον τον φοβον τω την τειμην την τειμην</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+  </ab>
+  <ab xml:id="Rom13.8-APP">
+    <seg>μηδενι μηδεν</seg>
+    <app type="main" n="Rom13.8" from="6" to="6">
+      <lem wit="NA28">οφειλετε</lem>
+      <rdg n="a" varSeq="1" wit="0150 0151 03c2 03c2′ NA28 RP">οφειλετε</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="01c2">οφιλητε</rdg>
+      <rdg n="ar2" type="subreading" varSeq="1" wit="03">οφειλειτε</rdg>
+      <rdg n="ar3" type="subreading" varSeq="1" wit="06">οφιλετε</rdg>
+      <rdg n="b" varSeq="2" wit="02 2110 33">οφειλεται</rdg>
+      <rdg n="c" varSeq="3" wit="1506">οφειλετ(αι)</rdg>
+      <rdg n="d" varSeq="4" wit="01">οφιλοντες</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="ar2"/>
+          <node n="ar3"/>
+          <node n="b"/>
+          <node n="c"/>
+          <node n="d"/>
+          <arc from="a" to="ar1"/>
+          <arc from="a" to="ar2"/>
+          <arc from="a" to="ar3"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.8" from="8" to="10">
+      <lem wit="NA28">ει μη</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 03c2′ 06 2110 33 NA28 RP">ει μη</rdg>
+      <rdg n="b" varSeq="2" wit="1506">ειμι</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>το</seg>
+    <app type="main" n="Rom13.8" from="14" to="16">
+      <lem wit="NA28">αλληλους αγαπαν</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 02 03 03c2′ 06 1506 2110 NA28">αλληλους αγαπαν</rdg>
+      <rdg n="b" varSeq="2" wit="0151 33 RP">αγαπαν αλληλους</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>ο γαρ</seg>
+    <app type="main" n="Rom13.8" from="22" to="22">
+      <lem wit="NA28">αγαπων</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 02 03 03c2′ 06 1506 NA28 RP">αγαπων</rdg>
+      <rdg n="b" varSeq="2" wit="0150 2110 33">αγαπον</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>τον ετερον νομον</seg>
+    <app type="main" n="Rom13.8" from="30" to="30">
+      <lem wit="NA28">πεπληρωκεν</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 02 03 06 1506 33 NA28 RP">πεπληρωκεν</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="0150 2110">πεπληρoκεν</rdg>
+      <rdg n="ar2" type="subreading" varSeq="1" wit="03c2">πεπληρωκε</rdg>
+      <rdg n="b" varSeq="2" wit="03c2′">πληρωκε</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="ar2"/>
+          <node n="b"/>
+          <arc from="a" to="ar1"/>
+          <arc from="a" to="ar2"/>
+        </graph>
+      </note>
+    </app>
+  </ab>
+  <ab xml:id="Rom13.9-APP">
+    <seg>το γαρ ου μοιχευσεις ου φονευσεις ου κλεψεις</seg>
+    <app type="main" n="Rom13.9" from="17" to="17">
+      <lem wit="NA28" type="om"/>
+      <rdg n="a" type="om" varSeq="1" wit="0151 02 03 06 33 NA28 RP"/>
+      <rdg n="b" varSeq="2" wit="01 0150 0150a 1506 2110">ου ψευδομαρτυρησις</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>ουκ επιθυμησεις και</seg>
+    <app type="main" n="Rom13.9" from="24" to="24">
+      <lem wit="NA28">ει</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 02 03 06 33 NA28 RP">ει</rdg>
+      <rdg n="b" varSeq="2" wit="0150 0150a 1506 2110">η</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>τις ετερα</seg>
+    <app type="main" n="Rom13.9" from="29" to="29">
+      <lem wit="NA28" type="om"/>
+      <rdg n="a" type="om" varSeq="1" wit="0151 01c2 03 06 NA28 RP"/>
+      <rdg n="b" varSeq="2" wit="01 0150 0150a 02 1506 2110 33">εστιν</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>εντολη εν</seg>
+    <app type="main" n="Rom13.9" from="34" to="38">
+      <lem wit="NA28">τω λογω τουτω</lem>
+      <rdg n="a" varSeq="1" wit="01 03 06 NA28">τω λογω τουτω</rdg>
+      <rdg n="b" varSeq="2" wit="0150 0150a 0151 02 1506 2110 RP">τουτω τω λογω</rdg>
+      <rdg n="br1" type="subreading" varSeq="2" wit="33">τουτο τω λογω</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="br1"/>
+          <arc from="b" to="br1"/>
+        </graph>
+      </note>
+    </app>
+    <seg>ανακεφαλαιουται</seg>
+    <app type="main" n="Rom13.9" from="42" to="44">
+      <lem wit="NA28">εν τω</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0150a 0151 02 06 1506 2110 33 NA28 RP">εν τω</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="03"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>αγαπησεις τον πλησιον σου ως</seg>
+    <app type="main" n="Rom13.9" from="56" to="56">
+      <lem wit="NA28">σεαυτον</lem>
+      <rdg n="a" varSeq="1" wit="01 0150a 02 03 06 NA28 RP">σεαυτον</rdg>
+      <rdg n="b" varSeq="2" wit="0150 0151 1506 2110 33">εαυτον</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+  </ab>
+  <ab xml:id="Rom13.10-APP">
+    <app type="main" n="Rom13.10" from="1" to="1">
+      <lem wit="NA28" type="om"/>
+      <rdg n="a" type="om" varSeq="1" wit="01 0150 0151 02 03 06 1506 2110 33 NA28 P46 RP"/>
+      <rdg n="zz" type="lac" varSeq="2" wit="04">lac</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="zz"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="2" to="4">
+      <lem wit="NA28">η αγαπη</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 03 06 1506 2110 33 NA28 P46 RP">η αγαπη</rdg>
+      <rdg n="b" varSeq="2" wit="04">ουν νομου</rdg>
+      <rdg n="c" type="om" varSeq="3" wit="02"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="6" to="6">
+      <lem wit="NA28">τω</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 03 06 2110 33 NA28 P46 RP">τω</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="1506">τo</rdg>
+      <rdg n="b" varSeq="2" wit="04">η</rdg>
+      <rdg n="c" type="om" varSeq="3" wit="02"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="b"/>
+          <node n="c"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="8" to="8">
+      <lem wit="NA28">πλησιον</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 03 06 1506 2110 33 NA28 P46 RP">πλησιον</rdg>
+      <rdg n="b" varSeq="2" wit="04">αγαπη</rdg>
+      <rdg n="c" type="om" varSeq="3" wit="02"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="10" to="10">
+      <lem wit="NA28">κακον</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 03 06 1506 2110 33 NA28 P46 RP">κακον</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="02 04"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="12" to="12">
+      <lem wit="NA28">ουκ</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 03 1506 2110 NA28 P46 RP">ουκ</rdg>
+      <rdg n="b" varSeq="2" wit="06 33">ου</rdg>
+      <rdg n="c" type="om" varSeq="3" wit="02 04"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="14" to="14">
+      <lem wit="NA28">εργαζεται</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 03 1506 2110 NA28 P46 RP">εργαζεται</rdg>
+      <rdg n="b" varSeq="2" wit="06">κατεργαζετε</rdg>
+      <rdg n="c" varSeq="3" wit="33">κατεργαζεται</rdg>
+      <rdg n="d" type="om" varSeq="4" wit="02 04"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+          <node n="d"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="16" to="16">
+      <lem wit="NA28">πληρωμα</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 06 1506 2110 33 NA28 P46 RP">πληρωμα</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="04"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="18" to="18">
+      <lem wit="NA28">ουν</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 1506 2110 33 NA28 P46 RP">ουν</rdg>
+      <rdg n="b" varSeq="2" wit="06">δε</rdg>
+      <rdg n="c" type="om" varSeq="3" wit="04"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="20" to="20">
+      <lem wit="NA28">νομου</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 06 1506 2110 33 NA28 P46 RP">νομου</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="04"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="22" to="22">
+      <lem wit="NA28">η</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 06 1506 2110 33 NA28 RP">η</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="04 P46"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.10" from="24" to="24">
+      <lem wit="NA28">αγαπη</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 06 1506 2110 33 NA28 P46 RP">αγαπη</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="04"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+  </ab>
+  <ab xml:id="Rom13.11-APP">
+    <app type="main" n="Rom13.11" from="2" to="4">
+      <lem wit="NA28">και τουτο</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 02 03 04 06 1506 2110 NA28 RP">και τουτο</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="0151">ϗ τουτο</rdg>
+      <rdg n="ar2" type="subreading" varSeq="1" wit="33">και τουτω</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="ar2"/>
+          <arc from="a" to="ar1"/>
+          <arc from="a" to="ar2"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.11" from="6" to="6">
+      <lem wit="NA28">ειδοτες</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 03 04 06 1506 2110 33 NA28 RP">ειδοτες</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="02">ιδοντες</rdg>
+      <rdg n="ar2" type="subreading" varSeq="1" wit="02c">ιδοτες</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="ar2"/>
+          <arc from="a" to="ar1"/>
+          <arc from="a" to="ar2"/>
+        </graph>
+      </note>
+    </app>
+    <seg>τον καιρον οτι ωρα</seg>
+    <app type="main" n="Rom13.11" from="16" to="18">
+      <lem wit="NA28">ηδη υμας</lem>
+      <rdg n="a" varSeq="1" wit="01 03 04 NA28">ηδη υμας</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="02">ηδει υμας</rdg>
+      <rdg n="b" varSeq="2" wit="0150 01c2 06 1506 2110">ηδη ημας</rdg>
+      <rdg n="c" varSeq="3" wit="0151 RP">ημας ηδη</rdg>
+      <rdg n="cr1" type="subreading" varSeq="3" wit="33">ημας ηδει</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="b"/>
+          <node n="c"/>
+          <node n="cr1"/>
+          <arc from="a" to="ar1"/>
+          <arc from="c" to="cr1"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.11" from="19" to="19">
+      <lem wit="NA28" type="om"/>
+      <rdg n="a" type="om" varSeq="1" wit="01 0150 02 03 04 06 1506 2110 33 NA28 RP"/>
+      <rdg n="b" varSeq="2" wit="0151">ως</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>εξ υπνου</seg>
+    <app type="main" n="Rom13.11" from="24" to="24">
+      <lem wit="NA28">εγερθηναι</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 04c2 06 1506 2110 NA28 RP">εγερθηναι</rdg>
+      <rdg n="b" varSeq="2" wit="04">εγερσθαι</rdg>
+      <rdg n="c" varSeq="3" wit="33">εξεγερθηναι</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+        </graph>
+      </note>
+    </app>
+    <seg>νυν γαρ</seg>
+    <app type="main" n="Rom13.11" from="30" to="30">
+      <lem wit="NA28">εγγυτερον</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 04 1506 2110 33 NA28 RP">εγγυτερον</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="06">ενγυτερον</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.11" from="32" to="32">
+      <lem wit="NA28">ημων</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 02 03 04 06 1506 2110 33 NA28 RP">ημων</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="0151"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>η</seg>
+    <app type="main" n="Rom13.11" from="36" to="36">
+      <lem wit="NA28">σωτηρια</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 04 06 NA28 RP">σωτηρια</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="1506 2110 33">σρια</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+    <seg>η οτε επιστευσαμεν</seg>
+  </ab>
+  <ab xml:id="Rom13.12-APP">
+    <app type="main" n="Rom13.12" from="2" to="6">
+      <lem wit="NA28">η νυξ προεκοψεν</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 04 06 1506 2110 33 NA28 RP">η νυξ προεκοψεν</rdg>
+      <rdg n="zz" type="lac" varSeq="2" wit="P46">lac</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="zz"/>
+        </graph>
+      </note>
+    </app>
+    <seg>η δε ημερα</seg>
+    <app type="main" n="Rom13.12" from="14" to="14">
+      <lem wit="NA28">ηγγικεν</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 03 04 06 1506 2110 NA28 P46 RP">ηγγικεν</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="33">ηγγηκεν</rdg>
+      <rdg n="b" varSeq="2" wit="02">ηγγισεν</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="b"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.12" from="16" to="16">
+      <lem wit="NA28">αποθωμεθα</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 04 2110 33 NA28 RP">αποθωμεθα</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="1506">αποθομεθα</rdg>
+      <rdg n="b" varSeq="2" wit="06 P46">αποβαλωμεθα</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="b"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+    <seg>ουν τα εργα του σκοτους</seg>
+    <app type="main" n="Rom13.12" from="27" to="27">
+      <lem wit="NA28" type="om"/>
+      <rdg n="a" type="om" varSeq="1" wit="01 02 03 04 06 NA28 P46"/>
+      <rdg n="b" varSeq="2" wit="0150 0151 01c2 04c3 1506 2110 33 RP">και</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>ενδυσωμεθα</seg>
+    <app type="main" n="Rom13.12" from="30" to="30">
+      <lem wit="NA28">δε</lem>
+      <rdg n="a" varSeq="1" wit="0150 02 03 04 06 1506 2110 NA28">δε</rdg>
+      <rdg n="b" varSeq="2" wit="P46">ουν</rdg>
+      <rdg n="c" type="om" varSeq="3" wit="01 0151 04c3 33 P46c RP"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.12" from="32" to="32">
+      <lem wit="NA28">τα</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 04 06 1506 2110 NA28 P46 RP">τα</rdg>
+      <rdg n="b" type="om" varSeq="2" wit="33"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.12" from="34" to="34">
+      <lem wit="NA28">οπλα</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 03 04 1506 2110 33 NA28 P46 RP">οπλα</rdg>
+      <rdg n="b" varSeq="2" wit="0151 02 06">εργα</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>του φωτος</seg>
+  </ab>
+  <ab xml:id="Rom13.13-APP">
+    <app type="main" n="Rom13.13" from="2" to="12">
+      <lem wit="NA28">ως εν ημερα ευσχημονως περιπατησωμεν μη</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 04 06 2110 33 NA28 RP">ως εν ημερα ευσχημονως περιπατησωμεν μη</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="1506">ως εν ημερα ευσχημονος περιπατησωμεν μη</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.13" from="14" to="14">
+      <lem wit="NA28">κωμοις</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 04 06 2110 33 NA28 RP">κωμοις</rdg>
+      <rdg n="b" varSeq="2" wit="1506">κομης</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>και μεθαις μη</seg>
+    <app type="main" n="Rom13.13" from="22" to="22">
+      <lem wit="NA28">κοιταις</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 02 03 04 06 1506 2110 33 NA28 RP">κοιταις</rdg>
+      <rdg n="b" varSeq="2" wit="0151">κοιτες</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.13" from="24" to="28">
+      <lem wit="NA28">και ασελγειαις μη</lem>
+      <rdg n="a" varSeq="1" wit="02 03 04 NA28 RP">και ασελγειαις μη</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="01 0150 06 1506 2110 33">και ασελγιαις μη</rdg>
+      <rdg n="ar2" type="subreading" varSeq="1" wit="0151">ϗ ασελγειαις μη</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="ar2"/>
+          <arc from="a" to="ar1"/>
+          <arc from="a" to="ar2"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.13" from="30" to="34">
+      <lem wit="NA28">εριδι και ζηλω</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 04 06 33 NA28 RP">εριδι και ζηλω</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="0150 1506 2110">ερειδι και ζηλω</rdg>
+      <rdg n="ar2" type="subreading" varSeq="1" wit="02">εριδει και ζηλω</rdg>
+      <rdg n="b" varSeq="2" wit="03">ερισι και ζηλοις</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="ar2"/>
+          <node n="b"/>
+          <arc from="a" to="ar1"/>
+          <arc from="a" to="ar2"/>
+        </graph>
+      </note>
+    </app>
+  </ab>
+  <ab xml:id="Rom13.14-APP">
+    <seg>αλλ</seg>
+    <app type="main" n="Rom13.14" from="4" to="4">
+      <lem wit="NA28">ενδυσασθε</lem>
+      <rdg n="a" varSeq="1" wit="01 03 04 NA28 P46c RP">ενδυσασθε</rdg>
+      <rdg n="b" varSeq="2" wit="0150 0151 02 06 1506 2110 33 P46">ενδυσασθαι</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.14" from="6" to="12">
+      <lem wit="NA28">τον κν ιν χν</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 04 1506 2110 33 NA28">τον κν ιν χν</rdg>
+      <rdg n="ar1" type="subreading" varSeq="1" wit="06 RP">τον κν ιυν χν</rdg>
+      <rdg n="b" varSeq="2" wit="P46">ιην χρν τον κν</rdg>
+      <rdg n="c" varSeq="3" wit="03">τον χν ιν</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="ar1"/>
+          <node n="b"/>
+          <node n="c"/>
+          <arc from="a" to="ar1"/>
+        </graph>
+      </note>
+    </app>
+    <app type="main" n="Rom13.14" from="14" to="14">
+      <lem wit="NA28">και</lem>
+      <rdg n="a" varSeq="1" wit="01 0150 0151 02 03 04 1506 2110 33 NA28 RP">και</rdg>
+      <rdg n="b" varSeq="2" wit="P46">ημων</rdg>
+      <rdg n="c" type="om" varSeq="3" wit="06"/>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+          <node n="c"/>
+        </graph>
+      </note>
+    </app>
+    <seg>της σαρκος προνοιαν μη</seg>
+    <app type="main" n="Rom13.14" from="24" to="24">
+      <lem wit="NA28">ποιεισθε</lem>
+      <rdg n="a" varSeq="1" wit="03 04 NA28 P46 RP">ποιεισθε</rdg>
+      <rdg n="b" varSeq="2" wit="01 0150 0151 02 06 1506 2110 33">ποιεισθαι</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+    <seg>εις</seg>
+    <app type="main" n="Rom13.14" from="28" to="28">
+      <lem wit="NA28">επιθυμιας</lem>
+      <rdg n="a" varSeq="1" wit="01 0151 03 06 33 NA28 P46c RP">επιθυμιας</rdg>
+      <rdg n="b" varSeq="2" wit="0150 02 04 1506 2110 P46">επιθυμιαν</rdg>
+      <note>
+        <fs>
+          <f name="connectivity">
+            <numeric value="10"/>
+          </f>
+        </fs>
+        <graph type="directed">
+          <node n="a"/>
+          <node n="b"/>
+        </graph>
+      </note>
+    </app>
+  </ab>
+</TEI>
