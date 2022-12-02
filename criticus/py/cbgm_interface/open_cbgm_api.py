@@ -89,7 +89,8 @@ def get_all_dbs():
         databases = [x.as_posix().split('/')[-1] for x in db_dir.iterdir() if x.as_posix().endswith('.db')]
         if databases is None or databases == []:
             databases = ['']
-    except:
+    except Exception as e:
+        print(f'There was an error getting the databases.\n{e}')
         databases = ['']
     return databases
 
