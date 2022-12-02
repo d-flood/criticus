@@ -192,9 +192,17 @@ def construct_basetext(ab: et._Element) -> str:
     basetext = []
     for elem in ab:
         if elem.tag == f'{TEI_NS}seg':
-            basetext.append(elem.text)
+            text = elem.text
+            if text:
+                basetext.append(text)
+            else:
+                print(f'seg element {elem.get(f"{TEI_NS}n")} has no text')
         elif elem.tag == f'{TEI_NS}app' and elem.find(f'{TEI_NS}lem').get('type') != 'om':
-            basetext.append(elem.find(f'{TEI_NS}lem').text)
+            text = elem.find(f'{TEI_NS}lem').text
+            if text:
+                basetext.append(text)
+            else:
+                print('lem text is None???')
     return ' '.join(basetext)
 
 def print_basetext(document: Document, ab: et._Element, words_per_line: int):
