@@ -18,6 +18,7 @@ def preprocess_md(md: str):
     md = md.replace('[', '~~')
     md = md.replace(']', '~~')
     md = re.sub(r'\n<lb([^<>]*)> *', r'\n<lb\1> ', md)
+    md = re.sub(r'n=(\d+)', r'n="\1"', md)
     return md
 
 ###########################################################
