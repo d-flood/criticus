@@ -106,9 +106,9 @@ ABBR_TO_FULL = {
 
 def get_xml_file(xml: str) -> et._Element:
     temp_cx_file = 'temp_xml_collation_file'
-    xml = xml.replace('xml:id="1', 'xml:id="I')
-    xml = xml.replace('xml:id="2', 'xml:id="II')
-    xml = xml.replace('xml:id="3', 'xml:id="III')
+    # xml = xml.replace('xml:id="1', 'xml:id="I')
+    # xml = xml.replace('xml:id="2', 'xml:id="II')
+    # xml = xml.replace('xml:id="3', 'xml:id="III')
     xml = xml.replace('subreading', 'subr')
     with open(temp_cx_file, 'w', encoding='utf-8') as file:
         file.write(xml)
@@ -117,7 +117,7 @@ def get_xml_file(xml: str) -> et._Element:
             temp_cx_file = reformat_xml(temp_cx_file)
         except:
             return None
-    parser = et.XMLParser(remove_blank_text=True, encoding='UTF-8')
+    parser = et.XMLParser(remove_blank_text=True, encoding='UTF-8', recover=True)
     tree = et.parse(temp_cx_file, parser) #type: et._ElementTree
     root = tree.getroot()
     os.remove(temp_cx_file)
@@ -264,11 +264,11 @@ def print_rdg(
     wits_separator: str
     ):
     if rdg.get('type') and rdg.text:
-        greek_text = f"{rdg.get('type')}\t{rdg.text}"
+        rdg_type, greek_text = f"\t{rdg.get('type')}", rdg.text
     elif rdg.get('type'):
-        greek_text = rdg.get('type')
+        rdg_type, greek_text = f"\t{rdg.get('type')}", ''
     else:
-        greek_text = rdg.text
+        rdg_type, greek_text = '\t', rdg.text
     # if rdg.text:
     #     greek_text = rdg.text
     # else:
@@ -276,7 +276,8 @@ def print_rdg(
     p = document.add_paragraph()
     p.style = document.styles['reading']
     rdg_name = re.sub(r'\d', '', rdg.get('n'))
-    p.add_run(rdg_name).italic = True
+    p.add_run(f'{rdg_name}.').italic = True
+    p.add_run(f'{rdg_type}\t').italic = True
     p.add_run(rdg_n_text_separator)
     p.add_run(greek_text).bold = text_bold
     wits = rdg.get('wit')
