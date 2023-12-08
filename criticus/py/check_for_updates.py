@@ -1,4 +1,4 @@
-import toml
+import tomllib
 
 from criticus.py import mureq as req
 from criticus.py import custom_popups as cp
@@ -6,7 +6,7 @@ from criticus.py import custom_popups as cp
 def check_for_update(current):
     response = req.get('https://raw.githubusercontent.com/d-flood/criticus/master/pyproject.toml')
     data = response.content.decode('utf-8')
-    pyproject = toml.loads(data)
+    pyproject = tomllib.loads(data)
     newest = pyproject['tool']['poetry']['version']
 
     new_ver_message = f"""
