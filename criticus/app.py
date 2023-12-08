@@ -3,8 +3,9 @@ from types import FunctionType
 import platform
 import sys
 
-import PySimpleGUI as sg 
+import PySimpleGUI as sg
 
+from criticus.__about__ import __version__
 from criticus.py.txt2json.window_text_to_json import txt_to_json
 from criticus.py.combine_xml import combine_xml_files_interface as combine_xml
 from criticus.py.md2tei.MarkdownTEI import md_to_tei
@@ -21,7 +22,7 @@ from criticus.py.analyze_collation.analyze_collation_ui import main as analyze
 # if platform.system() == 'Windows':
 from criticus.py.cbgm_interface.open_cbgm_ui import open_cbgm_ui
 
-__version__ = '0.38.2'
+
 #pylint: disable=no-member
 
 def open_new_window(function: FunctionType, window: sg.Window, main_dir, font, icon, include_main_dir=False):
