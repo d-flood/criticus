@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-import re
 import criticus.py.edit_settings as es
 
 
@@ -92,7 +91,8 @@ def check_and_save_dirs(output_dir, siglum):
     return output_dir.absolute().as_posix()
 
 def convert_single_verse_to_json(values: dict[str, str]):
-    text = values['single_text'].split()
+    text = values['single_text']
+    text = text.split()
     siglum = values['siglum_input']
     reference = values['single_ref']
     output_dir = values['output_dir_input']

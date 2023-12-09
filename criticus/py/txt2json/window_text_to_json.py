@@ -1,12 +1,23 @@
 from lib2to3.pytree import convert
 from pathlib import Path
 import platform
+import re
+import unicodedata
+
 import PySimpleGUI as sg
 import criticus.py.edit_settings as es
 from criticus.py.txt2json.convert_text_to_json import convert_text_to_json as t2j
 from criticus.py.txt2json.convert_text_to_json import convert_single_verse_to_json as t2j_single
 
-#pylint: disable=no-member
+
+def normalize_greek(text: str):
+    """Remove diacritics, accents, punctuation, and any other combining characters."""
+    text = ''.join([unicodedata.normalize('NFD', letter)[0] for letter in text])
+    text = text.lower()
+    text = re.sub(r',|·|\.|;|:|!|\?|»|-|- |\'|"|᾽', '', text)
+    text = re.sub(r' +', ' ', text)
+    return text
+
 def disable_reference_and_text(window: sg.Window, switch: bool, values):
     window['single_ref'].update(disabled=switch)
     window['single_text'].update(disabled=switch)
@@ -90,7 +101,7 @@ def txt_to_json(font: tuple, icon):
                 sg.T('From'), sg.Input(key='range_from', disabled=True), sg.T('To'), sg.Input(key='range_to', disabled=True)],
         [sg.Radio('Single Verse ', group_id='all_or_range', key='single_verse', enable_events=True), 
             sg.T('Reference'), sg.Input(key='single_ref', size=(10, 1), disabled=True),
-            sg.T('Text'), sg.Input(key='single_text', disabled=True, expand_x=True)],
+            sg.T('Text'), sg.Input(key='single_text', disabled=True, expand_x=True), sg.Button('Normalize')],
     ]
     frame_ref_format = [
         [sg.Radio('Manual ', group_id='ref_prefix', enable_events=True, key='manual'), 
@@ -151,6 +162,11 @@ def txt_to_json(font: tuple, icon):
         elif event == 'convert_text':
             t2j_single(values)
             sg.popup_ok('Done!', title='Text File Converted', icon=icon)
+
+        elif event == 'Normalize':
+            text = values['single_text']
+            text = normalize_greek(text)
+            window['single_text'].update(text)
 
     window.close()
     return False
