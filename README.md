@@ -52,7 +52,7 @@ Dependencies
 
 With the dependencies installed, go to `<root>/` and call `python -m criticus`
 
-This project is managed with `poetry`. If you are familiar, close this repository and call `poetry install`, then `poetry run python -m criticus`.
+This project is managed with `hatch`. If you are familiar, clone this repository and call `hatch shell`, then `python -m criticus`.
 
 ## Brief Tutorial
 Please [contact](https://www.davidaflood.com/contact/), message me on Twitter, or fill out a GitHub issue for help using these tools and to report bugs. There are certain to be untested edge cases especially when converting TEI to JSON.
