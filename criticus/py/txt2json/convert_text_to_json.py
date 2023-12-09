@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import List
+import re
 import criticus.py.edit_settings as es
 
 
@@ -16,7 +16,7 @@ def get_info_from_filename(filename):
     reference_prefix = f[1].replace('.txt', '')
     return siglum, reference_prefix
 
-def format_reference(line: List[str], reference_prefix: str):
+def format_reference(line: list[str], reference_prefix: str):
     if reference_prefix[-1].isdigit():
         seperator = '.'
     else:
@@ -42,13 +42,13 @@ def build_token(word: str, index: str, siglum: str) -> dict:
         't': word
     }
 
-def build_witneses(siglum: str, tokens: List[dict]):
+def build_witneses(siglum: str, tokens: list[dict]):
     return [{
         'id': siglum,
         'tokens': tokens
     }]
 
-def build_json(siglum, reference, witnesses: List[dict], line: list):
+def build_json(siglum, reference, witnesses: list[dict], line: list):
     return {
         'id': siglum,
         '_id': siglum,
@@ -61,7 +61,7 @@ def build_json(siglum, reference, witnesses: List[dict], line: list):
         'witnesses': witnesses
     }
 
-def make_tokens(line, siglum) -> List[dict]:
+def make_tokens(line, siglum) -> list[dict]:
     tokens = []
     for i, word in enumerate(line, 1):
         index = f'{i*2}'
@@ -78,7 +78,7 @@ def save_metadata(siglum, output_dir):
     with open(f'{output_dir}/metadata.json', 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False)
 
-def construct_json_transcription(line: List[str], reference: str, siglum: str, output_dir):
+def construct_json_transcription(line: list[str], reference: str, siglum: str, output_dir):
     tokens = make_tokens(line, siglum)
     witnesses = build_witneses(siglum, tokens)
     complete_json = build_json(siglum, reference, witnesses, line)
