@@ -54,7 +54,7 @@ def get_hands(root: et._Element) -> list:
         hands = ['firsthand']
     return hands
 
-def tei_to_json(tei: str, output_dir, single_verse: str):
+def tei_to_json(tei: str, output_dir, single_verse: str, siglum_suffix: str):
     text = get_file(tei)
     text = pre_parse_cleanup(text)
     parsed, root = parse(text)
@@ -67,6 +67,8 @@ def tei_to_json(tei: str, output_dir, single_verse: str):
     _, root = parse(text)
     hands = get_hands(root)
     siglum = get_siglum(root)
+    if siglum_suffix:
+        siglum = f'{siglum}-{siglum_suffix}'
     output_dir = f'{output_dir}/{siglum}'
     metadata = {'id': siglum, 'siglum': siglum}
     verses = root.xpath(f'//tei:ab', namespaces={'tei': tei_ns})

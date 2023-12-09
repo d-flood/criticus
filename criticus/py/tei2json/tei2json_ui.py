@@ -41,7 +41,8 @@ def layout(settings: dict):
     input_frame = [
         [input_elem, sg.FileBrowse(initial_folder=settings['tei_dir'], file_types=(('XML Files', '*.xml'), ))],
         [sg.Radio('Convert All Verses', 'all_or_one', key='all', enable_events=True)],
-        [sg.Radio('Convert One Verse ', 'all_or_one', key='one', enable_events=True), sg.T('Reference'), sg.I('', key='single_ref', disabled=True, enable_events=True)]
+        [sg.Radio('Convert One Verse ', 'all_or_one', key='one', enable_events=True), sg.T('Reference'), sg.I('', key='single_ref', disabled=True, enable_events=True)],
+        [sg.Text('Siglum Suffix (optional)'), sg.Input('', key='siglum_suffix', size=(5, 1))]
     ]
     output_frame = [
         [output_folder_elem, sg.FolderBrowse(initial_folder=settings['ce_repo_dir'])]
@@ -88,7 +89,7 @@ def tei_to_json(font: tuple, icon):
             else:
                 save_settings(values)
                 try:
-                    result = t2j(values['tei_input'], values['output_dir'], single_verse=values['single_ref'])
+                    result = t2j(values['tei_input'], values['output_dir'], values['single_ref'], values['siglum_suffix'])
                     if result:
                         cp.ok(f'JSON transcription files saved to {values["output_dir"]}', 'Success!')
                         print('success!')
