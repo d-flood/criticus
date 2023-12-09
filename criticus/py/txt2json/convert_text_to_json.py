@@ -91,6 +91,17 @@ def check_and_save_dirs(output_dir, siglum):
     es.edit_settings('output_dir', output_dir.parent.absolute().as_posix())
     return output_dir.absolute().as_posix()
 
+def convert_single_verse_to_json(values: dict[str, str]):
+    text = values['single_text'].split()
+    siglum = values['siglum_input']
+    reference = values['single_ref']
+    output_dir = values['output_dir_input']
+    tokens = make_tokens(text, siglum)
+    witnesses = build_witneses(siglum, tokens)
+    complete_json = build_json(siglum, reference, witnesses, text)
+    save_metadata(siglum, output_dir)
+    save_json(complete_json, reference, output_dir)
+
 def convert_text_to_json(
     filename, output_dir, convert_all: bool,
     reference_prefix: str, auto: bool, verse_from: str=None, 
