@@ -7,8 +7,8 @@ build-backend = "hatchling.build"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
@@ -36,6 +36,7 @@ source = "https://github.com/d-flood/criticus"
 path = "criticus/__about__.py"
 
 [tool.hatch.envs.default]
+python = "3.12"
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
@@ -54,7 +55,7 @@ test = "pytest {args:tests}"
 test-cov = "coverage run -m pytest {args:tests}"
 
 [[tool.hatch.envs.all.matrix]]
-python = ["3.10", "3.11"]
+python = ["3.11"]
 
 [tool.hatch.envs.lint]
 dependencies = []
