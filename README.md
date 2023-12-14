@@ -24,7 +24,7 @@ Criticus is a desktop app with ten distinct tools:
 
 ## Installation
 
-### Run on any platform with Python 3.8+
+### Run on any platform with Python 3.11+
 - Install the latest version of Python from https://www.python.org/
 - Open a terminal and type in the following commands, typing Enter/Return after each.
    - On Windows: 
