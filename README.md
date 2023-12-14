@@ -38,6 +38,8 @@ To update simply call:
    - Windows: `python -m pip install criticus --upgrade`
    - MacOS: `python3 -m pip install criticus --upgrade`
 
+[**See the additional dependencies for the Collation Editor**](#collation-editor-prerequisites)
+
 ### Download and run the source code
 
 Dependencies
@@ -145,7 +147,12 @@ This is a simple way to view TEI transcriptions with the same styling applied to
 ### Configure Collation Editor
 The WCE Collation Editor is configured by manually editing a config file located at `<root>/collation/data/project/default/config.json`. The Collation Editor is launched by a convenient start up script distributed with the Collation Editor (`startup.sh` for MacOS and `startup.bat` for Windows). This module of Criticus provides convenient access to the important values in the config file. This module also contains a shortcut for launching the Collation Editor.
 
-Note, however, that the Collation Editor has its own dependencies: Python 3 and the JVM.
+#### Collation Editor Prerequisites:
+1. Download [my fork of the collation editor](https://github.com/d-flood/standalone_collation_editor) instead of the one directly from ITSEE. My fork has a few critical fixes and a few nice-to-haves.
+2. Install [Java](https://www.java.com/en/download/).
+3. Optional but highly recommended: Install FireFox. The Collation Editor is only tested on FireFox. You are likely going to be problem solving issues with the Collation Editor, so removing the issue of cross-browser differences is going to save you time.
+
+#### How to configure the Collation Editor with Criticus
 
 ![screenshot of the collation editor configuration file editor window](images/ce_config_window.png)
 
