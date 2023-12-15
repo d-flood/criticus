@@ -25,7 +25,7 @@ dynamic = ["version"]
 keywords = ["TEI", "transcription", "collation", "critical", "apparatus"]
 license = "MIT"
 name = "criticus"
-readme = "README.md"
+readme = "pypi_readme.md"
 
 [project.urls]
 documentation = "https://github.com/d-flood/criticus#readme"
