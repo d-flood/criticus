@@ -43,7 +43,7 @@ To update simply call:
 ### Download and run the source code
 
 Dependencies
-- python 3.8+
+- python 3.11+
 - `lxml`
 - `natsort`
 - `PySimpleGUI`
