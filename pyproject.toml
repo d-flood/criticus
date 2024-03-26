@@ -14,7 +14,7 @@ classifiers = [
 ]
 dependencies = [
     "lxml>=4.8.0",
-    "PySimpleGUI>=4.57.0",
+    "PySimpleGUI==4.57.0",
     "natsort>=8.1.0",
     "Markdown==3.5.1",
     "markdown-del-ins>=1.0.0",
