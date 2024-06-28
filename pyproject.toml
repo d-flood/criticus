@@ -35,6 +35,9 @@ source = "https://github.com/d-flood/criticus"
 [tool.hatch.version]
 path = "criticus/__about__.py"
 
+[tool.hatch.metadata]
+package-data = { criticus = ["**/*.docx"] }
+
 [tool.hatch.envs.default]
 python = "3.11"
 dependencies = [
