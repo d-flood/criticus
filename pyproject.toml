@@ -63,7 +63,7 @@ detached = true
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "/criticus/py/export_to_docx/template.docx"
+    "criticus/py/export_to_docx/template.docx"
 ]
 exclude = [
   "/.github",
