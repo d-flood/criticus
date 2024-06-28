@@ -35,9 +35,6 @@ source = "https://github.com/d-flood/criticus"
 [tool.hatch.version]
 path = "criticus/__about__.py"
 
-[tool.hatch.metadata]
-package-data = { criticus = ["**/*.docx"] }
-
 [tool.hatch.envs.default]
 python = "3.11"
 dependencies = [
@@ -65,6 +62,9 @@ dependencies = []
 detached = true
 
 [tool.hatch.build.targets.sdist]
+include = [
+    "/criticus/py/export_to_docx/template.docx"
+]
 exclude = [
   "/.github",
   "/docs",
