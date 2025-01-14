@@ -76,3 +76,6 @@ macOS/
 windows/
 android/
 linux/
+
+# Local development
+.env
