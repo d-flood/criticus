@@ -1,4 +1,7 @@
 [tool.hatch]
+env-type = "virtual"
+installer = "uv"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
@@ -9,18 +12,21 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
     "lxml>=4.8.0",
-    "PySimpleGUI==4.57.0",
+    "django>=5.1.4",
+    "toga==0.4.8",
+    "uvicorn>=0.34.0",
     "natsort>=8.1.0",
     "Markdown==3.5.1",
     "markdown-del-ins>=1.0.0",
     "python-docx>=0.8.11",
 ]
-description = "A suite of tools for transcribing, collating and creating an apparatus criticus."
+description = "A suite of tools for transcribing, collating and creating an apparatus criticus. See also www.apatosaurs.io for a web-based set of tools."
 dynamic = ["version"]
 keywords = ["TEI", "transcription", "collation", "critical", "apparatus"]
 license = "MIT"
@@ -39,7 +45,8 @@ path = "criticus/__about__.py"
 criticus = ["py/export_to_docx/*.docx"]
 
 [tool.hatch.envs.default]
-python = "3.11"
+installer = "uv"
+python = "3.12"
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
@@ -58,7 +65,7 @@ test = "pytest {args:tests}"
 test-cov = "coverage run -m pytest {args:tests}"
 
 [[tool.hatch.envs.all.matrix]]
-python = ["3.11"]
+python = ["3.11", "3.12", "3.13"]
 
 [tool.hatch.envs.lint]
 dependencies = []

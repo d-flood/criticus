@@ -1,0 +1,22 @@
+{% comment  %}
+    name: str,
+    value: str,
+    label: str,
+    checked = True: True | False
+    hyperscript = False: False | str
+{% endcomment %}
+
+<input id="{{ value }}-input-id"
+    type="radio"
+    class="btn-check"
+    name="{{ name }}"
+    value="{{ value }}"
+    autocomplete="off"
+    {% if checked %}
+        checked
+    {% endif %}
+    {% if hyperscript %}
+        _="{{ hyperscript }}"
+    {% endif %}
+>
+<label class="btn btn-outline-info" for="{{ value }}-input-id">{{ label }}</label>

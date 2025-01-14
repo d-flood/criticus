@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criticus - {% block title %}{% endblock  %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        .form-check-label,
+        .form-check-input {
+            cursor: pointer;
+        }
+        .form-check {
+            min-width: 10rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Criticus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a href="{% url 't2j' %}" class="nav-link{% if page == 't2j' %} active{% endif %}">
+                            {% if page == 't2j' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            Text to JSON
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'md2tei' %}" class="nav-link{% if page == 'md2tei' %} active{% endif %}">
+                            {% if page == 'md2tei' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            Markdown to TEI
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'tei2j' %}" class="nav-link{% if page == 'tei2j' %} active{% endif %}">
+                            {% if page == 'tei2j' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            TEI to JSON
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" id="action-button" type="button"
+                                onclick="addTask('hello from criticus!')">Action</button>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock content %}
+
+    <div id="modals"></div>
+
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/_hyperscript.min.js' %}"></script>
+
+    <script>
+        window.criticus = window.criticus || {};
+
+        window.criticus.modal = null;
+        window.criticus.tasks = [];
+
+        // called by the backend
+
+        function getTask() {
+            if (window.criticus.tasks.length === 0) {
+                return null;
+            }
+            return window.criticus.tasks.shift();
+        }
+
+        function setInputValue(newValue, targetElementID) {
+            const target = document.getElementById(targetElementID);
+            target.value = newValue;
+            target.classList.add('border-3', 'border-info');
+            // wait 1s
+            setTimeout(() => {
+                target.classList.remove('border-3', 'border-info');
+            }, 1000);
+        }
+
+        // called by client
+
+        function addTask(task, targetElementID, value=null, ext=null) {
+            window.criticus.tasks.push({
+                name: task,
+                target: targetElementID,
+                value: value,
+                ext: ext
+            });
+        }
+
+    </script>
+</body>
+
+</html>
