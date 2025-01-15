@@ -21,6 +21,7 @@ dependencies = [
     "django>=5.1.4",
     "toga==0.4.8",
     "uvicorn>=0.34.0",
+    "whitenoise>=6.8.2",
     "natsort>=8.1.0",
     "Markdown==3.5.1",
     "markdown-del-ins>=1.0.0",

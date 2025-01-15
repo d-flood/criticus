@@ -20,7 +20,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-md bg-primary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md bg-primary nav-underline" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Criticus</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
@@ -30,8 +30,8 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a href="{% url 't2j' %}" class="nav-link{% if page == 't2j' %} active{% endif %}">
-                            {% if page == 't2j' %}<span class="visually-hidden">(current)</span>{% endif %}
+                        <a href="{% url 'txt2json' %}" class="nav-link{% if page == 'txt2json' %} active{% endif %}">
+                            {% if page == 'txt2json' %}<span class="visually-hidden">(current)</span>{% endif %}
                             Text to JSON
                         </a>
                     </li>
@@ -42,8 +42,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'tei2j' %}" class="nav-link{% if page == 'tei2j' %} active{% endif %}">
-                            {% if page == 'tei2j' %}<span class="visually-hidden">(current)</span>{% endif %}
+                        <a href="{% url 'tei2json' %}" class="nav-link{% if page == 'tei2json' %} active{% endif %}">
+                            {% if page == 'tei2json' %}<span class="visually-hidden">(current)</span>{% endif %}
                             TEI to JSON
                         </a>
                     </li>

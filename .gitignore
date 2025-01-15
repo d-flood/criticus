@@ -79,3 +79,5 @@ linux/
 
 # Local development
 .env
+*.sqlite3
+staticfiles/
