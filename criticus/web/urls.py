@@ -28,6 +28,10 @@ urlpatterns = [
     path("plain-text-to-json/", views.plain_text_to_json, name="txt2json"),
     path("md2tei/", views.markdown_to_tei, name="md2tei"),
     path("tei2json/", views.tei_to_json, name="tei2json"),
+    path("tei2json/regex/add/", views.add_tei2json_regex, name="add-regex"),
+    path(
+        "tei2json/regex/<int:regex_pk>/", views.edit_tei2json_regex, name="edit-regex"
+    ),
 ]
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

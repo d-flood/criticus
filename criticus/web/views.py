@@ -4,7 +4,37 @@ from django.http import HttpRequest
 from django.shortcuts import render
 
 from criticus.py.md2tei import markdown_to_tei as md2tei
+from criticus.py.tei2json.tei_to_json import tei_to_json as tei2json
 from criticus.py.txt2json import convert_text_to_json as txt2json
+from criticus.web import models
+
+
+async def get_settings():
+    settings_object, _ = await models.Settings.objects.aget_or_create(name="default")
+    return settings_object
+
+
+def error_response(request: HttpRequest, modal_text: str, error_text: str = None):
+    context = {
+        "modal_title": "Error",
+        "modal_text": modal_text,
+        "error_text": error_text,
+        "status": "fail",
+    }
+    resp = render(request, "_modal.html", context)
+    resp["HX-Target"] = "#modals"
+    return resp
+
+
+def success_response(request: HttpRequest, modal_text: str):
+    context = {
+        "modal_title": "Success",
+        "modal_text": modal_text,
+        "status": "success",
+    }
+    resp = render(request, "_modal.html", context)
+    resp["HX-Target"] = "#modals"
+    return resp
 
 
 async def home(request: HttpRequest):
@@ -104,7 +134,113 @@ async def markdown_to_tei(request: HttpRequest):
 
 
 async def tei_to_json(request: HttpRequest):
+    settings = await get_settings()
+
+    if request.method == "POST":
+        print(request.POST)
+        single_verse = (
+            request.POST.get("reference")
+            if request.POST.get("range") == "one"
+            else None
+        )
+        output_dir = request.POST.get("output_folder")
+        siglum = request.POST.get("siglum")
+        siglum_suffix = request.POST.get("siglum-suffix")
+        output_file = (
+            f"{output_dir}/{siglum}-{siglum_suffix}"
+            if siglum_suffix
+            else f"{output_dir}/{siglum}"
+        )
+        result = tei2json(
+            tei_file_path=request.POST.get("input_file"),
+            output_dir=output_dir,
+            single_verse=single_verse,
+            siglum_suffix=siglum_suffix,
+            siglum=siglum,
+            regexes=[r async for r in settings.tei2json_regexes.filter(active=True)],
+        )
+        if result is not True:
+            return error_response(request, result)
+        return success_response(
+            request,
+            f"Your TEI file has been converted to JSON files and saved to {output_file}.",
+        )
+
+    # GET
     context = {
         "page": "tei2json",
+        "active_regexes": [
+            r async for r in settings.tei2json_regexes.filter(active=True)
+        ],
+        "inactive_regexes": [
+            r async for r in settings.tei2json_regexes.filter(active=False)
+        ],
     }
     return render(request, "tei_to_json.html", context)
+
+
+async def add_tei2json_regex(request: HttpRequest):
+    settings = await get_settings()
+    if request.method != "POST":
+        return error_response(
+            request, "Invalid request method. How'd you manage that? 🤔 -David"
+        )
+    expression = request.POST.get("newExpression")
+    replacement = request.POST.get("newReplacement")
+    if not expression or not replacement:
+        return error_response(
+            request, "Please provide both an expression and a replacement."
+        )
+
+    try:
+        await models.CustomRegex.objects.acreate(
+            settings=settings, expression=expression, replacement=replacement
+        )
+    except Exception as e:
+        print(traceback.format_exc())
+        return error_response(
+            request, f"An error occurred: {e}", traceback.format_exc()
+        )
+    context = {
+        "active_regexes": [
+            r async for r in settings.tei2json_regexes.filter(active=True)
+        ],
+        "inactive_regexes": [
+            r async for r in settings.tei2json_regexes.filter(active=False)
+        ],
+    }
+    return render(request, "_regexes.html", context)
+
+
+async def edit_tei2json_regex(request: HttpRequest, regex_pk: int):
+    settings = await get_settings()
+    if request.method == "POST":  # toggle active
+        try:
+            regex = await models.CustomRegex.objects.aget(pk=regex_pk)
+            regex.active = not regex.active
+            await regex.asave()
+        except Exception as e:
+            return error_response(
+                request, f"An error occurred: {e}", traceback.format_exc()
+            )
+    elif request.method == "DELETE":  # delete
+        try:
+            regex = await models.CustomRegex.objects.aget(pk=regex_pk)
+            await regex.adelete()
+        except Exception as e:
+            return error_response(
+                request, f"An error occurred: {e}", traceback.format_exc()
+            )
+    else:
+        return error_response(
+            request, "Invalid request method. How'd you manage that? 🤔 -David"
+        )
+    context = {
+        "active_regexes": [
+            r async for r in settings.tei2json_regexes.filter(active=True)
+        ],
+        "inactive_regexes": [
+            r async for r in settings.tei2json_regexes.filter(active=False)
+        ],
+    }
+    return render(request, "_regexes.html", context)

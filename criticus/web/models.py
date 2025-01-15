@@ -9,11 +9,22 @@ class Settings(models.Model):
     md2tei_output_dir = models.CharField(max_length=255, default="", blank=True)
     tei2json_input_dir = models.CharField(max_length=255, default="", blank=True)
     tei2json_output_dir = models.CharField(max_length=255, default="", blank=True)
-    tei2json_active_regex = models.JSONField(default=list)
-    tei2json_inactive_regex = models.JSONField(default=list)
+
+    tei2json_regexes: models.QuerySet["CustomRegex"]
 
     class Meta:
         verbose_name_plural = "Settings"
+        app_label = "web"
 
-    def __str__(self):
-        return self.key
+
+class CustomRegex(models.Model):
+    settings = models.ForeignKey(
+        Settings, on_delete=models.CASCADE, related_name="tei2json_regexes"
+    )
+    active = models.BooleanField(default=True)
+    expression = models.CharField(max_length=255)
+    replacement = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = "Custom Regexes"
+        app_label = "web"
