@@ -9,6 +9,21 @@ class Settings(models.Model):
     md2tei_output_dir = models.CharField(max_length=255, default="", blank=True)
     tei2json_input_dir = models.CharField(max_length=255, default="", blank=True)
     tei2json_output_dir = models.CharField(max_length=255, default="", blank=True)
+    combine_collations_input_dir = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    combine_collations_output_file = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    combine_collations_startswith = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    combine_collations_title_stmt = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    combine_collations_publication_stmt = models.CharField(
+        max_length=255, default="", blank=True
+    )
 
     tei2json_regexes: models.QuerySet["CustomRegex"]
 

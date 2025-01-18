@@ -1,8 +1,10 @@
 import traceback
 
+from django.conf import settings as conf
 from django.http import HttpRequest
 from django.shortcuts import render
 
+from criticus.py import combine_xml
 from criticus.py.md2tei import markdown_to_tei as md2tei
 from criticus.py.tei2json.tei_to_json import tei_to_json as tei2json
 from criticus.py.txt2json import convert_text_to_json as txt2json
@@ -31,6 +33,18 @@ def success_response(request: HttpRequest, modal_text: str):
         "modal_title": "Success",
         "modal_text": modal_text,
         "status": "success",
+    }
+    resp = render(request, "_modal.html", context)
+    resp["HX-Target"] = "#modals"
+    return resp
+
+
+def warning_response(request: HttpRequest, modal_text: str, error_text: str = None):
+    context = {
+        "modal_title": "Warning",
+        "modal_text": modal_text,
+        "error_text": error_text,
+        "status": "warning",
     }
     resp = render(request, "_modal.html", context)
     resp["HX-Target"] = "#modals"
@@ -244,3 +258,40 @@ async def edit_tei2json_regex(request: HttpRequest, regex_pk: int):
         ],
     }
     return render(request, "_regexes.html", context)
+
+
+async def combine_collations(request: HttpRequest):
+    settings = await get_settings()
+    if request.method == "POST":
+        print(request.POST)
+
+        settings.combine_collations_input_dir = request.POST.get("input-folder", "")
+        settings.combine_collations_output_file = request.POST.get("output-file", "")
+        settings.combine_collations_startswith = request.POST.get("startswith", "")
+        settings.combine_collations_title_stmt = request.POST.get("collation-title", "")
+        settings.combine_collations_publication_stmt = request.POST.get(
+            "publication-statement", ""
+        )
+
+        await settings.asave()
+        _, failed = combine_xml.combine_xml_files(
+            input_dir=request.POST.get("input-folder"),
+            starts_with=request.POST.get("startswith"),
+            base_dir=conf.BASE_DIR.as_posix(),
+            save_path=request.POST.get("output-file"),
+            already_reformatted=request.POST.get("reformatted") == "true",
+            title_stmt=request.POST.get("collation-title"),
+            publication_stmt=request.POST.get("publication-statement"),
+        )
+        if failed:
+            return warning_response(
+                request,
+                "The following files failed to combine:",
+                "\n".join(failed),
+            )
+        return success_response(request, "All collations combined successfully.")
+    context = {
+        "page": "combine_collations",
+        "settings": settings,
+    }
+    return render(request, "combine_collations.html", context)
