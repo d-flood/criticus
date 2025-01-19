@@ -6,6 +6,7 @@ from django.shortcuts import render
 
 from criticus.py import combine_xml
 from criticus.py.md2tei import markdown_to_tei as md2tei
+from criticus.py.reformat_collation import reformat_xml
 from criticus.py.tei2json.tei_to_json import tei_to_json as tei2json
 from criticus.py.txt2json import convert_text_to_json as txt2json
 from criticus.web import models
@@ -263,8 +264,6 @@ async def edit_tei2json_regex(request: HttpRequest, regex_pk: int):
 async def combine_collations(request: HttpRequest):
     settings = await get_settings()
     if request.method == "POST":
-        print(request.POST)
-
         settings.combine_collations_input_dir = request.POST.get("input-folder", "")
         settings.combine_collations_output_file = request.POST.get("output-file", "")
         settings.combine_collations_startswith = request.POST.get("startswith", "")
@@ -295,3 +294,32 @@ async def combine_collations(request: HttpRequest):
         "settings": settings,
     }
     return render(request, "combine_collations.html", context)
+
+
+async def reformat_collation(request: HttpRequest):
+    settings = await get_settings()
+    if request.method == "POST":
+        print(request.POST)
+        if request.POST.get("reformat-type") == "reformat":
+            result = reformat_xml.convert(
+                xml_input_file=request.POST.get("input-file"),
+                save_path=request.POST.get("output-file"),
+                title_stmt=request.POST.get("collation-title"),
+                publication_stmt=request.POST.get("publication-statement"),
+            )
+        else:  # clean witnesses
+            result = reformat_xml.clean_wits(
+                xml_input_file=request.POST.get("input-file"),
+                save_path=request.POST.get("output-file"),
+            )
+        if result["type"] == "fail":
+            return error_response(request, result["modal_text"], result["error_text"])
+        elif result["type"] == "warning":
+            return warning_response(request, result["modal_text"])
+        return success_response(request, result["modal_text"])
+    # GET
+    context = {
+        "page": "reformat_collation",
+        "settings": settings,
+    }
+    return render(request, "reformat_collation.html", context)

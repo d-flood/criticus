@@ -33,6 +33,11 @@ urlpatterns = [
         "tei2json/regex/<int:regex_pk>/", views.edit_tei2json_regex, name="edit-regex"
     ),
     path("combine-collations/", views.combine_collations, name="combine-collations"),
+    path(
+        "reformat-collation/",
+        views.reformat_collation,
+        name="reformat-collation",
+    ),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

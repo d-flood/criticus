@@ -24,6 +24,18 @@ class Settings(models.Model):
     combine_collations_publication_stmt = models.CharField(
         max_length=255, default="", blank=True
     )
+    reformat_collation_input_file = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    reformat_collation_output_file = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    reformat_collation_title_stmt = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    reformat_collation_publication_stmt = models.CharField(
+        max_length=255, default="", blank=True
+    )
 
     tei2json_regexes: models.QuerySet["CustomRegex"]
 
