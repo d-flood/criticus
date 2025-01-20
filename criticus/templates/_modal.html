@@ -28,7 +28,9 @@
             </div>
             <div class="modal-body">
                 <p class="text-break">{{ modal_text }}</p>
-                <pre>{{ error_text }}</pre>
+                {% if error_text %}
+                    <pre>{{ error_text }}</pre>
+                {% endif %}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
