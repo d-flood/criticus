@@ -1,8 +1,10 @@
 import traceback
+from pathlib import Path
 
 from django.conf import settings as conf
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from lxml import etree as et
 
 from criticus.py import combine_xml
 from criticus.py.md2tei import markdown_to_tei as md2tei
@@ -323,3 +325,33 @@ async def reformat_collation(request: HttpRequest):
         "settings": settings,
     }
     return render(request, "reformat_collation.html", context)
+
+
+async def tei_viewer(request: HttpRequest):
+    if request.method == "POST":
+        print(request.POST)
+        tei_folder = Path(request.POST.get("input-folder"))
+        if not tei_folder.is_dir():
+            return warning_response(request, "Please provide a valid folder.")
+        xml_files = list(tei_folder.glob("*.xml"))
+        if not xml_files:
+            return warning_response(
+                request, "No XML files found in the provided folder."
+            )
+        return render(request, "_file_list.html", {"files": xml_files})
+    else:  # GET
+        return render(request, "tei_viewer.html", {"page": "tei-viewer"})
+
+
+async def get_tei_transcription(request: HttpRequest):
+    """Get the content of an XML file, add a stylesheet, and return it."""
+    xml_file = request.POST.get("xml_file")
+    print(f"{xml_file=}")
+
+    parser = et.XMLParser(resolve_entities=False)
+    tree = et.parse(xml_file, parser)
+    xslt = et.parse(conf.BASE_DIR / "resources" / "tei_transcription.xsl")
+    transform = et.XSLT(xslt)
+    new_tree = transform(tree)
+
+    return HttpResponse(str(new_tree), content_type="text/html")

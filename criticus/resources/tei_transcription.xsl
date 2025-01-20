@@ -311,8 +311,10 @@
 <xsl:apply-templates/>
 </xsl:template>
 <xsl:template match="tei:w">
-<xsl:apply-templates/>
-<xsl:text></xsl:text>
+  <xsl:apply-templates/>
+  <xsl:if test="following-sibling::*[1][self::tei:w]">
+    <xsl:text> </xsl:text>
+  </xsl:if>
 </xsl:template>
 <xsl:template match="tei:pc">
 <xsl:apply-templates/>

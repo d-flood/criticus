@@ -1,0 +1,13 @@
+<ul class="list-group">
+    {% for f in files %}
+        <li class="list-group-item">
+            <a class="link-underline" style="cursor: pointer;"
+                hx-post="{% url 'get-tei-transcription' %}"
+                hx-target="#tei-viewer"
+                hx-vals='{"xml_file": "{{ f.as_posix }}"}'
+            >
+                {{ f.stem }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

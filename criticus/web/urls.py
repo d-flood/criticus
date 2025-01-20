@@ -38,6 +38,12 @@ urlpatterns = [
         views.reformat_collation,
         name="reformat-collation",
     ),
+    path("tei-viewer/", views.tei_viewer, name="tei-viewer"),
+    path(
+        "get-tei-transcription/",
+        views.get_tei_transcription,
+        name="get-tei-transcription",
+    ),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

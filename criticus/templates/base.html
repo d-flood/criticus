@@ -59,6 +59,12 @@
                             Reformat Collation
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{% url 'tei-viewer' %}" class="nav-link{% if page == 'tei-viewer' %} active{% endif %}">
+                            {% if page == 'tei-viewer' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            TEI Viewer
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
