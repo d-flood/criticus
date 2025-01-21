@@ -8,7 +8,7 @@
         hx-swap="innerHTML">
 
         <div class="input-group mt-2" id="input-folder">
-            {% include '_input_floating.html' with id="inputFolder" name="input-folder" label="TEI Folder" value=settings.reformat_collation_input_file required=True style="direction: rtl; text-align: right;" only %}
+            {% include '_input_floating.html' with id="inputFolder" name="input-folder" label="TEI Folder" value=settings.tei_viewer_input_dir required=True style="direction: rtl; text-align: right;" only %}
             <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_directory', 'inputFolder', null, null)">Browse</button>
         </div>
     

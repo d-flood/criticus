@@ -36,6 +36,7 @@ class Settings(models.Model):
     reformat_collation_publication_stmt = models.CharField(
         max_length=255, default="", blank=True
     )
+    tei_viewer_input_dir = models.CharField(max_length=255, default="", blank=True)
 
     tei2json_regexes: models.QuerySet["CustomRegex"]
 

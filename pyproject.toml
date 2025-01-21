@@ -18,6 +18,7 @@ classifiers = [
 ]
 dependencies = [
     "lxml>=4.8.0",
+    "saxonche==12.5.0",
     "django>=5.1.4",
     "toga==0.4.8",
     "uvicorn>=0.34.0",

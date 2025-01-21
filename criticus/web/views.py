@@ -4,7 +4,7 @@ from pathlib import Path
 from django.conf import settings as conf
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from lxml import etree as et
+from saxonche import PySaxonProcessor
 
 from criticus.py import combine_xml
 from criticus.py.md2tei import markdown_to_tei as md2tei
@@ -328,11 +328,16 @@ async def reformat_collation(request: HttpRequest):
 
 
 async def tei_viewer(request: HttpRequest):
+    settings = await get_settings()
     if request.method == "POST":
         print(request.POST)
         tei_folder = Path(request.POST.get("input-folder"))
         if not tei_folder.is_dir():
             return warning_response(request, "Please provide a valid folder.")
+
+        settings.tei_viewer_input_dir = tei_folder.as_posix()
+        await settings.asave()
+
         xml_files = list(tei_folder.glob("*.xml"))
         if not xml_files:
             return warning_response(
@@ -340,7 +345,9 @@ async def tei_viewer(request: HttpRequest):
             )
         return render(request, "_file_list.html", {"files": xml_files})
     else:  # GET
-        return render(request, "tei_viewer.html", {"page": "tei-viewer"})
+        return render(
+            request, "tei_viewer.html", {"page": "tei-viewer", "settings": settings}
+        )
 
 
 async def get_tei_transcription(request: HttpRequest):
@@ -348,10 +355,12 @@ async def get_tei_transcription(request: HttpRequest):
     xml_file = request.POST.get("xml_file")
     print(f"{xml_file=}")
 
-    parser = et.XMLParser(resolve_entities=False)
-    tree = et.parse(xml_file, parser)
-    xslt = et.parse(conf.BASE_DIR / "resources" / "tei_transcription.xsl")
-    transform = et.XSLT(xslt)
-    new_tree = transform(tree)
-
-    return HttpResponse(str(new_tree), content_type="text/html")
+    with PySaxonProcessor(license=False) as proc:
+        xslt30_processor = proc.new_xslt30_processor()
+        executable = xslt30_processor.compile_stylesheet(
+            stylesheet_file=(
+                conf.BASE_DIR / "resources" / "tei_transcription.xsl"
+            ).as_posix()
+        )
+        output = executable.transform_to_string(source_file=xml_file)
+        return HttpResponse(output, content_type="text/html")
