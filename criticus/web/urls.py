@@ -57,6 +57,7 @@ urlpatterns = [
         views.start_collation_editor,
         name="start-collation-editor",
     ),
+    path("export-collation/", views.export_collation_to_docx, name="export-collation"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

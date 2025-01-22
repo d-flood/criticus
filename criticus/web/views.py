@@ -7,6 +7,7 @@ from django.shortcuts import render
 from saxonche import PySaxonProcessor
 
 from criticus.py import ce_config, combine_xml
+from criticus.py.export_to_docx.xml_to_docx import export_xml_to_docx
 from criticus.py.md2tei import markdown_to_tei as md2tei
 from criticus.py.reformat_collation import reformat_xml
 from criticus.py.tei2json.tei_to_json import tei_to_json as tei2json
@@ -19,6 +20,14 @@ async def get_settings():
     return settings_object
 
 
+async def update_settings(data: dict):
+    settings = await get_settings()
+    for key, value in data.items():
+        setattr(settings, key, value)
+    await settings.asave()
+    return settings
+
+
 def error_response(request: HttpRequest, modal_text: str, error_text: str = None):
     context = {
         "modal_title": "Error",
@@ -27,7 +36,7 @@ def error_response(request: HttpRequest, modal_text: str, error_text: str = None
         "status": "fail",
     }
     resp = render(request, "_modal.html", context)
-    resp["HX-Target"] = "#modals"
+    resp["HX-Retarget"] = "#modals"
     return resp
 
 
@@ -38,7 +47,7 @@ def success_response(request: HttpRequest, modal_text: str):
         "status": "success",
     }
     resp = render(request, "_modal.html", context)
-    resp["HX-Target"] = "#modals"
+    resp["HX-Retarget"] = "#modals"
     return resp
 
 
@@ -50,7 +59,7 @@ def warning_response(request: HttpRequest, modal_text: str, error_text: str = No
         "status": "warning",
     }
     resp = render(request, "_modal.html", context)
-    resp["HX-Target"] = "#modals"
+    resp["HX-Retarget"] = "#modals"
     return resp
 
 
@@ -464,3 +473,58 @@ async def start_collation_editor(request: HttpRequest):
         request,
         "The collation editor has been started. There should be one (MacOS) or two (Windows) new terminal window(s) open, one for the CollateX server and one for the collation editor.",
     )
+
+
+async def export_collation_to_docx(request: HttpRequest):
+    settings = await get_settings()
+    context = {
+        "page": "export-collation",
+        "settings": settings,
+    }
+
+    if request.method == "GET":
+        return render(request, "export_collation.html", context)
+    # POST
+    print(request.POST)
+    data = request.POST
+    basetext_words_per_line = (
+        int(data.get("basetext-words-per-line", 10))
+        if data.get("basetext-words-per-line")
+        else 10
+    )
+    result, msg = export_xml_to_docx(
+        xml_filename=data.get("input-file"),
+        output_filename=data.get("output-file"),
+        basetext_words_per_line=basetext_words_per_line,
+        text_wits_separator=data.get("text-wit-separator", " // "),
+        rdg_n_text_separator=data.get("id-text-separator", ""),
+        text_bold=data.get("rdg-bold", "true") == "true",
+        wits_separator=data.get("wits-separator", ""),
+        custom_template=data.get("custom-template", ""),
+        use_custom_template=data.get("use-custom-template", "false") == "true",
+        collapse_regularized=data.get("collapse-regularized", "false") == "true",
+        add_suffix=data.get("add-suffix", "false") == "true",
+    )
+    if not result:
+        return error_response(request, "An error occurred.", msg)
+    settings.export_collation_input_file = data.get("input-file")
+    settings.export_collation_output_file = data.get("output-file")
+    settings.export_collation_add_suffix_to_child = (
+        data.get("add-suffix", "false") == "true"
+    )
+    settings.export_collation_basetext_words_per_line = basetext_words_per_line
+    settings.export_collation_collapse_regularized = (
+        data.get("collapse-regularized", "false") == "true"
+    )
+    settings.export_collation_custom_template = data.get("custom-template", "")
+    settings.export_collation_id_text_separator = data.get("id-text-separator", "")
+    settings.export_collation_rdg_bold = data.get("rdg-bold", "") == "true"
+    settings.export_collation_text_wits_separator = data.get(
+        "text-wit-separator", " // "
+    )
+    settings.export_collation_use_custom_template = (
+        data.get("use-custom-template", "false") == "true"
+    )
+    settings.export_collation_wits_separator = data.get("wits-separator", "")
+    await settings.asave()
+    return success_response(request, "The collation has been exported to a DOCX file.")

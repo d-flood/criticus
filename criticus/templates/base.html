@@ -67,8 +67,14 @@
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'ce-config' %}" class="nav-link{% if page == 'ce-config' %} active{% endif %}">
-                            {% if page == 'ce-config' %}<span class="visually-hidden">(Configure Collation Editor</span>{% endif %}
+                            {% if page == 'ce-config' %}<span class="visually-hidden">Configure Collation Editor</span>{% endif %}
                             Configure Collation Editor
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'export-collation' %}" class="nav-link{% if page == 'export-collation' %} active{% endif %}">
+                            {% if page == 'export-collation' %}<span class="visually-hidden">Export Collation</span>{% endif %}
+                            Export Collation
                         </a>
                     </li>
                 </ul>

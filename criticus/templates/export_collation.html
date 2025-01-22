@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Export Collation{% endblock %}
+{%block content %}
+<div class="container-fluid">
+    <h1 class="text-center">Export Collation as DOCX</h1>
+    <form hx-post="{% url 'export-collation' %}"
+        hx-target="#modals"
+        hx-swap="innerHTML">
+        <fieldset class="border border-primary p-2">
+            <legend class="mt-4">Export Options</legend>
+
+            <div class="d-flex flex-row gap-4 align-items-center my-1">
+                {% include '_checkbox.html' with name="use-custom-template" value="true" label="Use Custom Template" checked=settings.export_collation_use_custom_template type="checkbox" hyperscript="on change if me.checked remove @disabled from .custom-template then add @required to #customTemplate else add @disabled to .custom-template then remove @required from #customTemplate end" only %}
+                <div class="input-group">
+                    {% include '_input_floating.html' with id="customTemplate" name="custom-template" value=settings.export_collation_custom_template label="Custom Template File" classes="custom-template" disabled=True only %}
+                    <button type="button" class="btn btn-info text-nowrap custom-template" id="customTemplatePicker" onclick="addTask('pick_file', 'customTemplate', null, 'docx')" disabled>Browse</button>
+                </div>
+            </div>
+
+            {% include '_input_floating.html' with id="textWitSeparator" name="text-wit-separator" label="Reading Text and Witnesses Separator" value=settings.export_collation_text_wits_separator classes="my-1" only %}
+            {% include '_input_floating.html' with id="idTextSeparator" name="id-text-separator" label="Reading ID and Reading Text Separator" value=settings.export_collation_id_text_separator classes="my-1" only %}
+            {% include '_input_floating.html' with id="witsSeparator" name="wits-separator" label="Witnesses Separator" value=settings.export_collation_wits_separator classes="my-1" only %}
+            {% include '_input_floating.html' with id="basetextWordsPerLine" name="basetext-words-per-line" label="Basetext Words Per Line" type="number" value=settings.export_collation_basetext_words_per_line classes="my-1" only %}
+            {% include '_checkbox.html' with name="rdg-bold" value="true" label="Make Reading Text Bold" type="checkbox" checked=settings.export_collation_rdg_bold only %}
+            <div class="d-flex flex-row flex-wrap gap-4 align-items-center my-1">
+                {% include '_checkbox.html' with name="collapse-rdgs" value="true" label="Collapse Regularized Readings to Parent Reading" type="checkbox" checked=settings.export_collation_collapse_regularized hyperscript="on change if me.checked remove @disabled from #addSuffix else add @disabled to #addSuffix end" only %}
+                {% include '_checkbox.html' with id="addSuffix" name="add-suffix-to-rdgs" value="true" label="Add 'r' Suffix to Child Readings" type="checkbox" checked=settings.export_collation_add_suffix_to_child disabled=True only %}
+            </div>
+            
+        </fieldset>
+
+        <div class="input-group scopes my-1" id="input-file">
+            {% include '_input_floating.html' with id="inputFile" name="input-file" label="Input Collation File" value=settings.export_collation_input_file required=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_file', 'inputFile', null, 'xml')">Browse</button>
+        </div>
+        <div class="input-group scopes my-1" id="output-file">
+            {% include '_input_floating.html' with id="outputFile" name="output-file" label="Output DOCX File" value=settings.export_collation_output_file required=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('new_file', 'outputFile', null, 'docx')">Browse</button>
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary w-100">
+            <span id="convert-btn-txt">Convert</span>
+        </button>
+    </form>
+  
+</div>
+
+
+{% endblock %}

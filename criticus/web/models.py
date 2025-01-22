@@ -40,6 +40,29 @@ class Settings(models.Model):
     collation_editor_config_file = models.CharField(
         max_length=255, default="", blank=True
     )
+    export_collation_input_file = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    export_collation_output_file = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    export_collation_use_custom_template = models.BooleanField(default=False)
+    export_collation_custom_template = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    export_collation_text_wits_separator = models.CharField(
+        max_length=255, default=" // ", blank=True
+    )
+    export_collation_id_text_separator = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    export_collation_wits_separator = models.CharField(
+        max_length=255, default="", blank=True
+    )
+    export_collation_basetext_words_per_line = models.IntegerField(default=10)
+    export_collation_rdg_bold = models.BooleanField(default=True)
+    export_collation_collapse_regularized = models.BooleanField(default=False)
+    export_collation_add_suffix_to_child = models.BooleanField(default=False)
 
     tei2json_regexes: models.QuerySet["CustomRegex"]
 
