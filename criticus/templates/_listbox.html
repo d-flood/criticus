@@ -1,0 +1,24 @@
+{% comment  %}
+    id: str
+    name: str
+    label: str
+    classes: str
+    hyperscript = False: False | str
+{% endcomment %}
+
+<label for="{{ id }}" class="form-label">{{ label }}</label>
+<select id="{{ id }}" 
+    name="{{ name }}"
+    class="form-select {{ classes }}"
+    size="10"
+    multiple
+    {% if hyperscript %}
+        _="{{ hyperscript }}"
+    {% endif %}
+>
+    {% for option in options %}
+        <option value="{{ option }}">
+            {{ option }}
+        </option>
+    {% endfor %}
+</select>

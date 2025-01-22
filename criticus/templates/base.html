@@ -65,6 +65,12 @@
                             TEI Viewer
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{% url 'ce-config' %}" class="nav-link{% if page == 'ce-config' %} active{% endif %}">
+                            {% if page == 'ce-config' %}<span class="visually-hidden">(Configure Collation Editor</span>{% endif %}
+                            Configure Collation Editor
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

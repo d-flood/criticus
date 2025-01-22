@@ -9,6 +9,7 @@
     disabled?: True | False
     style?: str
     required?: True | False
+    readonly?: True | False
 {% endcomment %}
 
 
@@ -29,6 +30,9 @@
         {% endif %}
         {% if required %}
             required
+        {% endif %}
+        {% if readonly %}
+            readonly
         {% endif %}
     />
     <label for="{% if id %}{{ id }}{% else %}{{ name }}-input-id{% endif %}">{{ label }}</label>

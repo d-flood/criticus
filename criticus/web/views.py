@@ -6,7 +6,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from saxonche import PySaxonProcessor
 
-from criticus.py import combine_xml
+from criticus.py import ce_config, combine_xml
 from criticus.py.md2tei import markdown_to_tei as md2tei
 from criticus.py.reformat_collation import reformat_xml
 from criticus.py.tei2json.tei_to_json import tei_to_json as tei2json
@@ -364,3 +364,103 @@ async def get_tei_transcription(request: HttpRequest):
         )
         output = executable.transform_to_string(source_file=xml_file)
         return HttpResponse(output, content_type="text/html")
+
+
+async def configure_collation_editor(request: HttpRequest):
+    settings = await get_settings()
+    context = {
+        "page": "ce-config",
+        "settings": settings,
+    }
+    return render(request, "collation_editor.html", context)
+
+
+async def load_collation_config(request: HttpRequest):
+    print(request.GET)
+    settings = await get_settings()
+    try:
+        config = ce_config.get_config(request.GET.get("input-file", ""))
+    except Exception as e:
+        return error_response(
+            request, f"Failed to load the config file: {e}", traceback.format_exc()
+        )
+    settings.collation_editor_config_file = request.GET.get("input-file", "")
+    await settings.asave()
+    return render(request, "_collation_editor_options.html", {"config": config})
+
+
+async def move_witnesses(request: HttpRequest):
+    data = request.POST
+    print(data)
+    try:
+        config = ce_config.get_config(data.get("input-file", ""))
+    except Exception as e:
+        return error_response(
+            request, f"Failed to load the config file: {e}", traceback.format_exc()
+        )
+    move_type = data.get("moveType")
+    if move_type in ("exclude", "include"):
+        wits = (
+            data.getlist("included-wits")
+            if move_type == "exclude"
+            else data.getlist("excluded-wits")
+        )
+        config = ce_config.move_selected_witnesses(config, wits, move_type)
+    else:  # move_type == "delete"
+        # delete from data["excluded_witnesses"]
+        config = ce_config.delete_selected_witnesses(
+            config, data.getlist("excluded-wits")
+        )
+    try:
+        ce_config.save_config(config, data.get("input-file"))
+    except Exception as e:
+        return error_response(
+            request, f"Failed to save the config file: {e}", traceback.format_exc()
+        )
+    try:
+        config = ce_config.get_config(data.get("input-file"))
+    except Exception as e:
+        return error_response(
+            request, f"Failed to reload the config file: {e}", traceback.format_exc()
+        )
+    return render(request, "_collation_editor_options.html", {"config": config})
+
+
+async def update_collation_config(request: HttpRequest):
+    data = request.POST
+    try:
+        config = ce_config.get_config(data.get("input-file"))
+    except Exception as e:
+        return error_response(
+            request, f"Failed to load the config file: {e}", traceback.format_exc()
+        )
+    config["name"] = data.get("title")
+    config["base_text"] = data.get("basetext")
+    new_witness = data.get("new-witness")
+    if new_witness:
+        config["witnesses"].append(new_witness)
+    try:
+        ce_config.save_config(config, data.get("input-file"))
+    except Exception as e:
+        return error_response(
+            request, f"Failed to save the config file: {e}", traceback.format_exc()
+        )
+    resp = render(request, "_collation_editor_options.html", {"config": config})
+    resp["HX-Trigger"] = "updatedHeader"
+    return resp
+
+
+async def start_collation_editor(request: HttpRequest):
+    config_path = request.GET.get("input-file")
+    try:
+        ce_config.start_ce(config_path)
+    except Exception as e:
+        return error_response(
+            request,
+            f"Failed to start the collation editor: {e}",
+            traceback.format_exc(),
+        )
+    return success_response(
+        request,
+        "The collation editor has been started. There should be one (MacOS) or two (Windows) new terminal window(s) open, one for the CollateX server and one for the collation editor.",
+    )

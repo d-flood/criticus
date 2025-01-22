@@ -44,6 +44,19 @@ urlpatterns = [
         views.get_tei_transcription,
         name="get-tei-transcription",
     ),
+    path("ce-config/", views.configure_collation_editor, name="ce-config"),
+    path("load-config/", views.load_collation_config, name="load-collation-config"),
+    path("move-witnesses/", views.move_witnesses, name="move-witnesses"),
+    path(
+        "update-collation-config/",
+        views.update_collation_config,
+        name="update-collation-config",
+    ),
+    path(
+        "start-collation-editor/",
+        views.start_collation_editor,
+        name="start-collation-editor",
+    ),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

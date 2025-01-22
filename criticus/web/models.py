@@ -37,6 +37,9 @@ class Settings(models.Model):
         max_length=255, default="", blank=True
     )
     tei_viewer_input_dir = models.CharField(max_length=255, default="", blank=True)
+    collation_editor_config_file = models.CharField(
+        max_length=255, default="", blank=True
+    )
 
     tei2json_regexes: models.QuerySet["CustomRegex"]
 

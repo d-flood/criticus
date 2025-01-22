@@ -1,0 +1,47 @@
+{% extends 'base.html' %} 
+{% block title %}Configure Collation Editor{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+    <h1 class="text-center">Configure Collation Editor</h1>
+    <form id="form"
+        hx-post="{% url 'update-collation-config' %}"
+        hx-target="#options"
+    >
+
+        <div id="configFileDiv" class="input-group mt-2 rounded-2 border-2">
+            {% include '_input_floating.html' with id="inputFile" name="input-file" label="Collation Editor 'config.json' File*" value=settings.collation_editor_config_file required=True readonly=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="filePicker" onclick="addTask('pick_file', 'inputFile', null, 'json')">Browse</button>
+            <button type="button" class="btn btn-primary text-nowrap" id="loadConfig"
+                hx-get="{% url 'load-collation-config' %}"
+                hx-include="#form"
+                hx-target="#options"
+                _="on click add .border .border-primary to #configFileDiv then wait 1s then remove .border .border-primary from #configFileDiv end"
+            >
+                Load
+            </button>
+        </div>
+
+        <fieldset id="options" class="border border-primary p-2 mt-2">
+            {% include '_collation_editor_options.html' %}
+        </fieldset>
+        <button type="button" class="btn btn-primary w-100 mt-2"
+            hx-get="{% url 'start-collation-editor' %}"
+            hx-include="#form"
+            hx-target="#modals"
+        >
+            Start Collation Editor
+        </button>
+    </form>
+
+    <div id="tei-viewer"></div>
+    <style>
+        #tei-viewer * {
+            font-family: serif !important;
+        }
+    </style>
+  
+</div>
+
+
+{% endblock %}
