@@ -3,11 +3,11 @@ from django.db import models
 
 class Settings(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    txt2json_input_dir = models.CharField(max_length=255, default="", blank=True)
+    txt2json_input_file = models.CharField(max_length=255, default="", blank=True)
     txt2json_output_dir = models.CharField(max_length=255, default="", blank=True)
-    md2tei_input_dir = models.CharField(max_length=255, default="", blank=True)
-    md2tei_output_dir = models.CharField(max_length=255, default="", blank=True)
-    tei2json_input_dir = models.CharField(max_length=255, default="", blank=True)
+    md2tei_input_file = models.CharField(max_length=255, default="", blank=True)
+    md2tei_output_file = models.CharField(max_length=255, default="", blank=True)
+    tei2json_input_file = models.CharField(max_length=255, default="", blank=True)
     tei2json_output_dir = models.CharField(max_length=255, default="", blank=True)
     combine_collations_input_dir = models.CharField(
         max_length=255, default="", blank=True

@@ -71,8 +71,8 @@ async def home(request: HttpRequest):
 
 
 async def plain_text_to_json(request: HttpRequest):
+    settings = await get_settings()
     if request.method == "POST":
-        print(request.POST)
         if not request.POST.get("single-ref"):  # convert all or some in file
             try:
                 txt2json.convert_text_to_json(
@@ -87,19 +87,16 @@ async def plain_text_to_json(request: HttpRequest):
                     verse_to=request.POST.get("range-to"),
                     siglum=request.POST.get("siglum"),
                 )
-                context = {
-                    "modal_title": "Success",
-                    "modal_text": "Your text file has been converted to JSON files.",
-                    "status": "success",
-                }
+                settings.txt2json_input_dir = request.POST.get("input_file")
+                settings.txt2json_output_dir = request.POST.get("output_directory")
+                await settings.asave()
+                return success_response(
+                    request, "Your text has been converted to JSON files."
+                )
             except Exception as e:
-                context = {
-                    "modal_title": "Error",
-                    "modal_text": f"An error occurred: {e}",
-                    "error_text": traceback.format_exc(),
-                    "status": "fail",
-                }
-                print(traceback.format_exc())
+                return error_response(
+                    request, f"An error occurred: {e}", traceback.format_exc()
+                )
         else:  # convert from directly provided text
             try:
                 txt2json.convert_single_verse_to_json(
@@ -108,53 +105,47 @@ async def plain_text_to_json(request: HttpRequest):
                     reference=request.POST.get("single-ref"),
                     output_dir=request.POST.get("output_directory"),
                 )
-                context = {
-                    "modal_title": "Success",
-                    "modal_text": "Your text has been converted to a JSON file.",
-                    "status": "success",
-                }
+                settings.txt2json_input_dir = request.POST.get("input_text")
+                settings.txt2json_output_dir = request.POST.get("output_directory")
+                return success_response(
+                    request, "Your text has been converted to a JSON file."
+                )
             except Exception as e:
-                context = {
-                    "modal_title": "Error",
-                    "modal_text": f"An error occurred: {e}",
-                    "error_text": traceback.format_exc(),
-                    "status": "fail",
-                }
-                print(traceback.format_exc())
-        return render(request, "_modal.html", context)
+                return error_response(
+                    request, f"An error occurred: {e}", traceback.format_exc()
+                )
     else:  # GET
         context = {
             "page": "txt2json",
+            "settings": settings,
         }
         return render(request, "plain_text_to_json.html", context)
 
 
 async def markdown_to_tei(request: HttpRequest):
+    settings = await get_settings()
     if request.method == "POST":
-        print(request.POST)
         try:
             md2tei.convert_md_to_tei(
                 md_file=request.POST.get("input_file"),
                 xml_file=request.POST.get("output_file"),
                 output_format=request.POST.get("format"),
             )
-            context = {
-                "modal_title": "Success",
-                "modal_text": f"Your Markdown file has been converted to TEI XML and saved to {request.POST.get('output_file')}.",
-                "status": "success",
-            }
+            settings.md2tei_input_file = request.POST.get("input_file")
+            settings.md2tei_output_file = request.POST.get("output_file")
+            await settings.asave()
+            return success_response(
+                request,
+                f"Your Markdown file has been converted to TEI XML and saved to {request.POST.get('output_file')}.",
+            )
         except Exception as e:
-            context = {
-                "modal_title": "Error",
-                "modal_text": f"An error occurred: {e}",
-                "error_text": traceback.format_exc(),
-                "status": "fail",
-            }
-            print(traceback.format_exc())
-        return render(request, "_modal.html", context)
+            return error_response(
+                request, f"An error occurred: {e}", traceback.format_exc()
+            )
     # GET
     context = {
         "page": "md2tei",
+        "settings": settings,
     }
     return render(request, "markdown_to_tei.html", context)
 
@@ -163,7 +154,6 @@ async def tei_to_json(request: HttpRequest):
     settings = await get_settings()
 
     if request.method == "POST":
-        print(request.POST)
         single_verse = (
             request.POST.get("reference")
             if request.POST.get("range") == "one"
@@ -187,6 +177,9 @@ async def tei_to_json(request: HttpRequest):
         )
         if result is not True:
             return error_response(request, result)
+        settings.tei2json_input_file = request.POST.get("input_file")
+        settings.tei2json_output_dir = output_dir
+        await settings.asave()
         return success_response(
             request,
             f"Your TEI file has been converted to JSON files and saved to {output_file}.",
@@ -195,6 +188,7 @@ async def tei_to_json(request: HttpRequest):
     # GET
     context = {
         "page": "tei2json",
+        "settings": settings,
         "active_regexes": [
             r async for r in settings.tei2json_regexes.filter(active=True)
         ],
@@ -223,7 +217,6 @@ async def add_tei2json_regex(request: HttpRequest):
             settings=settings, expression=expression, replacement=replacement
         )
     except Exception as e:
-        print(traceback.format_exc())
         return error_response(
             request, f"An error occurred: {e}", traceback.format_exc()
         )
@@ -282,7 +275,6 @@ async def combine_collations(request: HttpRequest):
         settings.combine_collations_publication_stmt = request.POST.get(
             "publication-statement", ""
         )
-
         await settings.asave()
         _, failed = combine_xml.combine_xml_files(
             input_dir=request.POST.get("input-folder"),
@@ -301,7 +293,7 @@ async def combine_collations(request: HttpRequest):
             )
         return success_response(request, "All collations combined successfully.")
     context = {
-        "page": "combine_collations",
+        "page": "combine-collations",
         "settings": settings,
     }
     return render(request, "combine_collations.html", context)
@@ -310,7 +302,6 @@ async def combine_collations(request: HttpRequest):
 async def reformat_collation(request: HttpRequest):
     settings = await get_settings()
     if request.method == "POST":
-        print(request.POST)
         if request.POST.get("reformat-type") == "reformat":
             result = reformat_xml.convert(
                 xml_input_file=request.POST.get("input-file"),
@@ -327,10 +318,17 @@ async def reformat_collation(request: HttpRequest):
             return error_response(request, result["modal_text"], result["error_text"])
         elif result["type"] == "warning":
             return warning_response(request, result["modal_text"])
+        settings.reformat_collation_input_file = request.POST.get("input-file")
+        settings.reformat_collation_output_file = request.POST.get("output-file")
+        settings.reformat_collation_title_stmt = request.POST.get("collation-title")
+        settings.reformat_collation_publication_stmt = request.POST.get(
+            "publication-statement"
+        )
+        await settings.asave()
         return success_response(request, result["modal_text"])
     # GET
     context = {
-        "page": "reformat_collation",
+        "page": "reformat-collation",
         "settings": settings,
     }
     return render(request, "reformat_collation.html", context)
@@ -339,7 +337,6 @@ async def reformat_collation(request: HttpRequest):
 async def tei_viewer(request: HttpRequest):
     settings = await get_settings()
     if request.method == "POST":
-        print(request.POST)
         tei_folder = Path(request.POST.get("input-folder"))
         if not tei_folder.is_dir():
             return warning_response(request, "Please provide a valid folder.")
@@ -362,7 +359,6 @@ async def tei_viewer(request: HttpRequest):
 async def get_tei_transcription(request: HttpRequest):
     """Get the content of an XML file, add a stylesheet, and return it."""
     xml_file = request.POST.get("xml_file")
-    print(f"{xml_file=}")
 
     with PySaxonProcessor(license=False) as proc:
         xslt30_processor = proc.new_xslt30_processor()
@@ -385,7 +381,6 @@ async def configure_collation_editor(request: HttpRequest):
 
 
 async def load_collation_config(request: HttpRequest):
-    print(request.GET)
     settings = await get_settings()
     try:
         config = ce_config.get_config(request.GET.get("input-file", ""))
@@ -400,7 +395,6 @@ async def load_collation_config(request: HttpRequest):
 
 async def move_witnesses(request: HttpRequest):
     data = request.POST
-    print(data)
     try:
         config = ce_config.get_config(data.get("input-file", ""))
     except Exception as e:
@@ -485,7 +479,6 @@ async def export_collation_to_docx(request: HttpRequest):
     if request.method == "GET":
         return render(request, "export_collation.html", context)
     # POST
-    print(request.POST)
     data = request.POST
     basetext_words_per_line = (
         int(data.get("basetext-words-per-line", 10))

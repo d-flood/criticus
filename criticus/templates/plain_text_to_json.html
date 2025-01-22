@@ -41,44 +41,18 @@
 
         <!-- Conversion Scope -->
 
-    {% comment  %}
-        <fieldset class="border border-primary border-top-0 p-2">
-            <legend class="mt-4">Input File</legend>
-
-                <div class="btn-group w-100 mb-2" role="group" aria-label="Conversion Scope">
-                    {% include '_radio_btn.html' with name="conversion_scope" value="file" label="File" checked=True required=True hyperscript="on change if me.checked hide .scopes then show #input-file   then remove @required from .scope-input then add @required to #inputFile end" only %}
-                    {% include '_radio_btn.html' with name="conversion_scope" value="directory" label="Folder"                     hyperscript="on change if me.checked hide .scopes then show #input-folder then remove @required from .scope-input then add @required to #inputDir end" only %}
-                </div>
-
-                <div class="input-group scopes" id="input-folder" style="display: none;">
-                {% include '_input_floating.html' with id="inputDir" name="input_directory" label="Input Folder" classes="scope-input" style="direction: rtl; text-align: right;" only %}
-                <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_directory', 'inputDir')">Browse</button>
-            </div>
-            
-        </fieldset>
-    {% endcomment %}
-
-        <div class="input-group scopes mt-2" id="input-file">
-            {% include '_input_floating.html' with id="inputFile" name="input_file" label="Input File" classes="scope-input" required=True style="direction: rtl; text-align: right;" only %}
-            <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_file', 'inputFile')">Browse</button>
+        <div class="input-group scopes my-1" id="input-file">
+            {% include '_input_floating.html' with id="inputFile" name="input_file" label="Input File" value=settings.txt2json_input_file required=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_file', 'inputFile', null, 'txt')">Browse</button>
         </div>
 
-        <div class="form-group d-flex flex-row gap-4 align-items-center my-2">
-            <div class="input-group">
-                {% include '_input_floating.html' with id="outputDir" name="output_directory" label="Output Folder" style="direction: rtl; text-align: right;" required=True only %}
-                <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_directory', 'outputDir')">Browse</button>
-            </div>
+        <div class="input-group my-1">
+            {% include '_input_floating.html' with id="outputDir" name="output_directory" label="Output Folder" value=settings.txt2json_output_dir style="direction: rtl; text-align: right;" required=True only %}
+            <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_directory', 'outputDir')">Browse</button>
         </div>
-        <button type="submit" class="btn btn-primary w-100"
-            {% comment  %}
-            _="on click hide #convert-btn-txt then show #convert-btn-spinner then add .disabled to me end
-                on htmx:load from body remove .disabled from me then hide #convert-btn-spinner then show #convert-btn-txt end"
-            {% endcomment %}
-            >
+
+        <button type="submit" class="btn btn-primary w-100">
             <span id="convert-btn-txt">Convert</span>
-            <div id="convert-btn-spinner" class="spinner-border" role="status" style="display: none;">
-                <span class="visually-hidden">Processing...</span>
-            </div>
         </button>
     </form>
   

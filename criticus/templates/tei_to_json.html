@@ -49,12 +49,12 @@
 
         
         <div class="input-group mt-2">
-            {% include '_input_floating.html' with id="inputFile" name="input_file" label="TEI Transcription File" style="direction: rtl; text-align: right;" required=True only %}
+            {% include '_input_floating.html' with id="inputFile" name="input_file" label="TEI Transcription File" value=settings.tei2json_input_file style="direction: rtl; text-align: right;" required=True only %}
             <button type="button" class="btn btn-info text-nowrap" id="filePicker" onclick="addTask('pick_file', 'inputFile', null, 'xml')">Browse</button>
         </div>
 
         <div class="input-group my-2">
-            {% include '_input_floating.html' with id="outputDir" name="output_folder" label="Output Folder" style="direction: rtl; text-align: right;" required=True only %}
+            {% include '_input_floating.html' with id="outputDir" name="output_folder" label="Output Folder" value=settings.tei2json_output_dir style="direction: rtl; text-align: right;" required=True only %}
             <button type="button" class="btn btn-info text-nowrap" id="outputDirPicker" onclick="addTask('pick_directory', 'outputDir')">Browse</button>
         </div>
 
