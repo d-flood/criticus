@@ -2,11 +2,16 @@ import asyncio
 import ctypes
 import platform
 import re
+import socket
+import sys
+import threading
+import time
 import unicodedata
 from pathlib import Path
 
 import toga
 from toga.style.pack import COLUMN, Pack
+from uvicorn import Config, Server
 
 if platform.system() == "Windows":
     # Set DPI awareness for higher resolution screens
@@ -108,14 +113,57 @@ class Criticus(toga.App):
         return file
 
 
-def main():
-    app = Criticus(
-        "Criticus",
-        "com.davidaflood.criticus",
-        home_page="https://github.com/d-flood/criticus",
-        local_port=8000,
+async def serve(port: int):
+    # Get the directory containing gui.py
+    base_dir = Path(__file__).parent
+    # Add the base directory to Python path so Uvicorn can find the web module
+    sys.path.insert(0, str(base_dir))
+
+    config = Config(
+        "web.asgi:application",
+        port=port,
     )
-    app.main_loop()
+    server = Server(config=config)
+    await server.serve()
+
+
+def run_server(port: int):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(serve(port))
+
+
+def find_free_port(start_port: int = 8000, max_attempts: int = 100) -> int:
+    """Find first available port starting from start_port."""
+    for port in range(start_port, start_port + max_attempts):
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.bind(("127.0.0.1", port))
+                return port
+        except OSError:
+            continue
+    raise RuntimeError(f"Could not find free port after {max_attempts} attempts")
+
+
+def main():
+    try:
+        port = find_free_port()
+        server_thread = threading.Thread(target=run_server, args=(port,), daemon=True)
+        server_thread.start()
+
+        # Give the server a moment to start
+        time.sleep(1)
+
+        app = Criticus(
+            "Criticus",
+            "com.davidaflood.criticus",
+            home_page="https://github.com/d-flood/criticus",
+            local_port=port,
+        )
+        app.main_loop()
+    except Exception as e:
+        print(f"Error: {e}")
+        raise
 
 
 if __name__ == "__main__":

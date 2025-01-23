@@ -4,7 +4,6 @@ from pathlib import Path
 from django.conf import settings as conf
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from saxonche import PySaxonProcessor
 
 from criticus.py import ce_config, combine_xml
 from criticus.py.export_to_docx.xml_to_docx import export_xml_to_docx
@@ -359,6 +358,15 @@ async def tei_viewer(request: HttpRequest):
 async def get_tei_transcription(request: HttpRequest):
     """Get the content of an XML file, add a stylesheet, and return it."""
     xml_file = request.POST.get("xml_file")
+
+    try:
+        from saxonche import PySaxonProcessor
+    except ImportError:
+        return warning_response(
+            request,
+            "To view TEI transcriptions, you must also install the Saxon-C HE library Python library. Run the following command to install it:",
+            "pip install saxonche",
+        )
 
     with PySaxonProcessor(license=False) as proc:
         xslt30_processor = proc.new_xslt30_processor()
