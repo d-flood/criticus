@@ -18,7 +18,6 @@ classifiers = [
 ]
 dependencies = [
     "lxml>=4.8.0",
-    "saxonche==12.5.0",
     "django>=5.1.4",
     "toga==0.4.8",
     "uvicorn>=0.34.0",
@@ -44,11 +43,14 @@ source = "https://github.com/d-flood/criticus"
 path = "criticus/__about__.py"
 
 [tool.hatch.metadata.package-data]
-criticus = ["py/export_to_docx/*.docx"]
+criticus = [
+    "py/export_to_docx/*.docx", 
+    "*.sqlite3"
+]
 
 [tool.hatch.envs.default]
 installer = "uv"
-python = "3.12"
+python = "3.13"
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
@@ -82,6 +84,15 @@ exclude = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["criticus"]
+include = [
+    "criticus/py/export_to_docx/*.docx",
+    "criticus/criticus.sqlite3"
+]
+
+[tool.hatch.build]
+artifacts = [
+    "criticus/criticus.sqlite3"
+]
 
 [tool.coverage.run]
 branch = true
