@@ -114,9 +114,7 @@ class Criticus(toga.App):
 
 
 async def serve(port: int):
-    # Get the directory containing gui.py
     base_dir = Path(__file__).parent
-    # Add the base directory to Python path so Uvicorn can find the web module
     sys.path.insert(0, str(base_dir))
 
     config = Config(
