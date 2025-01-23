@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criticus - {% block title %}{% endblock  %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        .form-check-label,
+        .form-check-input {
+            cursor: pointer;
+        }
+        .form-check {
+            min-width: 10rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md bg-primary nav-underline" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Criticus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'txt2json' %}" class="nav-link{% if page == 'txt2json' %} active{% endif %}">
+                            {% if page == 'txt2json' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            Text to JSON
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'md2tei' %}" class="nav-link{% if page == 'md2tei' %} active{% endif %}">
+                            {% if page == 'md2tei' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            Markdown to TEI
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'tei2json' %}" class="nav-link{% if page == 'tei2json' %} active{% endif %}">
+                            {% if page == 'tei2json' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            TEI to JSON
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'combine-collations' %}" class="nav-link{% if page == 'combine-collations' %} active{% endif %}">
+                            {% if page == 'combine-collations' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            Combine Collations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'reformat-collation' %}" class="nav-link{% if page == 'reformat-collation' %} active{% endif %}">
+                            {% if page == 'reformat-collation' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            Reformat Collation
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'tei-viewer' %}" class="nav-link{% if page == 'tei-viewer' %} active{% endif %}">
+                            {% if page == 'tei-viewer' %}<span class="visually-hidden">(current)</span>{% endif %}
+                            TEI Viewer
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'ce-config' %}" class="nav-link{% if page == 'ce-config' %} active{% endif %}">
+                            {% if page == 'ce-config' %}<span class="visually-hidden">Configure Collation Editor</span>{% endif %}
+                            Configure Collation Editor
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'export-collation' %}" class="nav-link{% if page == 'export-collation' %} active{% endif %}">
+                            {% if page == 'export-collation' %}<span class="visually-hidden">Export Collation</span>{% endif %}
+                            Export Collation
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock content %}
+
+    <div id="modals"></div>
+
+    <script src="{% static 'js/htmx.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/_hyperscript.min.js' %}"></script>
+
+    <script>
+        window.criticus = window.criticus || {};
+
+        window.criticus.modal = null;
+        window.criticus.tasks = [];
+
+        // called by the backend
+
+        function getTask() {
+            if (window.criticus.tasks.length === 0) {
+                return null;
+            }
+            return window.criticus.tasks.shift();
+        }
+
+        function setInputValue(newValue, targetElementID) {
+            const target = document.getElementById(targetElementID);
+            target.value = newValue;
+            target.classList.add('border-3', 'border-info');
+            // wait 1s
+            setTimeout(() => {
+                target.classList.remove('border-3', 'border-info');
+            }, 1000);
+        }
+
+        // called by client
+
+        function addTask(task, targetElementID, value=null, ext=null) {
+            window.criticus.tasks.push({
+                name: task,
+                target: targetElementID,
+                value: value,
+                ext: ext
+            });
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+{% comment  %}
+    name: str
+    label: str
+    value?: str
+    id?: str
+    type?: "text" | "email" | "password" | "number" | "range" | "search" | "tel" | "url"
+    classes?: str
+    wrapper_classes?: str
+    autocomplete?: "on" | "off"
+    disabled?: True | False
+    style?: str
+    required?: True | False
+    readonly?: True | False
+{% endcomment %}
+
+
+<div class="form-floating {{ wrapper_classes|default:'' }}">
+    <input 
+        id="{% if id %}{{ id }}{% else %}{{ name }}-input-id{% endif %}"
+        type="{{ type|default:'text' }}"
+        class="form-control {{ classes|default:'' }}"
+        autocomplete="{{ autocomplete|default:'on' }}"
+        name="{{ name }}"
+        placeholder="{{ label }}"
+        value="{{ value|default:'' }}"
+        {% if disabled %}
+            disabled
+        {% endif %}
+        {% if style %}
+            style="{{ style }}"
+        {% endif %}
+        {% if required %}
+            required
+        {% endif %}
+        {% if readonly %}
+            readonly
+        {% endif %}
+    />
+    <label for="{% if id %}{{ id }}{% else %}{{ name }}-input-id{% endif %}">{{ label }}</label>
+</div>

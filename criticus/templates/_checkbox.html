@@ -1,0 +1,40 @@
+{% comment  %}
+    name: str,
+    value: str,
+    label: str,
+    type = "checkbox": "checkbox" | "radio"
+    checked = True: True | False
+    hyperscript = False: False | str
+    disabled?: True | False
+    id?: str
+{% endcomment %}
+
+<div class="form-check my-2">
+    <input
+        {% if id %}
+            id="{{ id }}"
+        {% else %}
+            id="{{ name }}-{{ value }}-input"
+        {% endif %}
+        class="form-check-input"
+        type="{{ type|default:'checkbox' }}"
+        name="{{ name }}"
+        value="{{ value }}"
+        {% if checked %}checked{% endif %}
+        {% if hyperscript %}
+            _="{{ hyperscript }}"
+        {% endif %}
+        {% if disabled %}
+            disabled
+        {% endif %}
+    />
+    <label class="form-check-label" 
+        {% if id %}
+            for="{{ id }}"
+        {% else %}    
+            for="{{ name }}-{{ value }}-input"
+        {% endif %}
+    >
+        {{ label }}
+    </label>
+</div>

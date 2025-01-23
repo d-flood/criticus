@@ -31,7 +31,6 @@ Temporary Items
 *.so
 
 # Distribution / packaging
-temp*
 .Python
 .vscode/
 env/
@@ -77,4 +76,8 @@ macOS/
 windows/
 android/
 linux/
-django/
+
+# Local development
+.env
+*.sqlite3
+staticfiles/

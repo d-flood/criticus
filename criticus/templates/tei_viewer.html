@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block title %}Reformat Collations{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+    <h1 class="text-center">TEI Viewer</h1>
+    <form hx-post="{% url 'tei-viewer' %}"
+        hx-target="#tei-viewer"
+        hx-swap="innerHTML">
+
+        <div class="input-group mt-2" id="input-folder">
+            {% include '_input_floating.html' with id="inputFolder" name="input-folder" label="TEI Folder" value=settings.tei_viewer_input_dir required=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_directory', 'inputFolder', null, null)">Browse</button>
+        </div>
+    
+        <button type="submit" class="btn btn-primary btn-sm w-100 my-2">
+            <span id="convert-btn-txt">Show XML Files</span>
+            <div id="convert-btn-spinner" class="spinner-border" role="status" style="display: none;">
+                <span class="visually-hidden">Processing...</span>
+            </div>
+        </button>
+    </form>
+
+    <div id="tei-viewer"></div>
+    <style>
+        #tei-viewer * {
+            font-family: serif !important;
+        }
+    </style>
+  
+</div>
+
+
+{% endblock %}

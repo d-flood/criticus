@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Combine Collations{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center">Combine XML Collations</h1>
+    <form hx-post="{% url 'combine-collations' %}"
+        hx-target="#modals"
+        hx-swap="innerHTML">
+        <fieldset class="border border-primary p-2">
+            <legend class="mt-4">Options</legend>
+
+            <div class="d-flex flex-row gap-2">
+                {% include '_checkbox.html' with name="reformatted" value="true" label="Files have already been reformatted" type="checkbox" hyperscript="on change if me.checked remove @disabled from .tei-statements then add @required to .tei-statements else add @disabled to .tei-statements then remove @required from .tei-statements end" only %}
+                <div class="input-group">
+                    {% include '_input_floating.html' with id="collationTitle" name="collation-title" label="Collation Title" value=settings.combine_collations_title_stmt classes="tei-statements" disabled=True only %}
+                    {% include '_input_floating.html' with id="publicationStatement" name="publication-statement" label="Publication Statement" value=settings.combine_collations_publication_stmt classes="tei-statements" disabled=True only %}
+                </div>
+            </div>
+            {% include '_input_floating.html' with id="startswithInput" name="startswith" label="Combine all files that start with:" value=settings.combine_collations_startswith required=True only %}
+            
+        </fieldset>
+
+
+        <div class="input-group mt-2" id="input-folder">
+            {% include '_input_floating.html' with id="inputFolder" name="input-folder" label="Input Folder" value=settings.combine_collations_input_dir required=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_directory', 'inputFolder')">Browse</button>
+        </div>
+        <div class="input-group mt-2" id="output-file">
+            {% include '_input_floating.html' with id="outputFile" name="output-file" label="Output File" value=settings.combine_collations_output_file required=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="filePicker" onclick="addTask('new_file', 'outputFile', null, 'xml')">Browse</button>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 my-2">
+            <span id="convert-btn-txt">Convert</span>
+            <div id="convert-btn-spinner" class="spinner-border" role="status" style="display: none;">
+                <span class="visually-hidden">Processing...</span>
+            </div>
+        </button>
+    </form>
+  
+</div>
+
+
+{% endblock %}

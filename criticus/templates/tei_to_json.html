@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block title %}MarkdownTEI{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center">TEI to JSON</h1>
+    <form accept-charset="UTF-8"
+        hx-post="{% url 'tei2json' %}"
+        hx-target="#modals"
+        hx-swap="innerHTML"
+        hx-indicator="#indicator"
+    >
+        <fieldset class="border border-primary p-2">
+            <legend class="mt-4">TEI Input Options</legend>
+
+            {% include '_checkbox.html' with name="range" value="all" label="Convert all verses" type="radio" checked=True hyperscript="on change if me.checked add @disabled to #reference-input then remove @required from #reference-input end" only %}
+
+            <div class="d-flex flex-row gap-4 align-items-center my-2">
+                {% include '_checkbox.html' with name="range" value="one" label="Convert one verse" type="radio" hyperscript="on change if me.checked remove @disabled from #reference-input then add @required to #reference-input end" only %}
+                {% include '_input_floating.html' with id="reference-input" name="reference" label="Reference" disabled=True only %}
+            </div>
+            
+            <div class="input-group my-2">
+                {% include '_input_floating.html' with id="siglum-input" name="siglum" label="Siglum (optional)" only %}
+                {% include '_input_floating.html' with id="siglum-suffix-input" name="siglum-suffix" label="Siglum suffix (optional)" only %}  
+            </div>
+
+            <div class="d-flex flex-row justify-content-center mt-2">
+                <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#regexContainer" aria-expanded="false" aria-controls="regexContainer">
+                    Edit Regex
+                </button>
+            </div>
+            <div class="collapse" id="regexContainer">
+                <div class="input-group my-2">
+                    {% include '_input_floating.html' with name="newExpression" label="Expression/Target text" only %}
+                    {% include '_input_floating.html' with name="newReplacement" label="Replacement text" only %}
+                    <button type="button" class="btn btn-info"
+                        hx-post="{% url 'add-regex' %}"
+                        hx-target="#regexes"
+                        hx-include="#regexContainer"
+                    >
+                        Add
+                    </button>
+                </div>
+                <div id="regexes" class="mt-3 border-top border-primary p-2">
+                    {% include '_regexes.html' %}
+                </div>
+            </div>
+            
+        </fieldset>
+
+        
+        <div class="input-group mt-2">
+            {% include '_input_floating.html' with id="inputFile" name="input_file" label="TEI Transcription File" value=settings.tei2json_input_file style="direction: rtl; text-align: right;" required=True only %}
+            <button type="button" class="btn btn-info text-nowrap" id="filePicker" onclick="addTask('pick_file', 'inputFile', null, 'xml')">Browse</button>
+        </div>
+
+        <div class="input-group my-2">
+            {% include '_input_floating.html' with id="outputDir" name="output_folder" label="Output Folder" value=settings.tei2json_output_dir style="direction: rtl; text-align: right;" required=True only %}
+            <button type="button" class="btn btn-info text-nowrap" id="outputDirPicker" onclick="addTask('pick_directory', 'outputDir')">Browse</button>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            <span>Convert</span>
+            <div id="indicator" class="spinner-border htmx-indicator" role="status">
+                <span class="visually-hidden htmx-indicator">Processing...</span>
+            </div>
+        </button>
+    </form>
+  
+</div>
+
+
+{% endblock %}

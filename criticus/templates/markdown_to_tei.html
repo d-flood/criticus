@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block title %}MarkdownTEI{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center">MarkdownTEI</h1>
+    <form hx-post="{% url 'md2tei' %}"
+        hx-target="#modals"
+        hx-swap="innerHTML">
+        <fieldset class="border border-primary p-2">
+            <legend class="mt-4">TEI Output Format</legend>
+
+            {% include '_checkbox.html' with name="format" value="plain" label="Do not add extra whitespace" type="radio" only %}
+            {% include '_checkbox.html' with name="format" value="lines" label="Keep transcription lines" type="radio" only %}
+            {% include '_checkbox.html' with name="format" value="pretty" label="Pretty print" type="radio" checked=True only %}
+
+            
+        </fieldset>
+
+        <!-- Conversion Scope -->
+
+        <div class="input-group scopes my-1" id="input-file">
+            {% include '_input_floating.html' with id="inputFile" name="input_file" label="Input Markdown" value=settings.md2tei_input_file classes="scope-input" required=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_file', 'inputFile', null, 'md')">Browse</button>
+        </div>
+
+        <div class="input-group my-1">
+            {% include '_input_floating.html' with id="outputFile" name="output_file" label="Output TEI" value=settings.md2tei_output_file style="direction: rtl; text-align: right;" required=True only %}
+            <button type="button" class="btn btn-info text-nowrap" id="newFilePicker" onclick="addTask('new_file', 'outputFile', null, 'xml')">Browse</button>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">
+            <span id="convert-btn-txt">Convert</span>
+            <div id="convert-btn-spinner" class="spinner-border" role="status" style="display: none;">
+                <span class="visually-hidden">Processing...</span>
+            </div>
+        </button>
+    </form>
+  
+</div>
+
+
+{% endblock %}

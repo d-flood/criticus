@@ -1,0 +1,38 @@
+<legend>Configuration Options</legend>
+{% include '_input_floating.html' with id="projTitle" name="title" label="Project Title" value=config.name only %}
+{% include '_input_floating.html' with id="basetext" name="basetext" label="Basetext Witness*" value=config.base_text classes="my-1" only %}
+{% include '_input_floating.html' with id="newWit" name="new-witness" label="Add Witness" only %}
+<button type="submit" class="btn btn-primary border-info w-100 btn-sm border-2"
+    _="on load wait 0.5s then remove .border-info from me end"
+>
+    Set title and basetext or add witness
+</button>
+
+{% include '_listbox.html' with id="includedWitnesses" name="included-wits" label="Included Witnesses" options=config.witnesses only %}
+<button type="button" class="btn btn-warning btn-sm w-100"
+    hx-post="{% url 'move-witnesses' %}"
+    hx-include="#form"
+    hx-vals='{"moveType": "exclude"}'
+    hx-target="#options"
+>
+    Exclude Selected
+</button>
+{% include '_listbox.html' with id="excludedWitnesses" name="excluded-wits" label="Excluded Witnesses" options=config.excluded_witnesses only %}
+<div class="input-group w-100">
+    <button type="button" class="btn btn-success btn-sm w-50"
+        hx-post="{% url 'move-witnesses' %}"
+        hx-include="#form"
+        hx-vals='{"moveType": "include"}'
+        hx-target="#options"
+    >
+        Include Selected
+    </button>
+    <button type="button" class="btn btn-danger btn-sm w-50"
+        hx-post="{% url 'move-witnesses' %}"
+        hx-include="#form"
+        hx-vals='{"moveType": "delete"}'
+        hx-target="#options"
+    >
+        Delete Selected
+    </button>
+</div>

@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block title %}Reformat Collations{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center">Reformat Collation</h1>
+    <form hx-post="{% url 'reformat-collation' %}"
+        hx-target="#modals"
+        hx-swap="innerHTML">
+        <fieldset class="border border-primary p-2">
+            <legend class="mt-4">TEI Headers</legend>
+
+            <div class="input-group">
+                {% include '_input_floating.html' with id="collationTitle" name="collation-title" label="Collation Title" value=settings.reformat_collation_title_stmt classes="tei-statements" required=True only %}
+                {% include '_input_floating.html' with id="publicationStatement" name="publication-statement" label="Publication Statement" value=settings.reformat_collation_publication_stmt classes="tei-statements" required=True only %}
+            </div>
+            
+        </fieldset>
+
+
+        <div class="btn-group justify-content-center d-flex flex-row mt-2" role="group" aria-label="Reformat or Remove Redundant Witnesses">
+            {% include '_radio_btn.html' with name="reformat-type" value="reformat" label="Reformat XML" checked=True only %}
+            {% include '_radio_btn.html' with name="reformat-type" value="clean-wits" label="Remove Redundant Witnesses" only %}
+        </div>
+
+
+        <div class="input-group mt-2" id="input-folder">
+            {% include '_input_floating.html' with id="inputFile" name="input-file" label="Input File" value=settings.reformat_collation_input_file required=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="dirPicker" onclick="addTask('pick_file', 'inputFile', null, 'xml')">Browse</button>
+        </div>
+        <div class="input-group mt-2" id="output-file">
+            {% include '_input_floating.html' with id="outputFile" name="output-file" label="Output File" value=settings.reformat_collation_output_file required=True style="direction: rtl; text-align: right;" only %}
+            <button type="button" class="btn btn-info text-nowrap" id="filePicker" onclick="addTask('new_file', 'outputFile', null, 'xml')">Browse</button>
+        </div>
+    
+        <button type="submit" class="btn btn-primary w-100 my-2">
+            <span id="convert-btn-txt">Convert</span>
+            <div id="convert-btn-spinner" class="spinner-border" role="status" style="display: none;">
+                <span class="visually-hidden">Processing...</span>
+            </div>
+        </button>
+    </form>
+  
+</div>
+
+
+{% endblock %}
