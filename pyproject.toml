@@ -45,7 +45,8 @@ path = "criticus/__about__.py"
 [tool.hatch.metadata.package-data]
 criticus = [
     "py/export_to_docx/*.docx", 
-    "*.sqlite3"
+    "*.sqlite3",
+    "staticfiles/**/*"
 ]
 
 [tool.hatch.envs.default]
@@ -86,12 +87,14 @@ exclude = [
 packages = ["criticus"]
 include = [
     "criticus/py/export_to_docx/*.docx",
-    "criticus/criticus.sqlite3"
+    "criticus/criticus.sqlite3",
+    "criticus/staticfiles/**/*"
 ]
 
 [tool.hatch.build]
 artifacts = [
-    "criticus/criticus.sqlite3"
+    "criticus/criticus.sqlite3",
+    "criticus/staticfiles/**/*"
 ]
 
 [tool.coverage.run]
