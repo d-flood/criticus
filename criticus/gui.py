@@ -55,38 +55,42 @@ class Criticus(toga.App):
 
     async def on_running(self):
         while True:
-            task: dict[str, str] | None = await self.webview.evaluate_javascript(
-                "getTask()"
-            )
-            if not task:
-                await asyncio.sleep(0.5)
-                continue
-            if task.get("name") == "pick_directory":
-                directory = await self.pick_directory()
-                if directory:
-                    directory = Path(directory).as_posix()
-                    self.webview.evaluate_javascript(
-                        f"setInputValue('{directory}', '{task.get('target')}')"
-                    )
-            elif task.get("name") == "pick_file":
-                file = await self.pick_file(task.get("ext", "txt"))
-                if file:
-                    file = Path(file).as_posix()
-                    self.webview.evaluate_javascript(
-                        f"setInputValue('{file}', '{task.get('target')}')"
-                    )
-            elif task.get("name") == "new_file":
-                file = await self.new_file(task.get("ext", "txt"))
-                if file:
-                    file = Path(file).as_posix()
-                    self.webview.evaluate_javascript(
-                        f"setInputValue('{file}', '{task.get('target')}')"
-                    )
-            elif task.get("name") == "normalize":
-                text = normalize_greek(task.get("value"))
-                self.webview.evaluate_javascript(
-                    f"setInputValue('{text}', '{task.get('target')}')"
+            try:
+                task: dict[str, str] | None = await self.webview.evaluate_javascript(
+                    "getTask()"
                 )
+                if not task or not isinstance(task, dict) or "name" not in task:
+                    await asyncio.sleep(0.5)
+                    continue
+                if task.get("name") == "pick_directory":
+                    directory = await self.pick_directory()
+                    if directory:
+                        directory = Path(directory).as_posix()
+                        self.webview.evaluate_javascript(
+                            f"setInputValue('{directory}', '{task.get('target')}')"
+                        )
+                elif task.get("name") == "pick_file":
+                    file = await self.pick_file(task.get("ext", "txt"))
+                    if file:
+                        file = Path(file).as_posix()
+                        self.webview.evaluate_javascript(
+                            f"setInputValue('{file}', '{task.get('target')}')"
+                        )
+                elif task.get("name") == "new_file":
+                    file = await self.new_file(task.get("ext", "txt"))
+                    if file:
+                        file = Path(file).as_posix()
+                        self.webview.evaluate_javascript(
+                            f"setInputValue('{file}', '{task.get('target')}')"
+                        )
+                elif task.get("name") == "normalize":
+                    text = normalize_greek(task.get("value"))
+                    self.webview.evaluate_javascript(
+                        f"setInputValue('{text}', '{task.get('target')}')"
+                    )
+            except Exception as e:
+                print(f"Error in on_running: {e}")
+                await asyncio.sleep(1)
 
     async def pick_directory(self):
         dialog = toga.SelectFolderDialog(
